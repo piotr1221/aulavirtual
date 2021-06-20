@@ -1,0 +1,15 @@
+name: Xocrona
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    name: Xocrona
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: ¿Quien es Xocrona?
+        run: echo "Xocrona es mi mejor amigo"; 
