@@ -21,6 +21,17 @@ def index(request):
 	}
 	return render(request, 'index.html', context)
 
+@login_required
+def AllCourses(request):
+	user = request.user
+	courses = Course.objects.all()
+
+	context = {
+		'courses': courses
+	}
+	#print(course.title for course in courses)
+	return render(request, 'classroom/allcourses.html', context)
+
 def Categories(request):
 	categories = Category.objects.all()
 
