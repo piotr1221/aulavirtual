@@ -10,58 +10,60 @@
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style2.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/css/perfect-scrollbar.min.css" rel="stylesheet" type="text/css">
 </head>
-<body>
 
-  <div class="row center-align">
-    <div class="col s6 offset-s3">
-      <h4>Student Portal</h4>
-      <div class="card">
-          <form method="post" action="" role="form">
-          {% csrf_token %}
-           <h3 class="title is-3">Login</h3>
-
-           <div class="input-field col s12">
-            {{ form.username }}
-            <label for="username">Username</label>
-          </div>
-   
-          <div class="input-field col s12">
-            {{ form.password }}
-            <label for="password">Password</label>
-          </div>
-
-      {% if form.errors %}
-      <div class="row">
-        <div class="col s12">
-          <span style="color: red; font-weight: bold;">Your username or password did not match.</span>
+  <body class="body-bg-full profile-page">
+    <div id="wrapper" class="wrapper">
+        <div class="row container-min-full-height">
+            <div class="col-lg-8 p-3 login-left">
+                <div class="w-50">
+                    <h2 class="mb-4 text-center">Bienvenido a FisiRoom</h2>
+                    <form method="post" action="" role="form" class="text-center">
+                      {% csrf_token %}
+                        <div class="form-group">
+                          {{ form.username }}
+                          <label class="text-muted" for="example-email">Usuario</label>
+                        </div>
+                        <div class="form-group">
+                          {{ form.password }}
+                          <label class="text-muted" for="example-email">Contraseña</label>
+                        </div>
+                           {% if form.errors %}
+                          <div class="row">
+                            <div class="col s12">
+                              <span style="color: red; font-weight: bold;">El usuario y contrasña no coinciden</span>
+                            </div>
+                          </div>
+                          {% endif %}
+                        <!-- /.form-group -->
+                        <div class="form-group mr-b-20">
+                            <button class="btn btn-block btn-rounded btn-md btn-primary text-uppercase fw-600 ripple" type="submit">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                    <!-- /form -->
+                    
+                </div>
+                <!-- /.w-75 -->
+            </div>
+            <div class="col-lg-4 login-right d-lg-flex d-none pos-fixed pos-right text-inverse container-min-full-height" style="background-image: url(../../static/img/site-bg.jpg)">
+                <div class="login-content px-3 w-75 text-center">
+                    <h2 class="mb-4 text-center fw-300">Eres nuevo?</h2>
+                    <p class="heading-font-family fw-300 letter-spacing-minus">Registrate y empieza tus clases</p><a href="{% url 'signup' %}" class="btn btn-rounded btn-md btn-outline-inverse text-uppercase fw-600 ripple pd-lr-60 mr-t-200">Registrarse</a>
+                    
+                </div>
+                <!-- /.login-content -->
+            </div>
+            <!-- /.login-right -->
         </div>
-      </div>
-      {% endif %}
-
-      <div class="field">
-      <p class="control">
-        <button type="submit" value="login" class="btn waves-effect waves-light">
-          Login
-        </button>
-      </p>
+        <!-- /.row -->
     </div>
-
-    <input type="hidden" name="next" value="{{ next }}">
-
-
-
-    <a href="{% url 'signup' %}" class="btn waves-effect waves-light">Create an account</a>
-  </form>
-
-  </div>
-  </div>
-</div>
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="{% static 'js/materialize.js' %}"></script>
-  <script src="{% static 'js/init.js' }"></script>
-
-  </body>
+    <!-- /.wrapper -->
+    <!-- Scripts -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="assets/js/material-design.js"></script>
+    
+</body>
 </html>

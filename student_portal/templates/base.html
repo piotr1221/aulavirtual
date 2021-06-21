@@ -13,13 +13,15 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-wysiwyg/0.3.3/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
 
-  <nav class="light-blue" role="navigation">
+  <nav class="navbar blue darken-2" role="navigation">
     <div class="nav-wrapper container">
       <a href="{% url 'index' %}" class="brand-logo"><i class="material-icons">cloud</i>FISI-Room</a>
+      <div class="spacer"></div>
       <ul class="right hide-on-med-and-down">
         <li><a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons left">person</i>Perfil</a></li>
       </ul>
@@ -31,7 +33,7 @@
 
 
 
-  <ul id="slide-out" class="sidenav">
+  <ul id="slide-out" class="sidenav grey lighten-5" >
     <li><div class="user-view">
       <div class="background">
         {% if nav_profile.banner %}
@@ -85,7 +87,7 @@
 
 
 
-  <footer class="page-footer orange">
+  <footer class="page-footer black">
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
@@ -117,6 +119,7 @@
   <script src="{% static 'js/init.js' %}"></script>
   <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
   <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-wysiwyg/0.3.3/bootstrap3-wysihtml5.all.min.js"></script>
 
   {% block javascript %}
   {% endblock %}
