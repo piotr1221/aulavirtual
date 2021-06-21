@@ -13,6 +13,8 @@ from classroom.forms import NewCourseForm
 def index(request):
 	user = request.user
 	courses = Course.objects.filter(enrolled=user)
+	for course in courses:
+		print(course.id, course.title)
 
 	context = {
 		'courses': courses
@@ -90,10 +92,10 @@ def DeleteCourse(request, course_id):
 	user = request.user
 	course = get_object_or_404(Course, id=course_id)
 
-	if user != course.user:
-		return HttpResponseForbidden()
-	else:
-		course.delete()
+	#if user != course.user:
+	#	return HttpResponseForbidden()
+	#else:
+	course.delete()
 	return redirect('my-courses')
 
 
