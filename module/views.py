@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+'''from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseForbidden
 
 from module.forms import NewModuleForm
@@ -57,3 +57,4 @@ def CourseModules(request, course_id):
 
 	return render(request, 'module/modules.html', context)
 
+'''

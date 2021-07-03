@@ -1,4 +1,4 @@
-from django import forms
+'''from django import forms
 from module.models import Module
 
 class NewModuleForm(forms.ModelForm):
@@ -7,4 +7,4 @@ class NewModuleForm(forms.ModelForm):
 
 	class Meta:
 		model = Module
-		fields = ('title', 'hours',)
+		fields = ('title', 'hours',)'''
