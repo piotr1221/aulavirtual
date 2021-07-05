@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+from django.contrib.auth.models import User
 
 from classroom.models import Course, Category, Grade
 
@@ -171,7 +172,7 @@ def StudentSubmissions(request, course_id):
 def GradeSubmission(request, course_id, grade_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
-    grade = get_object_or_404(Grade, id=grade_id)
+    grade = get_object_or_404(User, id=grade_id)
 
     if user != course.user:
         return HttpResponseForbidden()
@@ -191,7 +192,7 @@ def GradeSubmission(request, course_id, grade_id):
     return render(request, 'classroom/gradesubmission.html', context)
 
 
-def StudentEnroll(request, course_id):
+def StudentEnrollList(request, course_id):
     user = request.user
 
     course = get_object_or_404(Course, id=course_id)
@@ -207,8 +208,9 @@ def StudentEnroll(request, course_id):
 
 
 def DeleteStundentEnroll(request, course_id, student_id):
-    course = get_object_or_404(Course, course_id=course_id)
-    course.enrolled.remove(student_id)
+    course = get_object_or_404(Course, id=course_id)
+    student = get_object_or_404(User, id=student_id)
+    course.enrolled.remove(student)
     return redirect('modules', course_id=course_id)   
 
 
