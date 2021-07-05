@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields.related import RelatedField
 from django.urls import reverse
 from django.contrib.auth.models import User
 import uuid
@@ -6,6 +7,7 @@ import uuid
 # Create your models here.
 from module.models import Module
 from assignment.models import Submission
+from assignment.models import Assignment
 from question.models import Question
 
 # 3rd apps field
@@ -56,3 +58,4 @@ class Grade(models.Model):
     points = models.PositiveIntegerField(default=0)
     graded_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     status = models.CharField(choices=STATUS_CHOICES, default='pending', max_length=10, verbose_name='Status')
+    
