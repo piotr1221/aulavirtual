@@ -1,3 +1,6 @@
+from django.contrib.auth.models import User
+from assignment.models import Assignment
+import assignment
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -189,3 +192,26 @@ def GradeSubmission(request, course_id, grade_id):
     }
 
     return render(request, 'classroom/gradesubmission.html', context)
+
+
+def StudentsNotas(request, course_id):
+    user = request.user
+    course = get_object_or_404(Course, id=course_id)
+    if user != course.user:
+        return HttpResponseForbidden()
+    else:
+        assignments = Assignment.objects.filter( user = user )
+        students = User.objects.filter( course = course )
+        grades = Grade.objects.filter(course=course)
+        
+        for student in students:
+            
+            pass
+        context = {
+            'course': course,
+            'assignments': assignments,
+            'students' : students,
+            'grades': grades,
+        }
+    return render(request, 'classroom/editnotas.html', context)
+

@@ -13,48 +13,51 @@
       <ul class="collection with-header">
         <li class="collection-header"><h4>Classroom</h4></li>
         <a href="{% url 'course' course.id %}" class="collection-item">Home</a>
-        <a href="{% url 'modules' course.id %}" class="collection-item">Module</a>
-        <a href="{% url 'submissions' course.id %}" class="collection-item active">Submissions</a>
+        <a href= "{% url 'modules' course.id %}" class="collection-item">Module</a>
+        <a href= "{% url 'submissions' course.id %}" class="collection-item">Submissions</a>
         <a href="{#}" class="collection-item">Questions</a>
-
+        <li class="collection-header"><h4>Teacher</h4></li>
+        <a href="{% url 'student-submissions' course.id %}" class="collection-item  ">Student Submissions</a>
+        <a href=" {% url  'student-notas' course.id  %} " class="collection-item active ">Student Grades</a>
       </ul>
 </div>
 
 <div class="col s9">
 
   <div class="section">
-    <h4>My submissions</h4>
+    <h4>Student submissions</h4>
 
       <table>
         <thead>
-            {% for grade in grades %}
-            <tr>
-            <th>{{ grade.submission.assignment.title }}</th>
-            <th>{{ grade.submission.assignment.due }}</th>
-            <th>{{ grade.submission.date }}</th>
-            <th>{{ grade.status }}</th>
-            <th>{{ grade.points }}</th>
-            <th>{{ grade.submission.assignment.points }}</th>
-            <th>{{ grade.graded_by.get_full_name }}</th>
-            </tr>
-            {% endfor %}
+          <tr>
+              <th>Student</th>
+              <th>username</th>
+              {% for assignment in assignments %}
+                <th>{{ assignment.title }}</th>
+              {% endfor %}
+              <th>Edit</th>
+
+          </tr>
         </thead>
 
         <tbody>
-        {% for grade in grades %}
-          <tr>
-            <td>{{ grade.submission.assignment.title }}</td>
-            <td>{{ grade.submission.assignment.due }}</td>
-            <td>{{ grade.submission.date }}</td>
-            <td>{{ grade.status }}</td>
-            <td>{{ grade.points }}</td>
-            <td>{{ grade.submission.assignment.points }}</td>
-            <td>{{ grade.graded_by.get_full_name }}</td>
-            {% comment %} <td><a href = {% url 'grade-submission' course.id %}><i class= "material-icons">mode</i>Grade</a></td>  {% endcomment %}
-          </tr>
+        
+        {% for student in students %}
+            <tr>
+                <td>{{ student.get_full_name }}</td>
+                <td>{{ student.username }}</td>
+                {% for grade in grades %}
+                    {%if grade.status ==  "graded" %}
+                        <td>{{ grade.points }}</td>
+                    {% else %}
+                        <td>pendiente</td>
+                    {%endif%}
+                {% endfor %}
+            <td><a href="#"><i class="material-icons">mode</i>Grade</a></td>
+            </tr>
         {% endfor %}
         </tbody>
-      </table>  
+      </table>
 
 
 

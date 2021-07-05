@@ -24,7 +24,6 @@
   {% if teacher_mode == True %}
     
     <a href="{% url 'new-module' course.id %}" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
-    <a href=" {% url  'student-submissions' course.id %} " class="collection-item">Student Grades</a>
     
   {% endif %}
 

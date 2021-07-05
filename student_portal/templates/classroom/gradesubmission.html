@@ -15,11 +15,12 @@
         <a href="{% url 'course' course.id %}" class="collection-item" >Home</a>
         <a href="{% url 'modules' course.id %}" class="collection-item">Module</a>
         <a href="{% url 'submissions' course.id %}" class="collection-item">Submissions</a>
-        <a href="{% url 'questions' course.id %}" class="collection-item">Questions</a>
+        <a href="#" class="collection-item">Questions</a>
 
         {% if teacher_mode == True %}
           <li class="collection-header"><h4>Teacher</h4></li>
-          <a href="{% url 'student-submissions' course.id %" class="collection-item active">Student Submissions</a>
+          <a href="{% url 'student-submissions' course.id %}" class="collection-item active">Student Submissions</a>
+          <a href=" {% url  'student-notas' course.id grade.id%} " class="collection-item">Student Grades</a>
         {% endif %}
 
       </ul>
