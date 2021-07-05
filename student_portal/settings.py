@@ -46,10 +46,10 @@ INSTALLED_APPS = [
     'module',
     'page',
     'quiz',
-    'assignment',
     'question',
-    'completion',
     'direct',
+    'assignment',
+    'completion'
 ]
 
 MIDDLEWARE = [
