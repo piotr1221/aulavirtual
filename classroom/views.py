@@ -205,4 +205,10 @@ def StudentEnroll(request, course_id):
     }
     return render(request, 'classroom/studentsenroll.html', context)
 
-    
+
+def DeleteStundentEnroll(request, course_id, student_id):
+    course = get_object_or_404(Course, course_id=course_id)
+    course.enrolled.remove(student_id)
+    return redirect('modules', course_id=course_id)   
+
+

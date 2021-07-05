@@ -47,11 +47,11 @@
             </thead>
             <tbody>
                 {% for student in course.enrolled.all %}
-                <tr>
+                <tr>  
                     <th>{{ student.first_name }}</th>
-                    <th> {{ student.username }}</th>
+                    <th> {{ student.last_name }}</th>
                     <th> {{ student.date_joined }}</th>
-                    <th> <button type="button" class="btn red darken-1"  ><i class="material-icons">delete</i></button></th>
+                    <th> <a class="btn red darken-1" href="{% url 'delete-student' course.id student.id %}"  ><i class="material-icons">delete</i></a></th>
                 </tr>
                 {% endfor %}
                 
