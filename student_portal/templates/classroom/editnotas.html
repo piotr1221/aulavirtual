@@ -15,7 +15,7 @@
         <a href="{% url 'course' course.id %}" class="collection-item">Home</a>
         <a href= "{% url 'modules' course.id %}" class="collection-item">Module</a>
         <a href= "{% url 'submissions' course.id %}" class="collection-item">Submissions</a>
-        <a href="{#}" class="collection-item">Questions</a>
+        <a href="#" class="collection-item">Questions</a>
         <li class="collection-header"><h4>Teacher</h4></li>
         <a href="{% url 'student-submissions' course.id %}" class="collection-item  ">Student Submissions</a>
         <a href=" {% url  'student-notas' course.id  %} " class="collection-item active ">Student Grades</a>
@@ -41,7 +41,20 @@
         </thead>
 
         <tbody>
-        
+        {% comment %} {% for grade in grades %}
+            <tr>
+                <td>{{ grade.submission.user.get_full_name }}</td>
+                <td>{{ grade.submission.user.username }}</td>
+                {% for assignment in assignments %}
+                    {%if grade.status ==  "graded" %}
+                        <td>{{ grade.points }}</td>
+                    {% else %}
+                        <td>pendiente</td>
+                    {%endif%}
+                {% endfor %}
+                <td><a href="#"><i class="material-icons">mode</i>Grade</a></td>
+            </tr>
+        {% endfor %} {% endcomment %}
         {% for student in students %}
             <tr>
                 <td>{{ student.get_full_name }}</td>

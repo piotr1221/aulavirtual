@@ -200,9 +200,12 @@ def StudentsNotas(request, course_id):
     if user != course.user:
         return HttpResponseForbidden()
     else:
+        #retorna lista de tareas
         assignments = Assignment.objects.filter( user = user )
+        #retorna lista de alumnos
         students = User.objects.filter( course = course )
-        grades = Grade.objects.filter(course=course)
+        
+        grades = Grade.objects.filter( course = course)
         
         for student in students:
             
