@@ -189,3 +189,24 @@ def GradeSubmission(request, course_id, grade_id):
     }
 
     return render(request, 'classroom/gradesubmission.html', context)
+def StudentsNotas(request, course_id):
+    user = request.user
+    course = get_object_or_404(Course, id=course_id)
+    if user != course.user:
+        return HttpResponseForbidden()
+    else:
+        #retorna lista de tareas por curso
+        assignments = Assignment.objects.filter( user = user )
+        #retorna lista de alumnos por curso
+        students = User.objects.filter( course = course )
+        
+        grades = Grade.objects.filter( course = course)
+        
+
+        context = {
+            'course': course,
+            'assignments': assignments,
+            'students' : students,
+            'grades': grades,
+        }
+    return render(request, 'classroom/editnotas.html', context)
