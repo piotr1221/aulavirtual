@@ -115,6 +115,7 @@ def NewSubmission(request, course_id, module_id, assignment_id):
     user = request.user
     assignment = get_object_or_404(Assignment, id=assignment_id)
     course = get_object_or_404(Course, id=course_id)
+    
 
     if request.method == 'POST':
         form = NewSubmissionForm(request.POST, request.FILES)

@@ -15,7 +15,7 @@
         <a href="{% url 'course' course.id %}" class="collection-item">Home</a>
         <a href="{% url 'modules' course.id %}" class="collection-item">Module</a>
         <a href="{% url 'submissions' course.id %}" class="collection-item active">Submissions</a>
-        <a href="{% url 'questions' course.id %}" class="collection-item">Questions</a>
+        <a href="{#}" class="collection-item">Questions</a>
 
       </ul>
 </div>
@@ -48,10 +48,11 @@
             <td>{{ grade.points }}</td>
             <td>{{ grade.submission.assignment.points }}</td>
             <td>{{ grade.graded_by.get_full_name }}</td>
+            {% comment %} <td><a href = {% url 'grade-submission' course.id %}><i class= "material-icons">mode</i>Grade</a></td>  {% endcomment %}
           </tr>
         {% endfor %}
         </tbody>
-      </table>
+      </table>  
 
 
 
