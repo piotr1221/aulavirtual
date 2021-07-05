@@ -189,3 +189,20 @@ def GradeSubmission(request, course_id, grade_id):
     }
 
     return render(request, 'classroom/gradesubmission.html', context)
+
+
+def StudentEnroll(request, course_id):
+    user = request.user
+
+    course = get_object_or_404(Course, id=course_id)
+    teacher_mode = False
+    if user == course.user:
+        teacher_mode = True
+
+    context = {
+         'teacher_mode': teacher_mode,
+        'course': course,       
+    }
+    return render(request, 'classroom/studentsenroll.html', context)
+
+    

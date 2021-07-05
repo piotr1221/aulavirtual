@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="section">
+	<h4>{{ course.title }}</h4>
+	<div class="divider"></div>
+</div>
+
+<div class="row">
+
+<div class="col s3">
+      <ul class="collection with-header">
+        <li class="collection-header"><h4>Classroom</h4></li>
+        <a href="{% url 'course' course.id %}" class="collection-item">Inicio</a>
+        <a href="{% url 'modules' course.id %}" class="collection-item ">Módulo</a>
+        <a href="#" class="collection-item">Asignaciones</a>
+        <a href="#" class="collection-item">Preguntas</a>
+
+        {% if teacher_mode == True %}
+        <li class="collection-header"><h4>Teacher</h4></li>
+        <a href="#" class="collection-item">Tareas de Estudiantes</a>
+        <a href="{% url 'students' course.id %}" class="collection-item active">Gestion de alumnos</a>
+        {% endif %}
+      
+      </ul>
+</div>
+
+<div class="col s9">
+
+    {% if teacher_mode == True %}
+      <a href="{% url 'new-module' course.id %}" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
+    {% endif %}
+  
+    <div class="section">
+      <h4>Participantes del curso : <p>{{course.title}}</p></h4>
+      <div class="divider"></div> 
+  
+      <ul class="collapsible">
+        
+        <table class="table table-striped table-hover">
+            <thead>
+                <th scope="col">Nombre</th>
+                <th scope="col">Id</th>
+                <th scope="col">Action</th>
+                
+            </thead>
+            <tbody>
+                {% for student in course.enrolled.all %}
+                <tr>
+                    <th>{{ student.first_name }}</th>
+                    <th> {{ student.username }}</th>
+                    <th> {{ student.date_joined }}</th>
+                    <th> <button type="button" class="btn red darken-1"  ><i class="material-icons">delete</i></button></th>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+          </table>
+              
+              
+      </ul>
+  
+    </div>
+    
+  </div>
+
+
+</div>
+
+{% endblock %}
