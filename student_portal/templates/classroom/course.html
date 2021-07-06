@@ -21,6 +21,7 @@
           <a href=" {% url  'student-submissions' course.id %} " class="collection-item">Lista de Tareas Presentadas</a>
           <a href="#" class="collection-item">Calificar Tareas</a>
           <a href=" {% url  'student-notas' course.id %} " class="collection-item">Notas de los Estudiantes</a>
+          <a href="{% url 'students' course.id %}" class="collection-item">Gestion de alumnos</a>
         {% endif %}
 
       </ul>
