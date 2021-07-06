@@ -14,11 +14,13 @@
         <li class="collection-header"><h4>Estudiante</h4></li>
         <a href="{% url 'course' course.id %}" class="collection-item">Inicio</a>
         <a href="{% url 'modules' course.id %}" class="collection-item active">Clases</a>
-        <a href="#" class="collection-item">Tareas</a>
+        <a href="{% url 'submissions' course.id %}" class="collection-item">Tareas</a>
 
         {% if teacher_mode == True %}
           <li class="collection-header"><h4>Docente</h4></li>
+          <a href=" {% url  'student-submissions' course.id %} " class="collection-item">Lista de Tareas Presentadas</a>
           <a href="#" class="collection-item">Calificar Tareas</a>
+          <a href=" {% url  'student-notas' course.id %} " class="collection-item">Notas de los Estudiantes</a>
         {% endif %}
       </ul>
 </div>
@@ -39,9 +41,9 @@
         <div class="collapsible-header"><i class="material-icons">expand_more</i><b>{{ module.title }}</b></div>
         <div class="collapsible-body">
           {% if teacher_mode == True %}
-            <a href="{% url 'new-page' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Add new page</a>
-            <a href="#" class="btn-small"><i class="material-icons">add</i>Add new quiz</a>
-            <a href="{% url 'new-assignment' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Add new assignment</a>
+            <a href="{% url 'new-page' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Agregar nueva página</a>
+            <a href="#" class="btn-small"><i class="material-icons">add</i>Agregar nueva pregunta</a>
+            <a href="{% url 'new-assignment' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Asignar nueva tarea</a>
           {% endif %}
             <div class="collection">
               <br>

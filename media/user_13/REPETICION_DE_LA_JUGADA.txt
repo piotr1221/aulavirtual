@@ -1,0 +1,37 @@
+REPETICION DE LA JUGADA
+
+minuto 21: comienza a hablar de los checklists
+
+CHECKLIST VERIFICACION DE REQUISITOS
+minuto 27: Como llenar observacion y estado observacion
+minuto 29: Comenta que se debe llenar el checklist
+minuto 31: Habla de los documentos de requisitos
+minuto 32-33: Comenta que los checklists deben ser llenados por otros grupos cuando se entreguen
+	      Comenta que cada equipo debe tener 4 entregables como minimo: Req Fun, Req No Fun, Reglas del negocio, Glosario
+ACCIONES CORRECTIVAS DE REQUISITOS
+minuto 34: Habla como llenar acciones correctivas
+METRICA DE CALIDAD
+minuto 35: Habla como llenar el grafico de metrica de calidad
+
+REPORTE VERIFICACION VALIDACION ANALISIS CUS
+minuto 38: Comenta algunos cambios que se le debe hacer a la plantilla
+
+PLAN DE PRUEBAS
+minuto 41: Comenta el documento de plan de pruebas
+minuto 44: Comenta que el checklist presentado es para el plan integral de pruebas
+
+CHECKLIS DE VERIFICACION DE BASE DE DATOS
+minuto 45: Pide que creen un checklist de verificacion de base de datos
+minuto 46: Comenta que la siguiente semana se realizaran el llenado de checklists.
+
+EJEMPLOS
+minuto 48 en adelante: Presenta ejemplos
+
+ENTREGABLES
+minuto 60: Comenta acerca de los entregables de verificacion
+minuto 61: Estructura de las carpetas en el drive
+minuto 62: Fecha de entrega
+
+CLASE PRUEBAS
+minuto 65: Comienza la clase
+	         
