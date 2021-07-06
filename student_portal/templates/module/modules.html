@@ -21,6 +21,7 @@
           <a href=" {% url  'student-submissions' course.id %} " class="collection-item">Lista de Tareas Presentadas</a>
           <a href="#" class="collection-item">Calificar Tareas</a>
           <a href=" {% url  'student-notas' course.id %} " class="collection-item">Notas de los Estudiantes</a>
+          <a href="{% url 'students' course.id %}" class="collection-item">Gestion de alumnos</a>
         {% endif %}
       </ul>
 </div>
@@ -32,7 +33,7 @@
   {% endif %}
 
   <div class="section">
-    <h4>Clases</h4>
+    <h4>Contenido</h4>
     <div class="divider"></div> 
 
     <ul class="collapsible">
@@ -41,9 +42,9 @@
         <div class="collapsible-header"><i class="material-icons">expand_more</i><b>{{ module.title }}</b></div>
         <div class="collapsible-body">
           {% if teacher_mode == True %}
-            <a href="{% url 'new-page' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Agregar nueva página</a>
-            <a href="#" class="btn-small"><i class="material-icons">add</i>Agregar nueva pregunta</a>
-            <a href="{% url 'new-assignment' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Asignar nueva tarea</a>
+            <a href="{% url 'new-page' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Agregar material</a>
+            <a href="#" class="btn-small"><i class="material-icons">add</i>Agregar quiz</a>
+            <a href="{% url 'new-assignment' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Agregar tarea</a>
           {% endif %}
             <div class="collection">
               <br>

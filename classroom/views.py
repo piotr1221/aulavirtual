@@ -149,10 +149,14 @@ def MyCourses(request):
 def Submissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
+    teacher_mode = False
+    if user == course.user:
+        teacher_mode = True
     grades = Grade.objects.filter(course=course, submission__user=user)
     context = {
         'grades': grades,
-        'course': course
+        'course': course,
+        'teacher_mode': teacher_mode
     }
     return render(request, 'classroom/submissions.html', context)
 
