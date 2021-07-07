@@ -45,7 +45,7 @@
         </thead>
 
         <tbody>
-        {% comment %} {% for grade in grades %}
+        {% for grade in grades %}
             <tr>
                 <td>{{ grade.submission.user.get_full_name }}</td>
                 <td>{{ grade.submission.user.username }}</td>
@@ -56,10 +56,10 @@
                         <td>pendiente</td>
                     {%endif%}
                 {% endfor %}
-                <td><a href="#"><i class="material-icons">mode</i>Grade</a></td>
+                <td><a href="{% url 'grade-submission' course.id grade.id %}"><i class="material-icons">mode</i>Grade</a></td>
             </tr>
-        {% endfor %} {% endcomment %}
-        {% for student in students %}
+        {% endfor %} 
+        {% comment %} {% for student in students %}
             <tr>
                 <td>{{ student.get_full_name }}</td>
                 <td>{{ student.username }}</td>
@@ -70,9 +70,9 @@
                         <td>pendiente</td>
                     {%endif%}
                 {% endfor %}
-            <td><a href="#"><i class="material-icons">mode</i>Grade</a></td>
+            <td><a href="{% url 'grade-submission' course.id grade.id %}"><i class="material-icons">mode</i>Grade</a></td>
             </tr>
-        {% endfor %}
+        {% endfor %} {% endcomment %}
         </tbody>
       </table>
 
