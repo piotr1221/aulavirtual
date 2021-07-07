@@ -41,9 +41,9 @@
         <div class="collapsible-header"><i class="material-icons">expand_more</i><b>{{ module.title }}</b></div>
         <div class="collapsible-body">
           {% if teacher_mode == True %}
-            <a href="{% url 'new-page' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Agregar nueva página</a>
-            <a href="#" class="btn-small"><i class="material-icons">add</i>Agregar nueva pregunta</a>
-            <a href="{% url 'new-assignment' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Asignar nueva tarea</a>
+            <a href="{% url 'new-page' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Add new page</a>
+            <a href="#" class="btn-small"><i class="material-icons">add</i>Add new quiz</a>
+            <a href="{% url 'new-assignment' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Add new assignment</a>
           {% endif %}
             <div class="collection">
               <br>
