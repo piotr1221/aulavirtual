@@ -14,7 +14,7 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 # Create your views here.
 
 @login_required
-def Broadcast(request):
+def broadcast(request):
     user = request.user
     courses = Course.objects.filter(user=user)
 
@@ -39,7 +39,7 @@ def Broadcast(request):
 
 
 @login_required
-def PeopleWeCanMessage(request):
+def people_we_can_message(request):
     user = request.user
     courses = Course.objects.filter(Q(enrolled=user) | Q(user=user))
     course_select = request.GET.get('course_select')
@@ -56,7 +56,7 @@ def PeopleWeCanMessage(request):
     return render(request, 'direct/can_message_list.html', context)
 
 @login_required
-def NewConversation(request, username):
+def new_conversation(request, username):
     from_user = request.user
     to_user = get_object_or_404(User, username=username)
     body = 'Started a new conversation'
@@ -84,7 +84,7 @@ def inbox(request):
     return render(request, 'direct/inbox.html', context)
 
 @login_required
-def Directs(request, username):
+def directs(request, username):
     user = request.user
     messages = Message.get_messages(user=request.user)
     active_direct = username
@@ -109,7 +109,7 @@ def Directs(request, username):
     return render(request, 'direct/direct.html', context)
 
 @login_required
-def SendDirect(request):
+def send_direct(request):
     from_user = request.user
     to_user_username = request.POST.get('to_user')
     body = request.POST.get('body')
@@ -121,7 +121,7 @@ def SendDirect(request):
     else:
         HttpResponseBadRequest()
 
-def LoadMore(request):
+def load_more(request):
     user = request.user
 
     if request.is_ajax():
@@ -152,7 +152,7 @@ def LoadMore(request):
             return JsonResponse({'empty': True}, safe=False)
 
 @login_required
-def UserSearch(request):
+def user_search(request):
     user = request.user
     query = request.GET.get('q')
     course_select = request.GET.get('course_select')
@@ -181,7 +181,7 @@ def UserSearch(request):
 
     return render(request, 'direct/search_user.html', context)
 
-def CheckDirects(request):
+def check_directs(request):
     directs_count = 0
     if request.user.is_authenticated:
         directs_count = Message.objects.filter(user=request.user, is_read=False).count()

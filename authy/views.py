@@ -20,7 +20,7 @@ from django.urls import resolve
 
 # Create your views here.
 
-def SideNavInfo(request):
+def side_nav_info(request):
 	user = request.user
 	nav_profile = None
 
@@ -30,7 +30,7 @@ def SideNavInfo(request):
 	return {'nav_profile': nav_profile}
 
 
-def UserProfile(request, username):
+def user_profile(request, username):
 	user = get_object_or_404(User, username=username)
 	profile = Profile.objects.get(user=user)
 
@@ -45,7 +45,7 @@ def UserProfile(request, username):
 	return HttpResponse(template.render(context, request))
 
 
-def Signup(request):
+def signup(request):
 	if request.method == 'POST':
 		form = SignupForm(request.POST)
 		if form.is_valid():
@@ -65,7 +65,7 @@ def Signup(request):
 
 
 @login_required
-def PasswordChange(request):
+def password_change(request):
 	user = request.user
 	if request.method == 'POST':
 		form = ChangePasswordForm(request.POST)
@@ -84,12 +84,12 @@ def PasswordChange(request):
 
 	return render(request, 'registration/change_password.html', context)
 
-def PasswordChangeDone(request):
+def password_change_done(request):
 	return render(request, 'change_password_done.html')
 
 
 @login_required
-def EditProfile(request):
+def edit_profile(request):
 	user = request.user.id
 	profile = Profile.objects.get(user__id=user)
 	user_basic_info = User.objects.get(id=user)

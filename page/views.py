@@ -12,7 +12,7 @@ from page.forms import NewPageForm
 # Create your views here.
 
 @login_required
-def NewPageModule(request, course_id, module_id):
+def new_page_module(request, course_id, module_id):
 	user = request.user
 	course = get_object_or_404(Course, id=course_id)
 	module = get_object_or_404(Module, id=module_id)
@@ -48,7 +48,7 @@ def NewPageModule(request, course_id, module_id):
 	return render(request, 'page/newpage.html', context)
 
 
-def PageDetail(request, course_id, module_id, page_id):
+def page_detail(request, course_id, module_id, page_id):
 	page = get_object_or_404(Page, id=page_id)
 	completed = Completion.objects.filter(course_id=course_id, user=request.user, page_id=page_id).exists()
 
@@ -61,13 +61,13 @@ def PageDetail(request, course_id, module_id, page_id):
 	return render(request, 'page/page.html', context)
 
 
-def DeletePage(request, course_id, module_id, page_id):
+def delete_page(request, course_id, module_id, page_id):
     page = get_object_or_404(Page, id=page_id)
     page.delete()
     return redirect('modules', course_id=course_id)
 
 
-def MarkPageAsDone(request, course_id, module_id, page_id):
+def mark_page_as_done(request, course_id, module_id, page_id):
 	user = request.user
 	page = get_object_or_404(Page, id=page_id)
 	course = get_object_or_404(Course, id=course_id) 

@@ -33,12 +33,12 @@
       <table>
         <thead>
           <tr>
-              <th>Student</th>
-              <th>username</th>
+              <th id="student">Student</th>
+              <th id="username">username</th>
               {% for assignment in assignments %}
-                <th>{{ assignment.title }}</th>
+                <th id="ast">{{ assignment.title }}</th>
               {% endfor %}
-              <th>Edit</th>
+              <th id="edit">Edit</th>
 
           </tr>
         </thead>
@@ -55,7 +55,7 @@
                         <td>pendiente</td>
                     {%endif%}
                 {% endfor %}
-                <td><a href="#"><i class="material-icons">mode</i>Grade</a></td>
+                <td><a href="#"><em class="material-icons">mode</em>Grade</a></td>
             </tr>
         {% endfor %} {% endcomment %}
         {% for student in students %}
@@ -69,7 +69,7 @@
                         <td>pendiente</td>
                     {%endif%}
                 {% endfor %}
-            <td><a href="#"><i class="material-icons">mode</i>Grade</a></td>
+            <td><a href="#"><em class="material-icons">mode</em>Grade</a></td>
             </tr>
         {% endfor %}
         </tbody>

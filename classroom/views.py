@@ -25,7 +25,7 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def Categories(request):
+def categories(request):
     categories = Category.objects.all()
 
     context = {
@@ -34,7 +34,7 @@ def Categories(request):
     return render(request, 'classroom/categories.html', context)
 
 
-def CategoryCourses(request, category_slug):
+def category_courses(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     courses = Course.objects.filter(category=category)
 
@@ -69,7 +69,7 @@ def NewCourse(request):
 
 
 @login_required
-def CourseDetail(request, course_id):
+def course_detail(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     teacher_mode = False
@@ -86,7 +86,7 @@ def CourseDetail(request, course_id):
 
 
 @login_required
-def Enroll(request, course_id):
+def enroll(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     course.enrolled.add(user)
@@ -94,7 +94,7 @@ def Enroll(request, course_id):
 
 
 @login_required
-def DeleteCourse(request, course_id):
+def delete_course(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
 
@@ -106,7 +106,7 @@ def DeleteCourse(request, course_id):
 
 
 @login_required
-def EditCourse(request, course_id):
+def edit_course(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
 
@@ -135,7 +135,7 @@ def EditCourse(request, course_id):
     return render(request, 'classroom/editcourse.html', context)
 
 
-def MyCourses(request):
+def my_courses(request):
     user = request.user
     courses = Course.objects.filter(user=user)
 
@@ -146,7 +146,7 @@ def MyCourses(request):
     return render(request, 'classroom/mycourses.html', context)
 
 
-def Submissions(request, course_id):
+def submissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     teacher_mode = False
@@ -161,7 +161,7 @@ def Submissions(request, course_id):
     return render(request, 'classroom/submissions.html', context)
 
 
-def StudentSubmissions(request, course_id):
+def student_submissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     if user != course.user:
@@ -175,7 +175,7 @@ def StudentSubmissions(request, course_id):
     return render(request, 'classroom/studentgrades.html', context)
 
 
-def GradeSubmission(request, course_id, grade_id):
+def grade_submission(request, course_id, grade_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     grade = get_object_or_404(User, id=grade_id)
@@ -196,7 +196,7 @@ def GradeSubmission(request, course_id, grade_id):
     }
 
     return render(request, 'classroom/gradesubmission.html', context)
-def StudentsNotas(request, course_id):
+def students_notas(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     if user != course.user:
@@ -219,7 +219,7 @@ def StudentsNotas(request, course_id):
     return render(request, 'classroom/editnotas.html', context)
 
 
-def StudentEnrollList(request, course_id):
+def student_enroll_list(request, course_id):
     user = request.user
 
     course = get_object_or_404(Course, id=course_id)
@@ -234,7 +234,7 @@ def StudentEnrollList(request, course_id):
     return render(request, 'classroom/studentsenroll.html', context)
 
 
-def DeleteStundentEnroll(request, course_id, student_id):
+def delete_stundent_enroll(request, course_id, student_id):
     course = get_object_or_404(Course, id=course_id)
     student = get_object_or_404(User, id=student_id)
     course.enrolled.remove(student)

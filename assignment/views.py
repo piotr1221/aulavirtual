@@ -11,7 +11,7 @@ from completion.models import Completion
 
 
 # Create your views here.
-def NewAssignment(request, course_id, module_id):
+def new_assignment(request, course_id, module_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     module = get_object_or_404(Module, id=module_id)
@@ -48,7 +48,7 @@ def NewAssignment(request, course_id, module_id):
     return render(request, 'assignment/newassignment.html', context)
 
 
-def EditAssignment(request, course_id, module_id, assignment_id):
+def edit_assignment(request, course_id, module_id, assignment_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     assignment = get_object_or_404(Assignment, id=assignment_id)
@@ -86,12 +86,12 @@ def EditAssignment(request, course_id, module_id, assignment_id):
     }
     return render(request, 'assignment/editassignment.html', context)
 
-def DeleteAssignment(request, course_id, module_id, assignment_id):
+def delete_assignment(request, course_id, module_id, assignment_id):
     assignment = get_object_or_404(Assignment, id=assignment_id)
     assignment.delete()
     return redirect('modules', course_id=course_id)
 
-def AssignmentDetail(request, course_id, module_id, assignment_id):
+def assignment_detail(request, course_id, module_id, assignment_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     teacher_mode = False
@@ -111,7 +111,7 @@ def AssignmentDetail(request, course_id, module_id, assignment_id):
     return render(request, 'assignment/assignment.html', context)
 
 
-def NewSubmission(request, course_id, module_id, assignment_id):
+def new_submussion(request, course_id, module_id, assignment_id):
     user = request.user
     assignment = get_object_or_404(Assignment, id=assignment_id)
     course = get_object_or_404(Course, id=course_id)

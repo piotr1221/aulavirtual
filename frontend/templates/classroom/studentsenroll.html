@@ -30,7 +30,7 @@
 <div class="col s9">
 
     {% if teacher_mode == True %}
-      <a href="{% url 'new-module' course.id %}" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
+      <a href="{% url 'new-module' course.id %}" class="btn-floating btn-large waves-effect waves-light red right"><em class="material-icons">add</em></a>
     {% endif %}
   
     <div class="section">
@@ -49,10 +49,10 @@
             <tbody>
                 {% for student in course.enrolled.all %}
                 <tr>  
-                    <th>{{ student.first_name }}</th>
-                    <th> {{ student.last_name }}</th>
-                    <th> {{ student.date_joined }}</th>
-                    <th> <a class="btn red darken-1" href="{% url 'delete-student' course.id student.id %}"  ><i class="material-icons">delete</i></a></th>
+                    <th id="student">{{ student.first_name }}</th>
+                    <th id="last"> {{ student.last_name }}</th>
+                    <th id="date"> {{ student.date_joined }}</th>
+                    <th id="id"> <a class="btn red darken-1" href="{% url 'delete-student' course.id student.id %}"  ><em class="material-icons">delete</em></a></th>
                 </tr>
                 {% endfor %}
                 

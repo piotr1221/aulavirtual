@@ -25,13 +25,13 @@
       <a href="{% url 'course' course.id %}"><img class="activator" src="{{ course.picture.url }}"></a>
     </div>
     <div class="card-content">
-      <span class="card-title activator grey-text text-darken-4"><b>{{ course.title }}</b><i class="material-icons right">more_vert</i></span>
-      <p class="title"><b>{{ course.enrolled.count }}</b> Estudiantes</p>
+      <span class="card-title activator grey-text text-darken-4"><strong>{{ course.title }}</strong><em class="material-icons right">more_vert</em></span>
+      <p class="title"><strong>{{ course.enrolled.count }}</strong> Estudiantes</p>
       <a href="{% url 'edit-course' course.id %}" class="btn">Edit course</a>
       <a href="{% url 'delete-course' course.id %}" class="btn red">Delete</a>
     </div>
     <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">Sobre el curso<i class="material-icons right">close</i></span>
+      <span class="card-title grey-text text-darken-4">Sobre el curso<em class="material-icons right">close</em></span>
       <p>{{ course.description }}</p>
     </div>
   </div>

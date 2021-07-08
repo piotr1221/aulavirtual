@@ -23,7 +23,7 @@
             <label for="last_name">Search</label>
           </div>
           <button class="btn waves-effect waves-light" type="submit" name="action">Search
-            <i class="material-icons right">send</i>
+            <em class="material-icons right">send</em>
           </button>
     </form>
 </div>
@@ -53,9 +53,9 @@
                                 {{ person.get_full_name }}
                             </span>
                             <br>
-                            <span>@<b>{{ person.username }}</b></span>
+                            <span>@<strong>{{ person.username }}</strong></span>
                             <p>{{ person.profile.profile_info }}</p>
-                            <a href="{% url 'new-conversation' person.username %}" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Send a message!</a>
+                            <a href="{% url 'new-conversation' person.username %}" class="waves-effect waves-light btn"><em class="material-icons right">send</em>Send a message!</a>
                         </div>
                     </div>
                 </div>

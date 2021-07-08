@@ -36,12 +36,12 @@
       <table>
         <thead>
           <tr>
-              <th>Estudiante</th>
-              <th>Tarea</th>
-              <th>Fecha Entrega</th>
-              <th>Entregado</th>
-              <th>Estado</th>
-              <th>Nota</th>
+              <th id="estudiante">Estudiante</th>
+              <th id="tarea">Tarea</th>
+              <th id="fecha">Fecha Entrega</th>
+              <th id="entregafo">Entregado</th>
+              <th id="estado">Estado</th>
+              <th id="nota">Nota</th>
           </tr>
         </thead>
 
@@ -53,11 +53,11 @@
             <td>{{ grade.submission.assignment.title }}</td>
             <td>{{ grade.submission.assignment.due }}</td>
             <td>{{ grade.submission.date }}</td>
-            <td><b>{{ grade.status }}</b></td>
+            <td><strong>{{ grade.status }}</strong></td>
             <td>{{ grade.points }}</td>
             <td>{{ grade.submission.assignment.points }}</td>
             <td>{{ grade.graded_by.get_full_name }}</td>
-            <td><a href="{% url 'grade-submission' course.id grade.id %}"><i class="material-icons">mode</i>Grade</a></td>
+            <td><a href="{% url 'grade-submission' course.id grade.id %}"><em class="material-icons">mode</em>Grade</a></td>
           </tr>
         {% endfor %}
         </tbody>

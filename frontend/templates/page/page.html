@@ -18,7 +18,7 @@
     <li class="collection-header"><h4>Files</h4></li>
     {% for file in page.files.all %}
       <li class="collection-item"><div>{{ file.get_file_name }}<a class="secondary-content" href="{{ file.file.url }}" download>
-        <i class="material-icons">download</i></a></div>
+        <em class="material-icons">download</em></a></div>
       </li>
     {% endfor %}    
   </ul>  
