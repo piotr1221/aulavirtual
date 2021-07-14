@@ -1,6 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'classroom/menucourse.html' %}
 {% load static %}
 
+<<<<<<< HEAD:frontend/templates/module/modules.html
 {% block content %}
 <div class="section">
 	<h4>{{ course.title }}</h4>
@@ -27,6 +28,9 @@
 </div>
 
 <div class="col s9">
+=======
+{% block contenido %}
+>>>>>>> menu_course:student_portal/templates/module/modules.html
 
   {% if teacher_mode == True %}
     <a href="{% url 'new-module' course.id %}" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
@@ -42,9 +46,15 @@
         <div class="collapsible-header"><i class="material-icons">expand_more</i><b>{{ module.title }}</b></div>
         <div class="collapsible-body">
           {% if teacher_mode == True %}
+<<<<<<< HEAD:frontend/templates/module/modules.html
             <a href="{% url 'new-page' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Agregar material</a>
             <a href="#" class="btn-small"><i class="material-icons">add</i>Agregar quiz</a>
             <a href="{% url 'new-assignment' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Agregar tarea</a>
+=======
+            <a href="{% url 'new-page' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Add new page</a>
+            <a href="#" class="btn-small"><i class="material-icons">add</i>Add new quiz</a>
+            <a href="{% url 'new-assignment' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Add new assignment</a>
+>>>>>>> menu_course:student_portal/templates/module/modules.html
           {% endif %}
             <div class="collection">
               <br>
@@ -80,9 +90,8 @@
 
   </div>
   
-</div>
 
 
-</div>
+
 
 {% endblock %}

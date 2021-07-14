@@ -46,14 +46,14 @@
             <span class="title"><b>{{ submission.user.get_full_name }}</b></span>
             <p>"{{ submission.comment }}"</p>
             <p>Submited on: {{ submission.date }}</p>
-            <a href="#!" class="secondary-content"><i class="material-icons">delete</i></a>
+            <a href="#" class="secondary-content"><i class="material-icons">delete</i></a>
           </li>
       {% endfor %}
     </ul>
   </div>
 
   <div class="col s12">
-    <a class="btn" href="#">Start Assignment</a>
+    <a class="btn" href="{% url 'start-assignment' course_id module_id assignment.id %}">Start Assignment</a>
   </div>
 {% else %}
   <div class="col s12">

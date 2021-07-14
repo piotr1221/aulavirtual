@@ -1,6 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'classroom/menucourse.html' %}
 {% load static %}
 
+<<<<<<< HEAD:frontend/templates/classroom/studentsenroll.html
 {% block content %}
 <div class="section">
 	<h4>{{ course.title }}</h4>
@@ -28,6 +29,9 @@
 </div>
 
 <div class="col s9">
+=======
+{% block contenido %}
+>>>>>>> menu_course:student_portal/templates/classroom/studentsenroll.html
 
     {% if teacher_mode == True %}
       <a href="{% url 'new-module' course.id %}" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
@@ -58,8 +62,7 @@
                 
             </tbody>
           </table>
-              
-              
+                         
       </ul>
   
     </div>
@@ -67,6 +70,6 @@
   </div>
 
 
-</div>
+
 
 {% endblock %}
