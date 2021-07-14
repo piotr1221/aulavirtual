@@ -34,9 +34,10 @@ def NewAssignment(request, course_id, module_id):
                     file_instance.save()
                     files_objs.append(file_instance)
 
-                a = Assignment.objects.create(title=title, content=content, points=points, due=due, user=user)
+                a = Assignment.objects.create(title=title, content=content, points=points, due=due)
                 a.files.set(files_objs)
                 a.save()
+                InitializeSubmissions(course_id, a.id)
                 module.assignments.add(a)
                 return redirect('modules', course_id=course_id)
         else:
@@ -109,6 +110,16 @@ def AssignmentDetail(request, course_id, module_id, assignment_id):
         'teacher_mode': teacher_mode,
     }
     return render(request, 'assignment/assignment.html', context)
+
+
+def InitializeSubmissions(course_id, assignment_id):
+    assignment = get_object_or_404(Assignment, id=assignment_id)
+    course = get_object_or_404(Course, id=course_id)
+    
+    for student in course.enrolled.all():
+        submission = Submission.objects.create(user=student, assignment=assignment, date=None)
+    
+    return redirect('modules', course_id=course_id)
 
 
 def NewSubmission(request, course_id, module_id, assignment_id):
