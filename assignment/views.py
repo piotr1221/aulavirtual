@@ -9,6 +9,8 @@ from module.models import Module
 from classroom.models import Course, Grade
 from completion.models import Completion
 
+import datetime
+
 
 # Create your views here.
 def NewAssignment(request, course_id, module_id):
@@ -123,21 +125,23 @@ def InitializeSubmissions(course_id, assignment_id):
 
 
 def NewSubmission(request, course_id, module_id, assignment_id):
-    user = request.user
+    student = request.user
     assignment = get_object_or_404(Assignment, id=assignment_id)
     course = get_object_or_404(Course, id=course_id)
+    submission = Submission.objects.get(user_id=student.id)
 
     if request.method == 'POST':
-        form = NewSubmissionForm(request.POST, request.FILES)
+        form = NewSubmissionForm(request.POST, request.FILES, instance=submission)
         if form.is_valid():
             file = request.FILES.get('file')
-            comment = form.cleaned_data.get('comment')
-            s = Submission.objects.create(file=file, comment=comment, user=user, assignment=assignment)
-            Grade.objects.create(course=course, submission=s)
-            Completion.objects.create(user=user, course=course, assignment=assignment)
+            submission.file = file
+            submission.delivered = True
+            submission.date = datetime.date.today()
+            submission.save()
             return redirect('modules', course_id=course_id)
     else:
-        form = NewSubmissionForm()
+        form = NewSubmissionForm(instance=submission)
+
     context = {
         'form': form,
         'assignment': assignment,
