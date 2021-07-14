@@ -4,7 +4,40 @@
 {% block contenido %}
 
     {% if teacher_mode == True %}
-      <a href="{% url 'new-module' course.id %}" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
+      <!-- <a href="{% url 'new-module' course.id %}" class="btn-floating btn-large waves-effect waves-light red right"></a> -->
+      <a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i class="material-icons">add</i></a>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Agregar Nuevo Estudiante</h4>
+      <p>Seleccionar el id del nuevo estudiante</p>
+
+      <table class="table table-striped table-hover">
+        <thead>
+            <th scope="col">Nombre</th>
+            <th scope="col">ID</th>
+            <th scope="col">Email</th>
+            <th scope="col">Acciones</th>
+            
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>  
+                <th>{{ student.first_name }}</th>
+                <th>{{ student.username }}</th>
+                <th>{{ student.email }}</th>
+                <th> <a class="btn green darken-1" href="{%  url 'add-student' course.id student.id %}"  ><i class="material-icons">person_add_alt</i></a></th>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+
+
     {% endif %}
   
     <div class="section">
@@ -38,6 +71,8 @@
     </div>
     
   </div>
+
+  
 
 
 

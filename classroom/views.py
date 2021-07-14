@@ -217,24 +217,31 @@ def StudentsNotas(request, course_id):
 
 def StudentEnrollList(request, course_id):
     user = request.user
-
+    students = User.objects.all()
     course = get_object_or_404(Course, id=course_id)
     teacher_mode = False
     if user == course.user:
         teacher_mode = True
-
+    
     context = {
          'teacher_mode': teacher_mode,
-        'course': course,       
+        'course': course,  
+        'students' :students    
     }
     return render(request, 'classroom/studentsenroll.html', context)
 
+def AddStundentEnroll( request , course_id, student_id):
+    user = request.user
+    student = get_object_or_404( User, id=student_id)
+    course = get_object_or_404(Course, id=course_id)
+    course.enrolled.add(student)
+    return redirect('students', course_id=course_id)  
 
 def DeleteStundentEnroll( request , course_id, student_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     student = get_object_or_404( User, id=student_id)
     course.enrolled.remove(student)
-    return redirect('modules', course_id=course_id)   
+    return redirect('students', course_id=course_id)   
 
 
