@@ -15,16 +15,14 @@
         <li class="collection-header"><h4>Estudiante</h4></li>
         <a href="{% url 'course' course.id %}" class="collection-item">Inicio</a>
         <a href="{% url 'modules' course.id %}" class="collection-item">Clases</a>
-        <a href="{% url 'submissions' course.id %}" class="collection-item">Tareas</a>
+        <a href="#" class="collection-item">Tareas</a>
 
         
           <li class="collection-header"><h4>Teacher</h4></li>
-          <a href=" {% url  'student-submissions' course.id %} " class="collection-item">Lista de Tareas Presentadas</a>
+          <a href="#" class="collection-item">Lista de Tareas Presentadas</a>
           <a href="#" class="collection-item">Calificar Tareas</a>
-          {% comment %} <a href=" {% url  'student-notas' course.id %} " class="collection-item">Notas de los Estudiantes</a> {% endcomment %}
-          <a href=" {% url  'students' course.id %} " class="collection-item">Gestionar Alumnos</a>
-        
-
+          <a href="{% url 'students' course.id %} " class="collection-item">Gestionar Alumnos</a>
+          <a href="{% url 'students-grades' course.id %}" class="collection-item">Gestinar Notas</a>
       </ul>
 </div>
 

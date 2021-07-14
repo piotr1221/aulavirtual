@@ -52,7 +52,5 @@ class Course(models.Model):
 
 class Grade(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
-    points = models.PositiveIntegerField(default=0)
-    graded_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    status = models.CharField(choices=STATUS_CHOICES, default='pending', max_length=10, verbose_name='Status')
+    student = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    grade = models.PositiveIntegerField(default=0)

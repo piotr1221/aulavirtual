@@ -58,7 +58,8 @@
   </div>
 
   <div class="col s12">
-    <a class="btn" href="{% url 'start-assignment' course_id module_id assignment.id %}">Empezar</a>
+    {% comment %} <a class="btn" href="{% url 'start-assignment' course_id module_id assignment.id %}">Empezar</a> {% endcomment %}
+    <a class="btn" href="#">Empezar</a>
   </div>
 {% else %}
   <div class="col s12">

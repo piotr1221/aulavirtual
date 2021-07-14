@@ -4,38 +4,35 @@
 
 {% block contenido %}
 
-    <h4>Student submissions</h4>
-
-      <table>
-        <thead>
-          <tr>
-              <th>Estudiante</th>
-              <th>Tarea</th>
-              <th>Fecha Entrega</th>
-              <th>Entregado</th>
-              <th>Estado</th>
-              <th>Nota</th>
-          </tr>
-        </thead>
-
-        <tbody>
-        {% for grade in grades %}
-          <tr>
-            <td>{{ grade.submission.user.get_full_name }}</td>
-            <td>{{ grade.submission.user.username }}</td>
-            <td>{{ grade.submission.assignment.title }}</td>
-            <td>{{ grade.submission.assignment.due }}</td>
-            <td>{{ grade.submission.date }}</td>
-            <td><b>{{ grade.status }}</b></td>
-            <td>{{ grade.points }}</td>
-            <td>{{ grade.submission.assignment.points }}</td>
-            <td>{{ grade.graded_by.get_full_name }}</td>
-            <td><a href="{% url 'grade-submission' course.id grade.id %}"><i class="material-icons">mode</i>Grade</a></td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-
-
+    <div class="section">
+      <h4>Participantes del curso</p></h4>
+      <div class="divider"></div> 
+  
+      <ul class="collapsible">
+        
+        <table class="table table-striped table-hover">
+            <thead>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Nota</th>
+                
+            </thead>
+            <tbody>
+                {% for student in course.enrolled.all %}
+                <tr>  
+                    <th>{{ student.id }}</th>
+                    <th>{{ student.first_name }} {{ student.last_name }}</th>
+                    <th> {{ student.date_joined }}</th>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+          </table>
+                         
+      </ul>
+  
+    </div>
+    
+  </div>
 
 {% endblock %}
