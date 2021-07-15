@@ -39,6 +39,20 @@ class Course(models.Model):
     picture = models.ImageField(upload_to=user_directory_path)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=300)
+    DAY_CHOICES = [
+        ('LU', 'Lunes'),
+        ('MA', 'Martes'),
+        ('MI', 'Miércoles'),
+        ('JU', 'Jueves'),
+        ('VI', 'Viernes'),
+        ('SA', 'Sábado'),
+        ('DO', 'Domingo')
+    ]
+    day = models.CharField(
+        max_length=2,
+        choices=DAY_CHOICES,
+        default='LU'
+    )
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     syllabus = RichTextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='course_owner')
