@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from classroom.models import Course, Category, Grade
 
-from classroom.forms import NewCourseForm
+from classroom.forms import NewCourseForm, NewGradeForm
+
+import json
 
 
 # Create your views here.
@@ -162,6 +164,7 @@ def Submissions(request, course_id):
 def StudentSubmissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
+    
     if user != course.user:
         return HttpResponseForbidden()
     else:
@@ -194,6 +197,8 @@ def GradeSubmission(request, course_id, grade_id):
     }
 
     return render(request, 'classroom/gradesubmission.html', context)
+
+
 def StudentsNotas(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
@@ -215,6 +220,7 @@ def StudentsNotas(request, course_id):
             'grades': grades,
         }
     return render(request, 'classroom/editnotas.html', context)
+
 
 def StudentEnrollList(request, course_id):
     busqueda = request.POST.get("buscar")
@@ -250,3 +256,30 @@ def DeleteStundentEnroll( request , course_id, student_id):
     return redirect('students', course_id=course_id)   
 
 
+def StudentGrades(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+    students = course.enrolled.all()
+
+    if request.method == 'POST':
+        grades_grade = request.POST.getlist('grade') 
+        students_id = request.POST.getlist('student_id')
+        for i in range(len(students_id)):
+            grade = Grade.objects.get(course=course, student_id=students_id[i])
+            grade.grade = grades_grade[i]
+            grade.save()
+            print("Confirmado")
+        return redirect('modules', course_id=course_id)
+    else:
+        form = NewGradeForm()
+        for student in students:
+            grade = Grade.objects.get_or_create(course=course, student=student)
+    
+    grades = Grade.objects.filter(course=course)
+    
+    context = {
+        'course': course,
+        'students': students,
+        'grades': grades,
+        'form': form
+    }
+    return render(request, 'classroom/studentgrades.html', context)

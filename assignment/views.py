@@ -9,6 +9,8 @@ from module.models import Module
 from classroom.models import Course, Grade
 from completion.models import Completion
 
+import datetime
+
 
 # Create your views here.
 def NewAssignment(request, course_id, module_id):
@@ -34,9 +36,10 @@ def NewAssignment(request, course_id, module_id):
                     file_instance.save()
                     files_objs.append(file_instance)
 
-                a = Assignment.objects.create(title=title, content=content, points=points, due=due, user=user)
+                a = Assignment.objects.create(title=title, content=content, points=points, due=due)
                 a.files.set(files_objs)
                 a.save()
+                InitializeSubmissions(course_id, a.id)
                 module.assignments.add(a)
                 return redirect('modules', course_id=course_id)
         else:
@@ -111,24 +114,34 @@ def AssignmentDetail(request, course_id, module_id, assignment_id):
     return render(request, 'assignment/assignment.html', context)
 
 
-def NewSubmission(request, course_id, module_id, assignment_id):
-    user = request.user
+def InitializeSubmissions(course_id, assignment_id):
     assignment = get_object_or_404(Assignment, id=assignment_id)
     course = get_object_or_404(Course, id=course_id)
+    
+    for student in course.enrolled.all():
+        submission = Submission.objects.create(user=student, assignment=assignment, date=None)
+    
+    return redirect('modules', course_id=course_id)
+
+
+def NewSubmission(request, course_id, module_id, assignment_id):
+    student = request.user
+    course = get_object_or_404(Course, id=course_id)
+    submission = Submission.objects.get(user=student, assignment_id=assignment_id)
 
     if request.method == 'POST':
-        form = NewSubmissionForm(request.POST, request.FILES)
+        form = NewSubmissionForm(request.POST, request.FILES, instance=submission)
         if form.is_valid():
             file = request.FILES.get('file')
-            comment = form.cleaned_data.get('comment')
-            s = Submission.objects.create(file=file, comment=comment, user=user, assignment=assignment)
-            Grade.objects.create(course=course, submission=s)
-            Completion.objects.create(user=user, course=course, assignment=assignment)
+            submission.file = file
+            submission.delivered = True
+            submission.date = datetime.date.today()
+            submission.save()
             return redirect('modules', course_id=course_id)
     else:
-        form = NewSubmissionForm()
+        form = NewSubmissionForm(instance=submission)
+
     context = {
-        'form': form,
-        'assignment': assignment,
+        'form': form
     }
     return render(request, 'assignment/submitassignment.html', context)

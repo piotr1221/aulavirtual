@@ -16,8 +16,7 @@ class NewAssignmentForm(forms.ModelForm):
 
 class NewSubmissionForm(forms.ModelForm):
 	file = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': False}), required=True)
-	comment = forms.CharField(widget=forms.TextInput(attrs={'class': 'validate'}), required=True)
 
 	class Meta:
 		model = Submission
-		fields = ('file', 'comment')
+		fields = ('file',)

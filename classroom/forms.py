@@ -1,7 +1,7 @@
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 
-from classroom.models import Course, Category
+from classroom.models import Course, Category, Grade
 
 
 class NewCourseForm(forms.ModelForm):
@@ -14,3 +14,10 @@ class NewCourseForm(forms.ModelForm):
 	class Meta:
 		model = Course
 		fields = ('picture', 'title', 'description', 'category', 'syllabus')
+
+class NewGradeForm(forms.ModelForm):
+	grade = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'validate'}))
+
+	class Meta:
+		model = Grade
+		fields = ('grade',)
