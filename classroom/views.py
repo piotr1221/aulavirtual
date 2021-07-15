@@ -6,6 +6,8 @@ from classroom.models import Course, Category, Grade
 
 from classroom.forms import NewCourseForm, NewGradeForm
 
+import json
+
 
 # Create your views here.
 
@@ -244,22 +246,28 @@ def DeleteStundentEnroll( request , course_id, student_id):
 
 def StudentGrades(request, course_id):
     course = get_object_or_404(Course, id=course_id)
+    students = course.enrolled.all()
 
-    # grade = Grade.objects.get(Grade, student=student)
-
-    # if request.method == 'POST':
-    #     form = NewGradeForm(request.POST, instance=submission)
-    #     if form.is_valid():
-    #         file = request.FILES.get('file')
-    #         submission.file = file
-    #         submission.delivered = True
-    #         submission.date = datetime.date.today()
-    #         submission.save()
-    #         return redirect('modules', course_id=course_id)
-    # else:
-    #     form = NewSubmissionForm(instance=submission)
+    if request.method == 'POST':
+        grades_grade = request.POST.getlist('grade') 
+        students_id = request.POST.getlist('student_id')
+        for i in range(len(students_id)):
+            grade = Grade.objects.get(course=course, student_id=students_id[i])
+            grade.grade = grades_grade[i]
+            grade.save()
+            print("Confirmado")
+        return redirect('modules', course_id=course_id)
+    else:
+        form = NewGradeForm()
+        for student in students:
+            grade = Grade.objects.get_or_create(course=course, student=student)
+    
+    grades = Grade.objects.filter(course=course)
     
     context = {
-        'course': course
+        'course': course,
+        'students': students,
+        'grades': grades,
+        'form': form
     }
     return render(request, 'classroom/studentgrades.html', context)
