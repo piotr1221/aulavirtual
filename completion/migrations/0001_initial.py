@@ -11,7 +11,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('classroom', '0001_initial'),
-        ('quiz', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('assignment', '0001_initial'),
         ('page', '0001_initial'),
@@ -26,7 +25,6 @@ class Migration(migrations.Migration):
                 ('assignment', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='assignment.assignment')),
                 ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='classroom.course')),
                 ('page', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='page.page')),
-                ('quiz', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='quiz.quizzes')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

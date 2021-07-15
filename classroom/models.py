@@ -6,7 +6,6 @@ import uuid
 # Create your models here.
 from module.models import Module
 from assignment.models import Submission
-from question.models import Question
 
 # 3rd apps field
 from ckeditor.fields import RichTextField
@@ -44,7 +43,7 @@ class Course(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='course_owner')
     enrolled = models.ManyToManyField(User)
     modules = models.ManyToManyField(Module)
-    questions = models.ManyToManyField(Question)
+
 
     def __str__(self):
         return self.title

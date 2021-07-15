@@ -45,8 +45,6 @@ INSTALLED_APPS = [
     'classroom',
     'module',
     'page',
-    'quiz',
-    'question',
     'direct',
     'assignment',
     'completion'
@@ -100,7 +98,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'FISI_ROOM',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'joel_123',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }

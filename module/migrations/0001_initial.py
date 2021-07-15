@@ -11,7 +11,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('assignment', '0001_initial'),
-        ('quiz', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('page', '0001_initial'),
     ]
@@ -25,7 +24,6 @@ class Migration(migrations.Migration):
                 ('hours', models.PositiveIntegerField()),
                 ('assignments', models.ManyToManyField(to='assignment.Assignment')),
                 ('pages', models.ManyToManyField(to='page.Page')),
-                ('quizzes', models.ManyToManyField(to='quiz.Quizzes')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='module_owner', to=settings.AUTH_USER_MODEL)),
             ],
         ),

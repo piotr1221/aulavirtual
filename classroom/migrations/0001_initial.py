@@ -14,7 +14,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('question', '0001_initial'),
         ('module', '0001_initial'),
     ]
 
@@ -39,7 +38,6 @@ class Migration(migrations.Migration):
                 ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='classroom.category')),
                 ('enrolled', models.ManyToManyField(to=settings.AUTH_USER_MODEL)),
                 ('modules', models.ManyToManyField(to='module.Module')),
-                ('questions', models.ManyToManyField(to='question.Question')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='course_owner', to=settings.AUTH_USER_MODEL)),
             ],
         ),
