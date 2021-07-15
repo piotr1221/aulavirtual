@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.contrib.auth.models import User
+from django.db.models import Q
 from classroom.models import Course, Category, Grade
 
 from classroom.forms import NewCourseForm
@@ -216,13 +217,17 @@ def StudentsNotas(request, course_id):
     return render(request, 'classroom/editnotas.html', context)
 
 def StudentEnrollList(request, course_id):
+    busqueda = request.POST.get("buscar")
     user = request.user
     students = User.objects.all()
     course = get_object_or_404(Course, id=course_id)
     teacher_mode = False
     if user == course.user:
         teacher_mode = True
-    
+    if busqueda:
+        students = User.objects.filter(
+            Q(email=busqueda)
+        ).distinct()
     context = {
          'teacher_mode': teacher_mode,
         'course': course,  

@@ -12,7 +12,22 @@
     <div class="modal-content">
       <h4>Agregar Nuevo Estudiante</h4>
       <p>Seleccionar el id del nuevo estudiante</p>
+      {% block buscador %}
 
+      <form 
+      method="POST">
+        {% csrf_token %}
+        <div class="input-group">
+          <input type="email" class="validate" placeholder="Buscar Email..." name="buscar" value="{{ request.POST.buscar }}">
+          <div class="input-group-append">
+            <button class="btn blue darken-1"type="submit">
+              <i class="material-icons">person_search</i>
+            </button>
+          </div>
+        </div>
+      </form>
+      
+      {% endblock buscador %}
       <table class="table table-striped table-hover">
         <thead>
             <th scope="col">Nombre</th>
