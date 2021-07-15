@@ -38,6 +38,16 @@
           </div>
 
           <div class="input-field col s12">
+            <input name='time_start' type="text" class="timepicker" {{ form.time_start.value }}>
+            <label for="day">Hora de Inicio</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input name='time_end' type="text" class="timepicker" {{ form.time_end.value }}>
+            <label for="day">Hora de Cierre</label>
+          </div>
+
+          <div class="input-field col s12">
             {{ form.category }}
             <label for="location">Categoría</label>
           </div>

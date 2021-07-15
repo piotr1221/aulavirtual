@@ -127,6 +127,20 @@
      $('.modal').modal();
      }); 
    </script>
+   <script>
+      
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.timepicker');
+      var options = {twelveHour: false}
+      var instances = M.Timepicker.init(elems, options);
+    });
+
+    // Or with jQuery
+
+    $(document).ready(function(){
+      $('.timepicker').timepicker();
+    });
+   </script>
   {% block javascript %}
  
   {% endblock %}

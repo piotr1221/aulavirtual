@@ -53,6 +53,8 @@ class Course(models.Model):
         choices=DAY_CHOICES,
         default='LU'
     )
+    time_start = models.TimeField()
+    time_end = models.TimeField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     syllabus = RichTextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='course_owner')
