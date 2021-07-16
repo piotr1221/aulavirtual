@@ -14,7 +14,7 @@
 
           <div class="file-field input-field">
             <div class="btn">
-              <span>Picture</span>
+              <span>Imagen</span>
               {{ form.picture }}
             </div>
             <div class="file-path-wrapper">
@@ -24,17 +24,32 @@
 
           <div class="input-field col s12">
             {{ form.title }}
-            <label for="title">Title</label>
+            <label for="title">Título</label>
           </div>
 
           <div class="input-field col s12">
             {{ form.description }}
-            <label for="description">Description</label>
+            <label for="description">Descripción</label>
+          </div>
+
+          <div class="input-field col s12">
+            {{ form.day }}
+            <label for="day">Día</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input name='time_start' type="text" class="timepicker">
+            <label for="day">Hora de Inicio</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input name='time_end' type="text" class="timepicker">
+            <label for="day">Hora de Cierre</label>
           </div>
 
           <div class="input-field col s12">
             {{ form.category }}
-            <label for="location">Category</label>
+            <label for="location">Categoría</label>
           </div>
 
           <div class="input-field col s12">
@@ -52,7 +67,7 @@
       <div class="field">
       <p class="control">
         <button type="submit" value="login" class="btn waves-effect waves-light">
-          Upload
+          Actualizar
         </button>
       </p>
     </div>
