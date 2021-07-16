@@ -26,7 +26,18 @@ def index(request):
 
 
 def Schedule(request):
-    return render(request, 'classroom/schedule.html')
+    user = request.user
+    courses = Course.objects.all()
+    u_courses = []
+    for course in courses:
+        students = course.enrolled.all()
+        if students.filter(id=user.id).exists():
+            u_courses.append(course)
+
+    context = {
+        'courses': u_courses,
+    }
+    return render(request, 'classroom/schedule.html', context)
 
 
 def Categories(request):
