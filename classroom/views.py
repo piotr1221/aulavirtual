@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.contrib.auth.models import User
@@ -6,8 +7,6 @@ from django.db.models import Q
 from classroom.models import Course, Category, Grade
 
 from classroom.forms import NewCourseForm, NewGradeForm
-
-import json
 
 
 # Create your views here.
@@ -65,11 +64,16 @@ def NewCourse(request):
     if request.method == 'POST':
         form = NewCourseForm(request.POST, request.FILES)
         if form.is_valid():
+            time_start = form.cleaned_data.get('time_start')
+            time_end = form.cleaned_data.get('time_end')
+
+            if not ValidateTime(request, time_start, time_end):
+                context = {'form': form}
+                return render(request, 'classroom/newcourse.html', context)
+
             picture = form.cleaned_data.get('picture')
             title = form.cleaned_data.get('title')
             description = form.cleaned_data.get('description')
-            time_start = form.cleaned_data.get('time_start')
-            time_end = form.cleaned_data.get('time_end')
             category = form.cleaned_data.get('category')
             syllabus = form.cleaned_data.get('syllabus')
             Course.objects.create(picture=picture, title=title, description=description, 
@@ -85,6 +89,21 @@ def NewCourse(request):
 
     return render(request, 'classroom/newcourse.html', context)
 
+
+def ValidateTime(request, time_start, time_end):
+    ts = str(time_start).split(":")
+    te = str(time_end).split(":")
+    confirmation = True
+
+    if ts[1] != "00" or te[1] != "00":
+        messages.warning(request, 'La hora de inicio y cierre deben de darse en horas en punto. ' + 
+            'Ejm: "Inicio - 8:00 y Fin - 9:00"')
+        confirmation = False
+    if int(ts[0]) > int(te[0]):
+        messages.warning(request, 'La hora de inicio no puede pasar de la hora de cierre.')
+        confirmation = False
+
+    return confirmation
 
 @login_required
 def CourseDetail(request, course_id):
@@ -135,12 +154,18 @@ def EditCourse(request, course_id):
         if request.method == 'POST':
             form = NewCourseForm(request.POST, request.FILES, instance=course)
             if form.is_valid():
+
+                course.time_start = form.cleaned_data.get('time_start')
+                course.time_end = form.cleaned_data.get('time_end')
+
+                if not ValidateTime(request, course.time_start, course.time_end):
+                    context = {'form': form}
+                    return render(request, 'classroom/editcourse.html', context)
+
                 course.picture = form.cleaned_data.get('picture')
                 course.title = form.cleaned_data.get('title')
                 course.description = form.cleaned_data.get('description')
                 course.day = form.cleaned_data.get('day')
-                course.time_start = form.cleaned_data.get('time_start')
-                course.time_end = form.cleaned_data.get('time_end')
                 course.category = form.cleaned_data.get('category')
                 course.syllabus = form.cleaned_data.get('syllabus')
                 course.save()

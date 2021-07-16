@@ -11,6 +11,13 @@
     <form method="post" enctype="multipart/form-data" action="" role="form">
       {% csrf_token %}
     <h3 class="title is-3">Crear un nuevo curso</h3>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-warning" role="alert">
+          {{ message }}
+        </div>    
+      {% endfor %}
+    {% endif %}
 
           <div class="file-field input-field">
             <div class="btn">
@@ -38,12 +45,12 @@
           </div>
 
           <div class="input-field col s12">
-            <input name='time_start' type="text" class="timepicker">
+            <input type='time' name='time_start' type="text" required value='08:00'>
             <label for="day">Hora de Inicio</label>
           </div>
 
           <div class="input-field col s12">
-            <input name='time_end' type="text" class="timepicker">
+            <input type='time' name='time_end' type="text" required value='09:00'>
             <label for="day">Hora de Cierre</label>
           </div>
 

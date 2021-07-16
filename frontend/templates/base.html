@@ -131,7 +131,10 @@
       
     document.addEventListener('DOMContentLoaded', function() {
       var elems = document.querySelectorAll('.timepicker');
-      var options = {twelveHour: false}
+      var options = {
+        twelveHour: false,
+        showClearBtn: true
+        }
       var instances = M.Timepicker.init(elems, options);
     });
 
