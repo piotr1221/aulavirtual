@@ -1,3 +1,4 @@
+from assignment.models import Submission
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -34,15 +35,13 @@ def Schedule(request):
         time = course.time_start
         if time not in times:
             times.append(time)
+            u_courses.append([])
     times.sort
-            
-    for i in range(0, len(times)):
-        u_courses.append([])
 
     for course in courses:
         students = course.enrolled.all()
         if students.filter(id=user.id).exists():
-            for i in range(0, len(times), 1):
+            for i in range(0, len(times)):
                 if course.time_start == times[i]:
                     u_courses[i].append(course)
                     break
@@ -220,14 +219,16 @@ def MyCourses(request):
 def Submissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
+    submissions = Submission.objects.filter(user=user)
+
     teacher_mode = False
     if user == course.user:
         teacher_mode = True
-    grades = Grade.objects.filter(course=course, submission__user=user)
+    
     context = {
-        'grades': grades,
         'course': course,
-        'teacher_mode': teacher_mode
+        'teacher_mode': teacher_mode,
+        'submissions': submissions
     }
     return render(request, 'classroom/submissions.html', context)
 

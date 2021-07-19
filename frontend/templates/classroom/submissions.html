@@ -5,33 +5,51 @@
 
   <div class="section">
     <h4>Tareas entregadas</h4>
+    <div class="divider"></div>
 
-      <table>
-        <thead>
-          <tr>
-              <th>Tarea</th>
-              <th>Fecha Entrega</th>
-              <th>Entregado</th>
-              <th>Estado</th>
-              <th>Nota</th>
-              <th>Nota máxima</th>
-          </tr>
-        </thead>
+    <ul class="collapsible">
+      {% for module in course.modules.all %}
+      <li>
+        <div class="collapsible-header"><i class="material-icons">expand_more</i><b>{{ module.title }}</b></div>
+        <div class="collapsible-body ">
+            <font size="2">
+            <table>
+              <thead>
+                <tr>
+                    <th>Tarea</th>
+                    <th class="text-center">Fecha Entrega</th>
+                    <th class="text-center">Estado</th>
+                    <th class="text-center">Nota</th>
+                </tr>
+              </thead>
 
-        <tbody>
-        {% for grade in grades %}
-          <tr>
-            <td>{{ grade.submission.assignment.title }}</td>
-            <td>{{ grade.submission.assignment.due }}</td>
-            <td>{{ grade.submission.date }}</td>
-            <td>{{ grade.status }}</td>
-            <td>{{ grade.points }}</td>
-            <td>{{ grade.submission.assignment.points }}</td>
-            <td>{{ grade.graded_by.get_full_name }}</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+              <tbody>
+              {% for assignment in module.assignments.all %}
+                {% for submission in submissions %}
+                  {% if submission.delivered and submission.assignment == assignment %}
+                    <tr>
+                      <td>{{ assignment.title }}</td>
+                      <td class="text-center">{{ submission.date|date:"M d, Y" }}</td>
+                      {% if not submission.checked %}
+                        <td class="text-center">Sin revisar</td>
+                        <td class="text-center">-</td>
+                      {% else %}
+                        <td class="text-center">Revisado</td>
+                        <td class="text-center">{{ submission.points }}</td>
+                      {% endif %}
+                    </tr>
+                  {% endif%}
+                {% endfor %}
+              {% endfor %}
+              </tbody>
+            </table>
+            </font>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+
+      
 
 
 

@@ -35,6 +35,7 @@ class Submission(models.Model):
 	points = models.PositiveIntegerField(default=0)
 	delivered = models.BooleanField(default=False)
 	onTime = models.BooleanField(default=False)
+	checked = models.BooleanField(default=False)
 	date = models.DateTimeField(null=True)
 	assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)

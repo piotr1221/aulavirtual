@@ -15,10 +15,10 @@
         <li class="collection-header"><h4>Estudiante</h4></li>
         <a href="{% url 'course' course.id %}" class="collection-item">Inicio</a>
         <a href="{% url 'modules' course.id %}" class="collection-item">Clases</a>
-        <a href="#" class="collection-item">Tareas</a>
+        <a href="{% url 'submissions' course.id %}" class="collection-item">Tareas</a>
 
         <li class="collection-header"><h4>Teacher</h4></li>
-        <a href="#" class="collection-item">Lista de Tareas Presentadas</a>
+        <a href="#" class="collection-item">Lista de Tareas entregadas</a>
         <a href="#" class="collection-item">Calificar Tareas</a>
         <a href="{% url 'students' course.id %} " class="collection-item">Gestionar Alumnos</a>
         <a href="{% url 'students-grades' course.id %}" class="collection-item">Gestinar Notas</a>

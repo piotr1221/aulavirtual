@@ -10,17 +10,17 @@
 
     <form method="post" enctype="multipart/form-data" action="" role="form">
       {% csrf_token %}
-    <h3 class="title is-3">Let's create a new module!</h3>
+    <h3 class="title is-3">Añadir una nueva entrada</h3>
 
 
           <div class="input-field col s12">
             {{ form.title }}
-            <label for="title">Title</label>
+            <label for="title">Título</label>
           </div>
 
           <div class="input-field col s12">
             {{ form.hours }}
-            <label for="description">Hours</label>
+            <label for="description">Horas</label>
           </div>
 
 
@@ -34,7 +34,7 @@
       <div class="field">
       <p class="control">
         <button type="submit" value="login" class="btn waves-effect waves-light">
-          Create new module
+          Crear nueva entrada
         </button>
       </p>
     </div>
