@@ -13,9 +13,6 @@
 		<h2 class="header orange-text center">Horario</h2>
 		<h5 class="header col s12 light center">¿Qué es lo siguiente en la lista?</h5>
 	</div>
-    {% for c in courses %}
-        <h3> {{ c }} </h3>
-    {% endfor %}
 </div>
 
 {% endblock %}
@@ -46,70 +43,21 @@
                 </tr>
             </thead>
             <tbody>
-                {% for t in times %}
+                {% for list_course in courses %}
                     <tr>
-                        <td class="align-middle text-center">{{ t|time:'H:i' }}</td>
-                        {% for course in courses.0 %}
-                            {% if course.time_start == t %}
-                                {% comment %} {% if course.day == 'LU' %} {% endcomment %}
+                        <td class="align-middle text-center">{{ list_course.0.time_start|time:'H:i' }}</td>
+                        {% for course in list_course %}
+                            {% if course != None %}
                                     <td>
-                                        <div class="text-center"><span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 center">{{ course }}</span></div>
-                                        <div class="margin-10px-top margin-10px-left font-size14 text-center">{{ course.time_start|time:'H:i' }}-{{ course.time_end|time:'H:i' }}</div>
-                                        <div class="font-size13 text-light-gray text-center">{{ course.user }}</div>
+                                        <div class="align-middle text-center"><span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 center">{{ course }}</span></div>
+                                        <div class="margin-10px-top margin-10px-left font-size14 align-middle text-center">{{ course.time_start|time:'H:i' }}-{{ course.time_end|time:'H:i' }}</div>
+                                        <div class="font-size13 text-light-gray align-middle text-center">{{ course.user }}</div>
                                     </td>
                             {%else%}
                                 <td>
-                                    <div class="text-center"><span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 text-center">No hay curso</span></div>
-                    
+                                    <div class="margin-10px-top margin-10px-left font-size14 text-center"></div>
                                 </td>  
                             {%endif%}
-                                {% comment %} {% elif course.day == 'MA' %}
-                                    <td>
-                                        <div class="text-center"><span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 text-center">{{ course }}</span></div>
-                                        <div class="margin-10px-top margin-10px-left font-size14 text-center">{{ course.time_start|time:'H:i' }}-{{ course.time_end|time:'H:i' }}</div>
-                                        <div class="font-size13 text-light-gray text-center">{{ course.user }}</div>
-                                    </td>
-                                {% elif course.day == 'MI' %}
-                                    <td>
-                                        <div class="text-center"><span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 text-center">{{ course }}</span></div>
-                                        <div class="margin-10px-top margin-10px-left font-size14 text-center">{{ course.time_start|time:'H:i' }}-{{ course.time_end|time:'H:i' }}</div>
-                                        <div class="font-size13 text-light-gray text-center">{{ course.user }}</div>
-                                    </td>
-                                {% elif course.day == 'JU' %}
-                                    <td>
-                                        <div class="text-center"><span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 text-center">{{ course }}</span></div>
-                                        <div class="margin-10px-top margin-10px-left font-size14 text-center">{{ course.time_start|time:'H:i' }}-{{ course.time_end|time:'H:i' }}</div>
-                                        <div class="font-size13 text-light-gray text-center">{{ course.user }}</div>
-                                    </td>
-                                {% elif course.day == 'VI' %}
-                                    <td>
-                                        <div class="text-center"><span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 text-center">{{ course }}</span></div>
-                                        <div class="margin-10px-top margin-10px-left font-size14 text-center">{{ course.time_start|time:'H:i' }}-{{ course.time_end|time:'H:i' }}</div>
-                                        <div class="font-size13 text-light-gray text-center">{{ course.user }}</div>
-                                    </td>
-                                {% elif course.day == 'SA' %}
-                                    <td>
-                                        <div class="text-center"><span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 text-center">{{ course }}</span></div>
-                                        <div class="margin-10px-top margin-10px-left font-size14 text-center">{{ course.time_start|time:'H:i' }}-{{ course.time_end|time:'H:i' }}</div>
-                                        <div class="font-size13 text-light-gray text-center">{{ course.user }}</div>
-                                    </td>
-                                {% elif course.day == 'DO' %}
-                                    <td>
-                                        <div class="text-center"><span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 text-center">{{ course }}</span></div>
-                                        <div class="margin-10px-top margin-10px-left font-size14 text-center">{{ course.time_start|time:'H:i' }}-{{ course.time_end|time:'H:i' }}</div>
-                                        <div class="font-size13 text-light-gray text-center">{{ course.user }}</div>
-                                    </td>
-                                
-                                {% endif %}
-                                {% else %}
-                                    <td>
-                                        <div class="text-center"><span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 text-center">No hay curso</span></div>
-                                        <div class="margin-10px-top margin-10px-left font-size14 text-center">{{ course.time_start|time:'H:i' }}-{{ course.time_end|time:'H:i' }}</div>
-                                        <div class="font-size13 text-light-gray text-center">{{ course.user }}</div>
-                                    </td>                             
-                            {% endif %} {% endcomment %}
-                        {% endfor %}
-                            {% for course in courses.0 %}
                         {% endfor %}
                     </tr>
                 {% endfor %}

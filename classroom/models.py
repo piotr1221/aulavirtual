@@ -40,18 +40,18 @@ class Course(models.Model):
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=300)
     DAY_CHOICES = [
-        ('LU', 'Lunes'),
-        ('MA', 'Martes'),
-        ('MI', 'Miércoles'),
-        ('JU', 'Jueves'),
-        ('VI', 'Viernes'),
-        ('SA', 'Sábado'),
-        ('DO', 'Domingo')
+        ('1', 'Lunes'),
+        ('2', 'Martes'),
+        ('3', 'Miércoles'),
+        ('4', 'Jueves'),
+        ('5', 'Viernes'),
+        ('6', 'Sábado'),
+        ('7', 'Domingo')
     ]
     day = models.CharField(
         max_length=2,
         choices=DAY_CHOICES,
-        default='LU'
+        default='1'
     )
     time_start = models.TimeField()
     time_end = models.TimeField()

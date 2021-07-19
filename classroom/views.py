@@ -34,8 +34,9 @@ def Schedule(request):
         time = course.time_start
         if time not in times:
             times.append(time)
+    times.sort
             
-    for i in range(0, len(times), 1):
+    for i in range(0, len(times)):
         u_courses.append([])
 
     for course in courses:
@@ -44,30 +45,21 @@ def Schedule(request):
             for i in range(0, len(times), 1):
                 if course.time_start == times[i]:
                     u_courses[i].append(course)
-            # if course.day == 'LU':
-            #     u_courses[0].append(course)
-            # elif course.day == 'MA':
-            #     u_courses[1].append(course)
-            # elif course.day == 'MI':
-            #     u_courses[2].append(course)
-            # elif course.day == 'JU':
-            #     u_courses[3].append(course)
-            # elif course.day == 'VI':
-            #     u_courses[4].append(course)
-            # elif course.day == 'SA':
-            #     u_courses[5].append(course)
-            # elif course.day == 'DO':
-            #     u_courses[6].append(course)
+                    break
                 
-    for i in range(0, len(times), 1):
-        u_courses[i].sort(key=lambda c: c.time_start)
-        while len(u_courses[i]) < 7:
-            u_courses[i].append(None)
-    times.sort
+    for i in range(0, len(times)):
+        u_courses[i].sort(key=lambda c: int(c.day))
+        j = 0
+        while j < 7:
+            try:
+                if int(u_courses[i][j].day) != (j + 1):
+                    u_courses[i].insert(j, None)
+            except:
+                u_courses[i].append(None)
+            j += 1
 
     context = {
         'courses': u_courses,
-        'times': times,
     }
     return render(request, 'classroom/schedule.html', context)
 
