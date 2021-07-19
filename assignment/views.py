@@ -126,7 +126,7 @@ def InitializeSubmissions(course_id, assignment_id):
 
 def NewSubmission(request, course_id, module_id, assignment_id):
     student = request.user
-    course = get_object_or_404(Course, id=course_id)
+    assignment = get_object_or_404(Assignment, id=assignment_id)
     submission = Submission.objects.get(user=student, assignment_id=assignment_id)
 
     if request.method == 'POST':
@@ -142,6 +142,7 @@ def NewSubmission(request, course_id, module_id, assignment_id):
         form = NewSubmissionForm(instance=submission)
 
     context = {
-        'form': form
+        'form': form,
+        'assignment': assignment
     }
     return render(request, 'assignment/submitassignment.html', context)
