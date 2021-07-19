@@ -320,13 +320,17 @@ def AddStundentEnroll( request , course_id, student_id):
     course.enrolled.add(student)
     return redirect('students', course_id=course_id)  
 
-def DeleteStundentEnroll( request , course_id, student_id):
+def DeleteStundentEnroll(request , course_id, student_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
-    student = get_object_or_404( User, id=student_id)
+    student = get_object_or_404(User, id=student_id)
     course.enrolled.remove(student)
-    return redirect('students', course_id=course_id)   
 
+    if user == course.user:
+        return redirect('students', course_id=course_id)
+    else:
+        return redirect('index')
+    
 
 def StudentGrades(request, course_id):
     course = get_object_or_404(Course, id=course_id)
