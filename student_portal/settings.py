@@ -67,7 +67,7 @@ ROOT_URLCONF = 'student_portal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'student_portal/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'student_portal/templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'student_portal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(os.path.join(BASE_DIR, "db.sqlite3"))
     }
 }
 

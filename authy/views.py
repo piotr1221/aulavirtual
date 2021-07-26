@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from authy.forms import SignupForm, ChangePasswordForm, EditProfileForm
 from django.contrib.auth.models import User
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.db.models import Sum
 
 from authy.models import Profile
@@ -53,7 +54,10 @@ def Signup(request):
 			email = form.cleaned_data.get('email')
 			password = form.cleaned_data.get('password')
 			User.objects.create_user(username=username, email=email, password=password)
-			return redirect('edit-profile')
+			messages.success(request, '¡La cuenta ha sido creada con éxito!')
+			new_user = authenticate(username=username, password=password)
+			login(request, new_user)
+			return render(request, 'registration/edit_profile.html')
 	else:
 		form = SignupForm()
 	
