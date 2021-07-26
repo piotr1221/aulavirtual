@@ -54,10 +54,13 @@ def Signup(request):
 			email = form.cleaned_data.get('email')
 			password = form.cleaned_data.get('password')
 			User.objects.create_user(username=username, email=email, password=password)
-			messages.success(request, '¡La cuenta ha sido creada con éxito!')
 			new_user = authenticate(username=username, password=password)
+
 			login(request, new_user)
-			return render(request, 'registration/edit_profile.html')
+			profile = Profile.objects.get(user=request.user)
+			edit_form = EditProfileForm(instance=profile)
+			messages.success(request, '¡La cuenta ha sido creada con éxito!')
+			return render(request, 'registration/edit_profile.html', {'form': edit_form})
 	else:
 		form = SignupForm()
 	
