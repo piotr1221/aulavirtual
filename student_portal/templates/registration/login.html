@@ -28,8 +28,9 @@
           </div>
    
           <div class="input-field col s12">
-            {{ form.password }}
+            <input type="password" name="password" id="password" style="width: 91%" required {{ form.password.value }}>
             <label for="password">Password</label>
+            <button type="button" class="btn btn-info" onclick="verPassword()"><i class="material-icons">remove_red_eye</i></button>
           </div>
 
       {% if form.errors %}
@@ -59,6 +60,18 @@
   </div>
 </div>
   <!--  Scripts-->
+
+  <script>
+    x  = document.getElementById("password");
+    function verPassword(){
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+  </script>
+
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="{% static 'js/materialize.js' %}"></script>
   <script src="{% static 'js/init.js' }"></script>
