@@ -18,5 +18,5 @@ class ProfileTest(TestCase):
         q = QueryDict('', mutable=True)
         q.update(info)
         req.POST = q
-        print(get_token(req))
+        #print(get_token(req))
         Signup(req)
