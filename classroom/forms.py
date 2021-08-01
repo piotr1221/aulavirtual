@@ -12,7 +12,7 @@ class NewCourseForm(forms.ModelForm):
 	time_start = forms.TimeField(widget=forms.TimeInput(format='%H:%M'), required=True)
 	time_end = forms.TimeField(widget=forms.TimeInput(format='%H:%M'), required=True)
 	category = forms.ModelChoiceField(queryset=Category.objects.all())
-	syllabus = forms.CharField(widget=CKEditorWidget())
+	syllabus = forms.CharField()
 
 	class Meta:
 		model = Course
