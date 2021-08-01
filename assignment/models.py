@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, reset_queries
 from django.contrib.auth.models import User
 
 #3rd apps field
@@ -26,15 +26,16 @@ class Assignment(models.Model):
 	points = models.PositiveIntegerField()
 	due = models.DateField()
 	files = models.ManyToManyField(AssignmentFileContent)
-	user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.title
 
 class Submission(models.Model):
 	file = models.FileField(upload_to=user_directory_path)
-	comment = models.CharField(max_length=1000)
-	date = models.DateTimeField(auto_now_add=True)
+	points = models.PositiveIntegerField(default=0)
+	delivered = models.BooleanField(default=False)
+	onTime = models.BooleanField(default=False)
+	date = models.DateTimeField(null=True)
 	assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 

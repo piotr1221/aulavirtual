@@ -1,0 +1,97 @@
+{% extends 'classroom/menucourse.html' %}
+{% load static %}
+
+{% block contenido %}
+
+{% if teacher_mode == True %}
+
+<a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i class="material-icons">add</i></a>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Agregar Nuevo Estudiante</h4>
+    <p>Seleccionar el id del nuevo estudiante</p>
+    {% block buscador %}
+
+    <form method="POST">
+      {% csrf_token %}
+      <div class="input-group">
+        <input type="email" class="validate" placeholder="Buscar Email..." name="buscar"
+          value="{{ request.POST.buscar }}">
+        <div class="input-group-append">
+          <button class="btn blue darken-1" type="submit">
+            <i class="material-icons">person_search</i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    {% endblock buscador %}
+    <table class="table table-striped table-hover">
+      <thead>
+        <th scope="col">Nombre</th>
+        <th scope="col">ID</th>
+        <th scope="col">Email</th>
+        <th scope="col">Acciones</th>
+
+      </thead>
+      <tbody>
+        {% for student in students %}
+        <tr>
+          <th>{{ student.first_name }}</th>
+          <th>{{ student.username }}</th>
+          <th>{{ student.email }}</th>
+          <th> <a class="btn green darken-1" href="{%  url 'add-student' course.id student.id %}"><i class="material-icons">person_add_alt</i></a></th>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+
+{% endif %}
+
+<div class="section">
+  <h4>Participantes del curso</p>
+  </h4>
+  <div class="divider"></div>
+
+  <ul class="collapsible">
+
+    <table class="table table-striped table-hover">
+      <thead>
+        <th scope="col">Nombre</th>
+        <th scope="col">ID</th>
+        <th scope="col">Inscripción</th>
+
+      </thead>
+      <tbody>
+        {% for student in course.enrolled.all %}
+        <tr>
+          <th>{{ student.first_name }}</th>
+          <th> {{ student.last_name }}</th>
+          <th> {{ student.date_joined }}</th>
+          <th> <a class="btn red darken-1" href="{% url 'delete-student' course.id student.id %}"><i
+                class="material-icons">delete</i></a></th>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+
+  </ul>
+
+</div>
+
+</div>
+
+
+
+
+
+
+{% endblock %}

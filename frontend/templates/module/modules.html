@@ -1,0 +1,62 @@
+{% extends 'classroom/menucourse.html' %}
+{% load static %}
+
+{% block contenido %}
+
+  {% if teacher_mode == True %}
+    <a href="{% url 'new-module' course.id %}" class="btn-floating btn-large waves-effect waves-light red right"><i class="material-icons">add</i></a>
+  {% endif %}
+
+  <div class="section">
+    <h4>Contenido</h4>
+    <div class="divider"></div> 
+
+    <ul class="collapsible">
+      {% for module in course.modules.all %}
+      <li>
+        <div class="collapsible-header"><i class="material-icons">expand_more</i><b>{{ module.title }}</b></div>
+        <div class="collapsible-body">
+          {% if teacher_mode == True %}
+            <a href="{% url 'new-page' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Add new page</a>
+            <a href="#" class="btn-small"><i class="material-icons">add</i>Add new quiz</a>
+            <a href="{% url 'new-assignment' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Add new assignment</a>
+          {% endif %}
+            <div class="collection">
+              <br>
+              {% for page in module.pages.all %}
+                <a href="{% url 'page-detail' course.id module.id page.id %}" class="collection-item"><i class="material-icons">segment</i> {{ page.title }}
+                 <!--<div class="secondary-content">
+                  Completed: 
+                  <i class="material-icons secondary-content">{% if page.id in page_completions %}check_circle{% else %}panorama_fish_eye{% endif %}</i>                   
+                 </div>-->
+                </a>
+              {% endfor %}
+              {% for quiz in module.quizzes.all %}
+                <a href="{% url 'quiz-detail' course.id module.id quiz.id %}" class="collection-item"><i class="material-icons">fact_check</i> {{ quiz.title }}
+                 <div class="secondary-content">
+                  Completed: 
+                  <i class="material-icons secondary-content">{% if quiz.id in quiz_completions %}check_circle{% else %}panorama_fish_eye{% endif %}</i>                   
+                 </div>
+                </a>
+              {% endfor %}
+              {% for assignment in module.assignments.all %}
+                <a href="{% url 'assignment-detail' course.id module.id assignment.id %}" class="collection-item"><i class="material-icons">fact_check</i> {{ assignment.title }}
+                 <div class="secondary-content">
+                  Completed: 
+                  <i class="material-icons secondary-content">{% if assignment.id in assignment_completions %}check_circle{% else %}panorama_fish_eye{% endif %}</i>                   
+                 </div>
+                </a>
+              {% endfor %}
+            </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+
+  </div>
+  
+
+
+
+
+{% endblock %}
