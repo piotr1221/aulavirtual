@@ -14,7 +14,7 @@
     <ul class="collapsible">
       {% for module in course.modules.all %}
       <li>
-        <div class="collapsible-header"><em class="material-icons">expand_more</em><b>{{ module.title }}</b></div>
+        <div class="collapsible-header"><em class="material-icons">expand_more</em><strong>{{ module.title }}</strong></div>
         <div class="collapsible-body">
           {% if teacher_mode == True %}
             <a href="{% url 'new-page' course.id module.id %}" class="btn-small"><em class="material-icons">add</em>Add new page</a>

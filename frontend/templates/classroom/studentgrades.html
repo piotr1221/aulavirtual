@@ -22,9 +22,9 @@
               <tbody>
                 {% for student in students %}
                   <tr>  
-                    <th>{{ student.id }}</th>
-                    <th>{{ student.first_name }} {{ student.last_name }}</th>
-                    <th>
+                    <th scope="ID Estudiante">{{ student.id }}</th>
+                    <th scope="Estudiante">{{ student.first_name }} {{ student.last_name }}</th>
+                    <th scope="Nota">
                       {% for grade in grades %}
                         {% if student.id == grade.student_id %}
                           <input name="grade" style="width:2ch" value={{ grade.grade }}>
