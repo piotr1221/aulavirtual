@@ -33,7 +33,7 @@
     <li class="collection-header"><h4>Files in this assignment</h4></li>
     {% for file in assignment.files.all %}
       <li class="collection-item"><div>{{ file.get_file_name }}<a class="secondary-content" href="{{ file.file.url }}" download>
-        <i class="material-icons">download</i></a></div>
+        <em class="material-icons">download</em></a></div>
       </li>
     {% endfor %}    
   </ul>  
@@ -45,13 +45,13 @@
       <li class="collection-header"><h4>Archivo enviado</h4></li>
       {% for submission in my_submissions %}
           <li class="collection-item avatar">
-            <i class="material-icons circle">insert_chart</i>
+            <em class="material-icons circle">insert_chart</em>
             {% if submission.date == None %}
               <p>Aún no se ha subido nada.</p>
             {% else %}
               <p>Fecha de entrega: {{ submission.date }}</p>
             {% endif %}
-            <a href="#" class="secondary-content"><i class="material-icons">delete</i></a>
+            <a href="#" class="secondary-content"><em class="material-icons">delete</em></a>
           </li>
       {% endfor %}
     </ul>

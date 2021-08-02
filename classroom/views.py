@@ -1,3 +1,4 @@
+from assignment.models import Assignment
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -6,8 +7,6 @@ from django.db.models import Q
 from classroom.models import Course, Category, Grade
 
 from classroom.forms import NewCourseForm, NewGradeForm
-
-import json
 
 
 # Create your views here.
@@ -25,11 +24,11 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def Schedule(request):
+def schedule(request):
     return render(request, 'classroom/schedule.html')
 
 
-def Categories(request):
+def categories(request):
     categories = Category.objects.all()
 
     context = {
@@ -38,7 +37,7 @@ def Categories(request):
     return render(request, 'classroom/categories.html', context)
 
 
-def CategoryCourses(request, category_slug):
+def category_courses(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     courses = Course.objects.filter(category=category)
 
@@ -49,7 +48,7 @@ def CategoryCourses(request, category_slug):
     return render(request, 'classroom/categorycourses.html', context)
 
 
-def NewCourse(request):
+def new_course(request):
     user = request.user
     if request.method == 'POST':
         form = NewCourseForm(request.POST, request.FILES)
@@ -76,7 +75,7 @@ def NewCourse(request):
 
 
 @login_required
-def CourseDetail(request, course_id):
+def course_detail(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     teacher_mode = False
@@ -93,7 +92,7 @@ def CourseDetail(request, course_id):
 
 
 @login_required
-def Enroll(request, course_id):
+def enroll(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     course.enrolled.add(user)
@@ -101,7 +100,7 @@ def Enroll(request, course_id):
 
 
 @login_required
-def DeleteCourse(request, course_id):
+def delete_course(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
 
@@ -113,7 +112,7 @@ def DeleteCourse(request, course_id):
 
 
 @login_required
-def EditCourse(request, course_id):
+def edit_course(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
 
@@ -145,7 +144,7 @@ def EditCourse(request, course_id):
     return render(request, 'classroom/editcourse.html', context)
 
 
-def MyCourses(request):
+def my_courses(request):
     user = request.user
     courses = Course.objects.filter(user=user)
 
@@ -156,7 +155,7 @@ def MyCourses(request):
     return render(request, 'classroom/mycourses.html', context)
 
 
-def Submissions(request, course_id):
+def submissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     teacher_mode = False
@@ -171,7 +170,7 @@ def Submissions(request, course_id):
     return render(request, 'classroom/submissions.html', context)
 
 
-def StudentSubmissions(request, course_id):
+def student_submissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     
@@ -186,7 +185,7 @@ def StudentSubmissions(request, course_id):
     return render(request, 'classroom/studentgrades.html', context)
 
 
-def GradeSubmission(request, course_id, grade_id):
+def grade_submission(request, course_id, grade_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     grade = get_object_or_404(Grade, id=grade_id)
@@ -209,7 +208,7 @@ def GradeSubmission(request, course_id, grade_id):
     return render(request, 'classroom/gradesubmission.html', context)
 
 
-def StudentsNotas(request, course_id):
+def students_notas(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     if user != course.user:
@@ -232,7 +231,7 @@ def StudentsNotas(request, course_id):
     return render(request, 'classroom/editnotas.html', context)
 
 
-def StudentEnrollList(request, course_id):
+def student_enroll_list(request, course_id):
     busqueda = request.POST.get("buscar")
     user = request.user
     students = User.objects.all()
@@ -251,22 +250,20 @@ def StudentEnrollList(request, course_id):
     }
     return render(request, 'classroom/studentsenroll.html', context)
 
-def AddStundentEnroll( request , course_id, student_id):
-    user = request.user
+def add_stundent_enroll( request , course_id, student_id):
     student = get_object_or_404( User, id=student_id)
     course = get_object_or_404(Course, id=course_id)
     course.enrolled.add(student)
     return redirect('students', course_id=course_id)  
 
-def DeleteStundentEnroll( request , course_id, student_id):
-    user = request.user
+def delete_stundent_enroll( request , course_id, student_id):
     course = get_object_or_404(Course, id=course_id)
     student = get_object_or_404( User, id=student_id)
     course.enrolled.remove(student)
     return redirect('students', course_id=course_id)   
 
 
-def StudentGrades(request, course_id):
+def student_grades(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     students = course.enrolled.all()
 
@@ -282,7 +279,7 @@ def StudentGrades(request, course_id):
     else:
         form = NewGradeForm()
         for student in students:
-            grade = Grade.objects.get_or_create(course=course, student=student)
+            Grade.objects.get_or_create(course=course, student=student)
     
     grades = Grade.objects.filter(course=course)
     

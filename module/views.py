@@ -10,7 +10,7 @@ from completion.models import Completion
 
 # Create your views here.
 
-def NewModule(request, course_id):
+def new_module(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
 
@@ -36,7 +36,7 @@ def NewModule(request, course_id):
     return render(request, 'module/newmodule.html', context)
 
 
-def CourseModules(request, course_id):
+def course_modules(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
 

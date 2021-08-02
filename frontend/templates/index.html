@@ -9,12 +9,6 @@
 		<h2 class="header orange-text center">Impulsa tu aprendizaje</h2>
 		<h5 class="header col s12 light center">En todo lugar. En todo momento</h5>
 	</div>
-  <!--
-  <div class="row center">
-		<br>
-		<a class="btn-large orange" href="{% url 'categories' %}">Buscar</a>
-	</div>
-  -->
 </div>
 
 {% endblock %}
@@ -31,14 +25,14 @@
 <div class="col s12 m4">
   <div class="card" style="width: 12rem;">
     <div class="card-image waves-effect waves-block waves-light">
-      <img class="activator" src="{{ course.picture.url }}">
+      <img class="activator" src="{{ course.picture.url }}" alt="Imagen no cargada">
     </div>
     <div class="card-content">
-      <span class="card-title activator grey-text text-darken-4">{{ course.title }}<i class="material-icons right">more_vert</i></span>
+      <span class="card-title activator grey-text text-darken-4">{{ course.title }}<em class="material-icons right">more_vert</em></span>
       <p><a href="{% url 'course' course.id %}">Abrir</a></p>
     </div>
     <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">Acerca del curso<i class="material-icons right">close</i></span>
+      <span class="card-title grey-text text-darken-4">Acerca del curso<em class="material-icons right">close</em></span>
       <p>{{ course.description }}</p>
     </div>
   </div>

@@ -30,34 +30,22 @@
 
   <div class="section">
     <h4>Student submissions</h4>
-      <table>
+      <table >
+        <caption>Tareas de estudiantes</caption>
         <thead>
           <tr>
-              <th>Student</th>
-              <th>username</th>
+              <th scope="Estudiante">Student</th>
+              <th scope="Usuario">username</th>
               {% for assignment in assignments %}
-                <th>{{ assignment.title }}</th>
+                <th scope="Título">{{ assignment.title }}</th>
               {% endfor %}
-              <th>Edit</th>
+              <th scope="Editar">Edit</th>
 
           </tr>
         </thead>
 
         <tbody>
-        {% comment %} {% for grade in grades %}
-            <tr>
-                <td>{{ grade.submission.user.get_full_name }}</td>
-                <td>{{ grade.submission.user.username }}</td>
-                {% for assignment in assignments %}
-                    {%if grade.status ==  "graded" %}
-                        <td>{{ grade.points }}</td>
-                    {% else %}
-                        <td>pendiente</td>
-                    {%endif%}
-                {% endfor %}
-                <td><a href="#"><i class="material-icons">mode</i>Grade</a></td>
-            </tr>
-        {% endfor %} {% endcomment %}
+        
         {% for student in students %}
             <tr>
                 <td>{{ student.get_full_name }}</td>
@@ -69,7 +57,7 @@
                         <td>pendiente</td>
                     {%endif%}
                 {% endfor %}
-            <td><a href="#"><i class="material-icons">mode</i>Grade</a></td>
+            <td><a href="#"><em class="material-icons">mode</em>Grade</a></td>
             </tr>
         {% endfor %}
         </tbody>

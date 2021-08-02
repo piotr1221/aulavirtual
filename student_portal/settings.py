@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'page',
     'quiz',
     'question',
-    'direct',
     'assignment',
     'completion'
 ]
@@ -75,8 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'authy.views.SideNavInfo',
-                'direct.views.CheckDirects'
+                'authy.views.side_nav_info',
             ],
         },
     },
@@ -88,12 +86,6 @@ WSGI_APPLICATION = 'student_portal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     'default': {

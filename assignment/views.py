@@ -6,14 +6,13 @@ from assignment.forms import NewAssignmentForm, NewSubmissionForm
 from assignment.models import AssignmentFileContent, Assignment, Submission
 
 from module.models import Module
-from classroom.models import Course, Grade
-from completion.models import Completion
+from classroom.models import Course
 
 import datetime
 
 
 # Create your views here.
-def NewAssignment(request, course_id, module_id):
+def new_assignment(request, course_id, module_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     module = get_object_or_404(Module, id=module_id)
@@ -39,7 +38,7 @@ def NewAssignment(request, course_id, module_id):
                 a = Assignment.objects.create(title=title, content=content, points=points, due=due)
                 a.files.set(files_objs)
                 a.save()
-                InitializeSubmissions(course_id, a.id)
+                initialize_submissions(course_id, a.id)
                 module.assignments.add(a)
                 return redirect('modules', course_id=course_id)
         else:
@@ -51,7 +50,7 @@ def NewAssignment(request, course_id, module_id):
     return render(request, 'assignment/newassignment.html', context)
 
 
-def EditAssignment(request, course_id, module_id, assignment_id):
+def edit_assignment(request, course_id, module_id, assignment_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     assignment = get_object_or_404(Assignment, id=assignment_id)
@@ -89,12 +88,12 @@ def EditAssignment(request, course_id, module_id, assignment_id):
     }
     return render(request, 'assignment/editassignment.html', context)
 
-def DeleteAssignment(request, course_id, module_id, assignment_id):
+def delete_assignment(request, course_id, module_id, assignment_id):
     assignment = get_object_or_404(Assignment, id=assignment_id)
     assignment.delete()
     return redirect('modules', course_id=course_id)
 
-def AssignmentDetail(request, course_id, module_id, assignment_id):
+def assignment_detail(request, course_id, module_id, assignment_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     teacher_mode = False
@@ -114,19 +113,19 @@ def AssignmentDetail(request, course_id, module_id, assignment_id):
     return render(request, 'assignment/assignment.html', context)
 
 
-def InitializeSubmissions(course_id, assignment_id):
+def initialize_submissions(course_id, assignment_id):
     assignment = get_object_or_404(Assignment, id=assignment_id)
     course = get_object_or_404(Course, id=course_id)
     
     for student in course.enrolled.all():
-        submission = Submission.objects.create(user=student, assignment=assignment, date=None)
+        Submission.objects.create(user=student, assignment=assignment, date=None)
     
     return redirect('modules', course_id=course_id)
 
 
-def NewSubmission(request, course_id, module_id, assignment_id):
+def new_submission(request, course_id, module_id, assignment_id):
     student = request.user
-    course = get_object_or_404(Course, id=course_id)
+    get_object_or_404(Course, id=course_id)
     submission = Submission.objects.get(user=student, assignment_id=assignment_id)
 
     if request.method == 'POST':
