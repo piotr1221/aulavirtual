@@ -101,7 +101,6 @@ def enroll(request, course_id):
 
 @login_required
 def delete_course(request, course_id):
-    user = request.user
     course = get_object_or_404(Course, id=course_id)
 
     # if user != course.user:
