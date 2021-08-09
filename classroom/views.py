@@ -135,7 +135,10 @@ def edit_course(request, course_id):
                 course.category = form.cleaned_data.get('category')
                 course.syllabus = form.cleaned_data.get('syllabus')
                 course.save()
-                return redirect('my-courses')
+
+                courses = Course.objects.filter(user=user)
+                messages.success(request, '¡El curso ha sido editado con éxito!')
+                return render(request, 'classroom/mycourses.html', {'courses': courses})
         else:
             form = NewCourseForm(instance=course)
 
