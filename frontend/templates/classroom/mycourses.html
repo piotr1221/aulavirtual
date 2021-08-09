@@ -11,6 +11,13 @@
         <a href="{% url 'newcourse' %}" class="btn green"><h6>Crear</h6></a>
       </div>
   </div>
+  {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
 </div>
 	
 	<div class="divider"></div>

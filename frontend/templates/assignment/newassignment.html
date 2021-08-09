@@ -10,16 +10,13 @@
 
     <form method="post" enctype="multipart/form-data" action="" role="form">
       {% csrf_token %}
-    <h3 class="title is-3">Create a new course</h3>
-    <div class="alert alert-info" role="alert">
-      Los campos con asterisco son necesarios.
-    </div>
+    <h3 class="title is-3">Editar la tarea </h3>
 
 
           <div class="file-field input-field col s12">
             <div class="btn">
-              <span>Picture*</span>
-              {{ form.picture }}
+              <span>Archivos</span>
+              {{ form.files }}
             </div>
             <div class="file-path-wrapper">
               <input class="file-path validate" type="text" placeholder="Upload one or more files">
@@ -28,22 +25,21 @@
 
           <div class="input-field col s12">
             {{ form.title }}
-            <label for="title">Title*</label>
+            <label for="title">Título</label>
           </div>
 
           <div class="input-field col s12">
-            {{ form.description }}
-            <label for="description">Description*</label>
+            {{ form.content }}
           </div>
 
           <div class="input-field col s12">
-            {{ form.category }}
-            <label for="category">Category*</label>
+            {{ form.due }}
+            <label for="due">Fecha de entrega</label>
           </div>
-          
+
           <div class="input-field col s12">
-            {{ form.syllabus }}
-            <label for="syllabus">Syllabus*</label>
+            {{ form.points}}
+            <label for="points">Puntos</label>
           </div>
 
 
@@ -53,13 +49,12 @@
         </div>
       </div>
 
-
       <div class="field">
-      <p class="control">
-        <button type="submit" value="login" class="btn waves-effect waves-light">
-          Create new Assignment
-        </button>
-      </p>
+        <p class="control">
+          <button type="submit" value="login" class="btn waves-effect waves-light">
+            Editar tarea
+          </button>
+      </div>
     </div>
 
     </form>

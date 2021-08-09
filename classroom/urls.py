@@ -9,7 +9,7 @@ from assignment.views import new_assignment, assignment_detail, edit_assignment,
 urlpatterns = [
 	#Course - Classroom Views
 	path('newcourse/', new_course, name='newcourse'),
-	path('MyCourses/', my_courses, name='my-courses'),
+	path('mycourses/', my_courses, name='my-courses'),
 	path('schedule/', schedule, name='schedule'),
 	path('categories/', categories, name='categories'),
 	path('categories/<category_slug>', category_courses, name='category-courses'),

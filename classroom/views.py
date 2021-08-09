@@ -2,6 +2,7 @@ from assignment.models import Assignment
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import Q
 from classroom.models import Course, Category, Grade
@@ -63,7 +64,10 @@ def new_course(request):
             Course.objects.create(picture=picture, title=title, description=description, 
             time_start=time_start, time_end=time_end, category=category,
             syllabus=syllabus, user=user)
-            return redirect('my-courses')
+            
+            courses = Course.objects.filter(user=user)
+            messages.success(request, '¡El curso ha sido creado con éxito!')
+            return render(request, 'classroom/mycourses.html', {'courses': courses})
     else:
         form = NewCourseForm()
 
