@@ -2,7 +2,7 @@ from django.urls import path
 from classroom.views import categories, category_courses, new_course, enroll, delete_course, edit_course
 from classroom.views import my_courses, course_detail, schedule, student_grades, submissions, student_submissions, grade_submission, students_notas, student_enroll_list,delete_stundent_enroll,add_stundent_enroll
 
-from module.views import new_module, course_modules
+from module.views import delete_module, new_module, course_modules
 from page.views import delete_page, new_page_module, page_detail, delete_page
 from assignment.views import new_assignment, assignment_detail, edit_assignment, delete_assignment, new_submission
 
@@ -21,6 +21,7 @@ urlpatterns = [
 	#Modules
 	path('<course_id>/modules', course_modules, name='modules'),
 	path('<course_id>/modules/newmodule', new_module, name='new-module'),
+	path('<course_id>/modules/<module_id>/delete', delete_module, name='delete-module'),
 	#Pages
 	path('<course_id>/modules/<module_id>/pages/newpage', new_page_module, name='new-page'),
 	path('<course_id>/modules/<module_id>/pages/<page_id>', page_detail, name='page-detail'),

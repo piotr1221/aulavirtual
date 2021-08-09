@@ -35,6 +35,10 @@ def new_module(request, course_id):
 
     return render(request, 'module/newmodule.html', context)
 
+def delete_module(request, course_id, module_id):
+    module = get_object_or_404(Module, id=module_id)
+    module.delete()
+    return redirect('modules', course_id=course_id)
 
 def course_modules(request, course_id):
     user = request.user
