@@ -29,7 +29,8 @@
     </div>
     <div class="card-content">
       <span class="card-title activator grey-text text-darken-4">{{ course.title }}<em class="material-icons right">more_vert</em></span>
-      <p><a href="{% url 'course' course.id %}">Abrir</a></p>
+      <p>Categoría: {{ course.category }}</p>
+      <a href="{% url 'course' course.id %}" class="btn">Abrir</a>
     </div>
     <div class="card-reveal">
       <span class="card-title grey-text text-darken-4">Acerca del curso<em class="material-icons right">close</em></span>
