@@ -7,15 +7,14 @@
 <div class="row center-align">
   <div class="col s12">
 
-
     <form method="post" enctype="multipart/form-data" action="" role="form">
       {% csrf_token %}
-    <h3 class="title is-3">Let's create a new Assignment</h3>
+    <h3 class="title is-3">Editar la tarea </h3>
 
 
           <div class="file-field input-field col s12">
             <div class="btn">
-              <span>Files</span>
+              <span>Archivos</span>
               {{ form.files }}
             </div>
             <div class="file-path-wrapper">
@@ -25,7 +24,7 @@
 
           <div class="input-field col s12">
             {{ form.title }}
-            <label for="title">Title</label>
+            <label for="title">Título</label>
           </div>
 
           <div class="input-field col s12">
@@ -34,12 +33,12 @@
 
           <div class="input-field col s12">
             {{ form.due }}
-            <label for="due">Due</label>
+            <label for="due">Fecha de entrega</label>
           </div>
 
           <div class="input-field col s12">
             {{ form.points}}
-            <label for="points">Points</label>
+            <label for="points">Puntos</label>
           </div>
 
 
@@ -49,13 +48,12 @@
         </div>
       </div>
 
-
       <div class="field">
-      <p class="control">
-        <button type="submit" value="login" class="btn waves-effect waves-light">
-          Create new Assignment
-        </button>
-      </p>
+        <p class="control">
+          <button type="submit" value="login" class="btn waves-effect waves-light">
+            Editar tarea
+          </button>
+      </div>
     </div>
 
     </form>
