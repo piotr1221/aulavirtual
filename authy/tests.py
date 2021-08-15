@@ -1,14 +1,12 @@
+from django.contrib.sessions import middleware
 from django.test import TestCase
 from .models import Profile
-from datetime import datetime
-from django.core.handlers.wsgi import WSGIRequest
-from io import BytesIO
 from django.http.request import QueryDict
 from django.middleware.csrf import get_token
 from .views import signup, edit_profile
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
 from django.test.client import RequestFactory
+from django.contrib.sessions.middleware import SessionMiddleware
 # Create your tests here.
 
 class ProfileTest(TestCase):
@@ -20,8 +18,7 @@ class ProfileTest(TestCase):
                                             )
 
     def test_register(self):
-        req = self.factory.post('/user/signup')
-        req.user = self.user
+        req = self.factory.post('user/signup')
 
         info = {'csrfmiddlewaretoken': get_token(req),
                 'username': 'test_user',
@@ -31,9 +28,16 @@ class ProfileTest(TestCase):
                 'action': '',
                 }
         
+        user = User.objects.create_user('test_user', 'test_user@gmail.com', 'test_user')
+
+        middleware = SessionMiddleware()
+        middleware.process_request(req)
+        req.session.save()
+
         q = QueryDict('', mutable=True)
         q.update(info)
         req.POST = q
+        req.user = user
         signup(req)
         user = User.objects.get(username='test_user')
         assert user
@@ -54,9 +58,19 @@ class ProfileTest(TestCase):
         q = QueryDict('', mutable=True)
         q.update(info)
         req.POST = q
-
+        
         edit_profile(req)
+        
         profile = Profile.objects.get(user=self.user)
-        assert profile
+        #user_basic_info = User.objects.get(user=self.user)
+
+        assert profile.location
+        assert profile.url
+        assert profile.profile_info
+
+        #assert user_basic_info.first_name
+        #assert user_basic_info.last_name
+
+
 
     
