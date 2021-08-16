@@ -1,20 +1,23 @@
+from django.core.files import uploadedfile
+from django.core.files.uploadedfile import SimpleUploadedFile, UploadedFile
+from django.forms.widgets import Media
 from module.models import Module
 from django.contrib.messages.storage.fallback import FallbackStorage
 from classroom.models import Category, Course
 from django.test import TestCase
-from .models import Assignment
+from .models import Assignment, Submission
 from datetime import datetime
 from django.core.handlers.wsgi import WSGIRequest
 from io import BytesIO
 from django.http.request import QueryDict
 from django.middleware.csrf import get_token
-from .views import new_assignment
+from .views import delete_assignment, edit_assignment, new_assignment, new_submission
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 
-class CourseTest(TestCase):
+class AssTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.user = User.objects.create_user(username='xocrona',
@@ -66,15 +69,57 @@ class CourseTest(TestCase):
         req.POST = q
         req.user = self.user
 
-        #m = MultiValueDict('')
-        #m.appendlist(file_data)
-        #print(type(req.FILES))
-        #req.FILES = m
-        
-
         new_assignment(req,self.course.id,self.module.id)
 
         ass01 = Assignment.objects.get(title = 'test')
         assert ass01
+        return ass01
+
+    def test_edit_ass(self):
+        ass = AssTest.test_new_ass(self)
+        ass_id = ass.id
+        req = self.factory.post(f'{self.course.id}/modules/{self.module.id}/assignment/{ass_id}/edit')
+        req.user = self.user
+
+        info = {'csrfmiddlewaretoken': get_token(req),
+                'title': 'test02',
+	            'content': 'test02',
+	            'points': 20,
+	            'due': '11/08/2021',
+	            'files': None,
+                }
+        
+        setattr(req, 'session', 'session')
+        messages = FallbackStorage(req)
+        setattr(req, '_messages', messages)
+
+        middleware = SessionMiddleware()
+        middleware.process_request(req)
+        req.session.save()
+
+        q = QueryDict('', mutable=True)
+        q.update(info)
+        req.POST = q
+       
+        
+        edit_assignment(req,self.course.id,self.module.id,ass_id)
+
+        ass02 = Assignment.objects.get(title = 'test02')
+        assert ass02
+
+    def test_delete_ass(self):
+        ass = AssTest.test_new_ass(self)
+        ass_id = ass.id
+        req = self.factory.post(f'{self.course.id}/modules/{self.module.id}/assignment/{ass_id}/delete')
+        req.user = self.user
+        delete_assignment(req,self.course.id,self.module.id,ass_id)
+        try:
+            ass=Assignment.objects.get(id=ass_id)
+            assert False
+        except:
+            assert True
+
+
+
 
 
