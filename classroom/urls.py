@@ -1,50 +1,44 @@
 from django.urls import path
-from classroom.views import Categories, CategoryCourses, NewCourse, Enroll, DeleteCourse, EditCourse, MyCourses, CourseDetail, Submissions, StudentSubmissions, GradeSubmission
+from classroom.views import categories, category_courses, new_course, enroll, delete_course, edit_course
+from classroom.views import my_courses, course_detail, schedule, student_grades, submissions, student_submissions, grade_submission, students_notas, student_enroll_list,delete_stundent_enroll,add_stundent_enroll
 
-from module.views import NewModule, CourseModules
-from page.views import NewPageModule, PageDetail, MarkPageAsDone
-from quiz.views import NewQuiz, NewQuestion, QuizDetail, TakeQuiz, SubmitAttempt, AttemptDetail
-from assignment.views import NewAssignment, AssignmentDetail, NewSubmission
-from question.views import NewStudentQuestion, Questions, QuestionDetail, MarkAsAnswer, VoteAnswer
+from module.views import delete_module, new_module, course_modules
+from page.views import delete_page, new_page_module, page_detail, delete_page
+from assignment.views import new_assignment, assignment_detail, edit_assignment, delete_assignment, new_submission
 
 urlpatterns = [
 	#Course - Classroom Views
-	path('newcourse/', NewCourse, name='newcourse'),
-	path('MyCourses/', MyCourses, name='my-courses'),
-	path('categories/', Categories, name='categories'),
-	path('categories/<category_slug>', CategoryCourses, name='category-courses'),
-	path('<course_id>/', CourseDetail, name='course'),
-	path('<course_id>/enroll', Enroll, name='enroll'),
-	path('<course_id>/edit', EditCourse, name='edit-course'),
-	path('<course_id>/delete', DeleteCourse, name='delete-course'),
+	path('newcourse/', new_course, name='newcourse'),
+	path('mycourses/', my_courses, name='my-courses'),
+	path('schedule/', schedule, name='schedule'),
+	path('categories/', categories, name='categories'),
+	path('categories/<category_slug>', category_courses, name='category-courses'),
+	path('<course_id>/', course_detail, name='course'),
+	path('<course_id>/enroll', enroll, name='enroll'),
+	path('<course_id>/edit', edit_course, name='edit-course'),
+	path('<course_id>/delete', delete_course, name='delete-course'),
+ 	path('<course_id>/student_notas', students_notas, name='student-notas'),
 	#Modules
-	path('<course_id>/modules', CourseModules, name='modules'),
-	path('<course_id>/modules/newmodule', NewModule, name='new-module'),
+	path('<course_id>/modules', course_modules, name='modules'),
+	path('<course_id>/modules/newmodule', new_module, name='new-module'),
+	path('<course_id>/modules/<module_id>/delete', delete_module, name='delete-module'),
 	#Pages
-	path('<course_id>/modules/<module_id>/pages/newpage', NewPageModule, name='new-page'),
-	path('<course_id>/modules/<module_id>/pages/<page_id>', PageDetail, name='page-detail'),
-	path('<course_id>/modules/<module_id>/pages/<page_id>/done', MarkPageAsDone, name='mark-page-as-done'),
-	#Quizzes
-	path('<course_id>/modules/<module_id>/quiz/newquiz', NewQuiz, name='new-quiz'),
-	path('<course_id>/modules/<module_id>/quiz/<quiz_id>/newquestion', NewQuestion, name='new-question'),
-	path('<course_id>/modules/<module_id>/quiz/<quiz_id>/', QuizDetail, name='quiz-detail'),
-	path('<course_id>/modules/<module_id>/quiz/<quiz_id>/take', TakeQuiz, name='take-quiz'),
-	path('<course_id>/modules/<module_id>/quiz/<quiz_id>/take/submit', SubmitAttempt, name='submit-quiz'),
-	path('<course_id>/modules/<module_id>/quiz/<quiz_id>/<attempt_id>/results', AttemptDetail, name='attempt-detail'),
+	path('<course_id>/modules/<module_id>/pages/newpage', new_page_module, name='new-page'),
+	path('<course_id>/modules/<module_id>/pages/<page_id>', page_detail, name='page-detail'),
+	path('<course_id>/modules/<module_id>/pages/<page_id>/delete', delete_page, name='delete-page'),
 	#Assignment
-	path('<course_id>/modules/<module_id>/assignment/newassignment', NewAssignment, name='new-assignment'),
-	path('<course_id>/modules/<module_id>/assignment/<assignment_id>', AssignmentDetail, name='assignment-detail'),
-	path('<course_id>/modules/<module_id>/assignment/<assignment_id>/start', NewSubmission, name='start-assignment'),
+	path('<course_id>/modules/<module_id>/assignment/newassignment', new_assignment, name='new-assignment'),
+	path('<course_id>/modules/<module_id>/assignment/<assignment_id>', assignment_detail, name='assignment-detail'),
+	path('<course_id>/modules/<module_id>/assignment/<assignment_id>/edit', edit_assignment, name='assignment-edit'),
+	path('<course_id>/modules/<module_id>/assignment/<assignment_id>/delete', delete_assignment, name='assignment-delete'),
 	#Submissions
-	path('<course_id>/submissions', Submissions, name='submissions'),
-	path('<course_id>/studentsubmissions', StudentSubmissions, name='student-submissions'),
-	path('<course_id>/submissions/<grade_id>/grade', GradeSubmission, name='grade-submission'),
-	#Questions
-	path('<course_id>/questions', Questions, name='questions'),
-	path('<course_id>/questions/newquestion', NewStudentQuestion, name='new-student-question'),
-	path('<course_id>/questions/<question_id>', QuestionDetail, name='question-detail'),
-	path('<course_id>/questions/<question_id>/vote', VoteAnswer, name='vote-answer'),
-	path('<course_id>/questions/<question_id>/<answer_id>/markasanswer', MarkAsAnswer, name='mark-as-answer'),
-
-
+	path('<course_id>/modules/<module_id>/assignment/<assignment_id>/start', new_submission, name='start-assignment'),
+	path('<course_id>/submissions', submissions, name='submissions'),
+	path('<course_id>/studentsubmissions', student_submissions, name='student-submissions'),
+	path('<course_id>/submissions/<grade_id>/grade', grade_submission, name='grade-submission'),
+	#Students
+	path('<course_id>/students', student_enroll_list, name='students'),
+	path('<course_id>/students/grades', student_grades, name='students-grades'),
+	path('<course_id>/students/<student_id>/delete', delete_stundent_enroll, name='delete-student'),
+	path('<course_id>/students/<student_id>/add', add_stundent_enroll, name='add-student'),
 ]

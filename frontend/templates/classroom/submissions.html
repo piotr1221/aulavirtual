@@ -1,0 +1,46 @@
+{% extends 'classroom/menucourse.html' %}
+{% load static %}
+
+{% block contenido %}
+
+  <div class="section">
+    <h4>Tareas entregadas</h4>
+
+      <table>
+        <caption>Tareas entregadas</caption>
+        <thead>
+          <tr>
+              <th scope="Tarea">Tarea</th>
+              <th scope="Fecha entrega">Fecha Entrega</th>
+              <th scope="Entregado">Entregado</th>
+              <th scope="Estado">Estado</th>
+              <th scope="Nota">Nota</th>
+              <th scope="Nota máxima">Nota máxima</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for grade in grades %}
+          <tr>
+            <td>{{ grade.submission.assignment.title }}</td>
+            <td>{{ grade.submission.assignment.due }}</td>
+            <td>{{ grade.submission.date }}</td>
+            <td>{{ grade.status }}</td>
+            <td>{{ grade.points }}</td>
+            <td>{{ grade.submission.assignment.points }}</td>
+            <td>{{ grade.graded_by.get_full_name }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+
+
+  </div>
+  
+
+
+
+
+
+{% endblock %}

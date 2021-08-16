@@ -1,0 +1,26 @@
+{% extends 'classroom/menucourse.html' %}
+{% load static %}
+
+{% block contenido %}
+
+  <div class="col s12">
+    <form method="post" action="{% url 'grade-submission' course.id grade.id %}" role="form" class="col s12">
+    {% csrf_token %}
+    <h4>Assignment maximum points: <strong>{{ grade.submission.assignment.points }}</strong></h4>
+
+    <div class="input-field col s12">
+      <em class="material-icons prefix">plus_one</em>
+      <input id="icon_prefix" type="text" name="points" class="validate">
+      <label for="icon_prefix">Points</label>
+    </div>
+
+    <div class="col s12">
+        <button type="submit" value="login" class="btn waves-effect waves-light">
+          Submit
+        </button>
+    </div>
+    </form>
+  </div>
+
+
+{% endblock %}
