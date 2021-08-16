@@ -5,7 +5,7 @@ from classroom.models import Course, Category, Grade
 
 
 class NewCourseForm(forms.ModelForm):
-	picture = forms.ImageField(required=True)
+	picture = forms.ImageField(required=False)
 	title = forms.CharField(widget=forms.TextInput(attrs={'class': 'validate'}), required=True)
 	description = forms.CharField(widget=forms.TextInput(attrs={'class': 'validate'}), required=True)
 	day = forms.ChoiceField(choices=Course.DAY_CHOICES, required=True)
