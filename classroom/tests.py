@@ -54,7 +54,7 @@ class CourseTest(TestCase):
         assert course
         return course
 
-    def test_edit_profile(self):
+    def test_edit_course(self):
         course = CourseTest.test_new_course(self)
         course_id = course.id
         req = self.factory.post(f'course/{course_id}/edit')
