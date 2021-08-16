@@ -5,7 +5,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from io import BytesIO
 from django.http.request import QueryDict
 from django.middleware.csrf import get_token
-from .views import signup, edit_profile
+from .views import password_change, signup, edit_profile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.test.client import RequestFactory
@@ -66,5 +66,9 @@ class ProfileTest(TestCase):
         edit_profile(req)
         profile = Profile.objects.get(user=self.user)
         assert profile
+        
+
+        
+
 
     
