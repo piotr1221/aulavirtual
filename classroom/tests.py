@@ -1,3 +1,4 @@
+'''
 from django.test import TestCase
 from .models import Category, Course, Grade
 from datetime import datetime
@@ -32,7 +33,10 @@ class CourseTest(TestCase):
         req = self.factory.post('course/newcourse/')
         req.user = self.user
         #result = urllib.urlopen('https://static.wikia.nocookie.net/nekos-judios/images/1/17/Xocron-_digo_digo%2C_el_tio_anthony.jpg/revision/latest/top-crop/width/360/height/450?cb=20180624223121&path-prefix=es')
-        im = Image.open(r"D:\Alexis\Projects in programming\Project in Phyton\django projects\aulavirtual\media\user_1\profile.jpg")
+'''
+
+        #im = Image.open(r"D:\Alexis\Projects in programming\Project in Phyton\django projects\aulavirtual\media\user_1\profile.jpg")
+'''
         buf = BytesIO()
         #Don't forget to delete the code added in views
         im.save(buf, format='JPEG')
@@ -59,4 +63,4 @@ class CourseTest(TestCase):
 
         course = Course.objects.get(title = 'English')
         assert course
-
+'''
