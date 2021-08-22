@@ -11,7 +11,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from io import BytesIO
 from django.http.request import QueryDict
 from django.middleware.csrf import get_token
-from .views import delete_assignment, edit_assignment, new_assignment, new_submission
+from .views import assignment_detail, delete_assignment, edit_assignment, new_assignment, new_submission
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.test.client import RequestFactory
@@ -118,6 +118,18 @@ class AssTest(TestCase):
             assert False
         except:
             assert True
+
+    def test_ass_detail(self):
+        ass = AssTest.test_new_ass(self)
+        ass_id = ass.id
+        req = self.factory.post(f'{self.course.id}/modules/{self.module.id}/assignment/{ass_id}')
+        req.user = self.user
+        assignment_detail(req,self.course.id,self.module.id,ass_id)
+        ass04 = Assignment.objects.get(title='test')
+        assert ass04
+
+
+        
 
 
 

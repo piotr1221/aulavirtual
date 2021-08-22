@@ -5,7 +5,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from io import BytesIO
 from django.http.request import QueryDict
 from django.middleware.csrf import get_token
-from .views import signup, edit_profile, password_change
+from .views import password_change_done, side_nav_info, signup, edit_profile, password_change, user_profile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.test.client import RequestFactory
@@ -89,3 +89,29 @@ class ProfileTest(TestCase):
         password_change(req)
         user = User.objects.get(username=self.user.username)
         assert user.check_password(info['new_password'])
+        return user
+
+    def test_side(self):
+        req = self.factory.post('login')
+        req.user = self.user
+        side_nav_info(req)
+        user = User.objects.get(username=self.user)
+        assert user
+
+    '''def test_profile(self):
+        req = self.factory.post(f'{self.user.username}')
+        req.user = self.user
+        user_profile(req,self.user.username)
+        user=User.objects.get(email='xocrona@xocrona.com')
+        assert user'''
+
+    def test_change_pass_done(self):
+
+        #us = ProfileTest.test_change_password(self)
+        #us_username = us.username
+        req = self.factory.get('user/changepassword/done')
+        req.user = self.user
+
+        password_change_done(req)
+        user01 = User.objects.get(username=self.user)
+        assert user01

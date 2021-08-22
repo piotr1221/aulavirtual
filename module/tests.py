@@ -1,3 +1,5 @@
+from classroom.views import course_detail
+from assignment.views import delete_assignment
 from django.contrib.auth.models import User
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http.request import QueryDict
@@ -7,7 +9,7 @@ from django.test.client import RequestFactory
 
 from classroom.models import Course, Category, Module
 
-from .views import new_module
+from .views import delete_module, new_module
 
 # Create your tests here.
 class ModuleTest(TestCase):
@@ -48,3 +50,25 @@ class ModuleTest(TestCase):
         new_module(req, self.course.id)
         module = Module.objects.get(title=info['title'])
         assert module
+        return module
+
+    def test_del_module(self):
+        mod = ModuleTest.test_new_module(self)
+        mod_id = mod.id
+        req = self.factory.post(f'{self.course.id}/modules/{mod_id}/delete')
+        req.user = self.user
+        delete_module(req,self.course.id,mod.id)
+        try:
+            mod=Module.objects.get(id=mod_id)
+            assert False
+        except:
+            assert True
+    
+    def test_cour_mod(self):
+        mod = ModuleTest.test_new_module(self)
+        mod_id = mod.id
+        req = self.factory.get('module/modules.html')
+        req.user = self.user
+        course_detail(req,self.course.id)
+        mod01=Module.objects.get(id=mod_id)
+        assert mod01

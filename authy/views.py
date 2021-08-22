@@ -99,7 +99,7 @@ def password_change(request):
 	return render(request, 'registration/change_password.html', context)
 
 def password_change_done(request):
-	return render(request, 'change_password_done.html')
+	return render(request, 'registration/change_password_done.html')
 
 #Funcion Prueba
 #Texto Prueba
