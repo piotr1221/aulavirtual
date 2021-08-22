@@ -6,7 +6,11 @@ from quiz.models import Quizzes
 from assignment.models import Assignment
 
 # Create your models here.
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Module(models.Model):
 	title = models.CharField(max_length=150)
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='module_owner')

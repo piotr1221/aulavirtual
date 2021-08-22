@@ -16,12 +16,20 @@ STATUS_CHOICES = (
     ('graded', 'Graded'),
 )
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def user_directory_path(instance, filename):
     # THis file will be uploaded to MEDIA_ROOT /the user_(id)/the file
     return 'user_{0}/{1}'.format(instance.user.id, filename)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Category(models.Model):
     title = models.CharField(max_length=100, verbose_name='Title')
     icon = models.CharField(max_length=100, verbose_name='Icon', default='article')
@@ -33,7 +41,11 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Course(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     picture = models.ImageField(upload_to=user_directory_path)
@@ -65,7 +77,11 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Grade(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     student = models.ForeignKey(User, on_delete=models.CASCADE, null=True)

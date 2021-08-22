@@ -10,7 +10,11 @@ from completion.models import Completion
 from page.forms import NewPageForm
 
 # Create your views here.
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 @login_required
 def new_page_module(request, course_id, module_id):
 	user = request.user
@@ -47,7 +51,11 @@ def new_page_module(request, course_id, module_id):
 
 	return render(request, 'page/newpage.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def page_detail(request, course_id, module_id, page_id):
 	page = get_object_or_404(Page, id=page_id)
 	completed = Completion.objects.filter(course_id=course_id, user=request.user, page_id=page_id).exists()
@@ -60,13 +68,21 @@ def page_detail(request, course_id, module_id, page_id):
 	}
 	return render(request, 'page/page.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def delete_page(request, course_id, module_id, page_id):
     page = get_object_or_404(Page, id=page_id)
     page.delete()
     return redirect('modules', course_id=course_id)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def mark_page_as_done(request, course_id, module_id, page_id):
 	user = request.user
 	page = get_object_or_404(Page, id=page_id)

@@ -8,11 +8,20 @@ import os
 #3rd apps field
 from ckeditor.fields import RichTextField
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def user_directory_path(instance, filename):
 	#THis file will be uploaded to MEDIA_ROOT /the user_(id)/the file
 	return 'user_{0}/{1}'.format(instance.user.id, filename)
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class PostFileContent(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	file = models.FileField(upload_to=user_directory_path)
@@ -21,6 +30,11 @@ class PostFileContent(models.Model):
 	def get_file_name(self):
 		return os.path.basename(self.file.name)
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Page(models.Model):
 	title = models.CharField(max_length=150)
 	content = RichTextField()
