@@ -116,7 +116,7 @@ class AssTest(TestCase):
         try:
             ass=Assignment.objects.get(id=ass_id)
             assert False
-        except:
+        except Exception:
             assert True
 
     def test_ass_detail(self):

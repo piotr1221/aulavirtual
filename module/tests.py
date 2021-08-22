@@ -61,7 +61,7 @@ class ModuleTest(TestCase):
         try:
             mod=Module.objects.get(id=mod_id)
             assert False
-        except:
+        except Exception:
             assert True
     
     def test_cour_mod(self):

@@ -223,49 +223,6 @@ class CourseTest(TestCase):
         req.user = self.user
         student_submissions(req, self.course.id)
 
-    #test_students_notas debe ser arreglado
-    '''def test_students_notas(self):
-
-        course = Course.objects.create(picture=None,
-                                            title='test_course',
-                                            description='test',
-                                            day='JV',
-                                            time_start='10:00',
-                                            time_end='11:00',
-                                            category=self.category,
-                                            syllabus='Syllabus',
-                                            user=self.user
-                                            )
-        course.enrolled.add(self.student)
-        module = Module.objects.create(title = 'test',
-	                                    user = self.user,
-	                                    hours = 3	
-                                        )
-        
-        assignment = Assignment.objects.create(title = 'test',
-                                                content = 'test',
-                                                points = 10,
-                                                due = '2021-08-10',
-                                                )
-        test_files = []
-        test_file = AssignmentFileContent.objects.create(user = self.student)
-        test_files.append(test_file)
-        assignment.files.set(test_files)
-        module.assignments.add(assignment)
-        submissions = []
-        for student in course.enrolled.all():
-            submission = Submission.objects.create(user=student, assignment=assignment, date=None)
-            submissions.append(submission)
-        
-        ass = Assignment.objects.filter( submission = submissions[0] )
-        print(ass[0].submissions[0].user.id)
-
-        #assignment.submission.set(submissions)
-
-        req = self.factory.get(f'course/{self.course.id}/student_notas')
-        req.user = self.user
-        students_notas(req, self.course.id)'''
-
     def test_student_enroll_list(self):
         req = self.factory.get(f'course/{self.course.id}/students')
         req.user = self.user
