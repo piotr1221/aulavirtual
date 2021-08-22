@@ -12,9 +12,11 @@
 {% for course in courses %}
 <div class="col s12 m4">
   <div class="card" style="width: 12rem;">
+    {% if course.picture %}
     <div class="card-image waves-effect waves-block waves-light">
       <img class="activator" src="{{ course.picture.url }}" alt="Imagen no cargada">
     </div>
+    {%endif%}
     <div class="card-content">
       <span class="card-title activator grey-text text-darken-4"><strong>{{ course.title }}</strong><em class="material-icons right">more_vert</em></span>
       <p class="title"><strong>{{ course.enrolled.count }}</strong> Students</p>
