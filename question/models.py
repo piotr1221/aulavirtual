@@ -11,6 +11,11 @@ VOTES_CHOICES = (
 	('D', 'Down Vote'),
 )
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Question(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='question_user')
 	title = models.CharField(max_length=300)
@@ -25,7 +30,11 @@ class Question(models.Model):
 	def get_answers_count(self):
 		return Answer.objects.filter(question=self).count()
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Answer(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='answer_user')
 	question = models.ForeignKey(Question, on_delete=models.CASCADE)
@@ -45,6 +54,11 @@ class Answer(models.Model):
 		self.save()
 		return self.votes
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Votes(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='votes_user')
 	answer = models.ForeignKey(Answer, on_delete=models.CASCADE, related_name='answer_votes')

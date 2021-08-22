@@ -13,6 +13,11 @@ def user_directory_path(instance, filename):
 	#THis file will be uploaded to MEDIA_ROOT /the user_(id)/the file
 	return 'user_{0}/{1}'.format(instance.user.id, filename)
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class AssignmentFileContent(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	file = models.FileField(upload_to=user_directory_path)
@@ -20,6 +25,11 @@ class AssignmentFileContent(models.Model):
 	def get_file_name(self):
 		return os.path.basename(self.file.name)
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Assignment(models.Model):
 	title = models.CharField(max_length=150)
 	content = RichTextField()
@@ -30,6 +40,11 @@ class Assignment(models.Model):
 	def __str__(self):
 		return self.title
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Submission(models.Model):
 	file = models.FileField(upload_to=user_directory_path)
 	points = models.PositiveIntegerField(default=0)

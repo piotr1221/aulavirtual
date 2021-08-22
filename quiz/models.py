@@ -14,6 +14,11 @@ class Answer(models.Model):
 	def __str__(self):
 		return self.answer_text
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Question(models.Model):
 	question_text = models.CharField(max_length=900)
 	answers = models.ManyToManyField(Answer)
@@ -23,6 +28,11 @@ class Question(models.Model):
 	def __str__(self):
 		return self.question_text
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Quizzes(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	title = models.CharField(max_length=200)
@@ -36,6 +46,11 @@ class Quizzes(models.Model):
 	def __str__(self):
 		return self.title
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Attempter(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	quiz = models.ForeignKey(Quizzes, on_delete=models.CASCADE)
@@ -45,6 +60,11 @@ class Attempter(models.Model):
 	def __str__(self):
 		return self.user.username
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 class Attempt(models.Model):
 	quiz = models.ForeignKey(Quizzes, on_delete=models.CASCADE)
 	attempter = models.ForeignKey(Attempter, on_delete=models.CASCADE)

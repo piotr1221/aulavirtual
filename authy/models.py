@@ -7,6 +7,11 @@ from PIL import Image
 from django.conf import settings
 import os
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def user_directory_path_profile(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     profile_pic_name = 'user_{0}/profile.jpg'.format(instance.user.id)
@@ -17,6 +22,11 @@ def user_directory_path_profile(instance, filename):
 
     return profile_pic_name
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def user_directory_path_banner(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     banner_pic_name = 'user_{0}/banner.jpg'.format(instance.user.id)
@@ -49,11 +59,21 @@ class Profile(models.Model):
 	def __str__(self):
 		return self.user.username
 		
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def create_user_profile(sender, instance, created, **kwargs):
 	if created:
 		Profile.objects.create(user=instance)
 
+
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def save_user_profile(sender, instance, **kwargs):
 	instance.profile.save()
 

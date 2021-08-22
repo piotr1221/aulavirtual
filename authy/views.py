@@ -25,7 +25,11 @@ def side_nav_info(request):
 	
 	return {'nav_profile': nav_profile}
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def user_profile(request, username):
 	user = get_object_or_404(User, username=username)
 	profile = Profile.objects.get(user=user)
@@ -40,7 +44,11 @@ def user_profile(request, username):
 
 	return HttpResponse(template.render(context, request))
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def signup(request):
 	if request.method == 'POST':
 		form = SignupForm(request.POST)
@@ -65,7 +73,11 @@ def signup(request):
 
 	return render(request, 'registration/signup.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 @login_required
 def password_change(request):
 	user = request.user
@@ -89,7 +101,11 @@ def password_change(request):
 def password_change_done(request):
 	return render(request, 'change_password_done.html')
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 @login_required
 def edit_profile(request):
 	user = request.user.id

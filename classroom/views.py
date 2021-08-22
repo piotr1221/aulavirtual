@@ -27,7 +27,11 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def schedule(request):
     user = request.user
     courses = Course.objects.all()
@@ -43,6 +47,11 @@ def schedule(request):
     }
     return render(request, 'classroom/schedule.html', context)
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def initialize_arrays(courses, u_courses, times):
     for course in courses:
         time = course.time_start
@@ -51,6 +60,11 @@ def initialize_arrays(courses, u_courses, times):
             u_courses.append([])
     times.sort
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def append_courses_schedule(user, courses, u_courses, times):
     for course in courses:
         students = course.enrolled.all()
@@ -60,6 +74,11 @@ def append_courses_schedule(user, courses, u_courses, times):
                     u_courses[i].append(course)
                     break
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def fill_array(u_courses, times):
     for i in range(0, len(times)):
         u_courses[i].sort(key=lambda c: int(c.day))
@@ -72,7 +91,11 @@ def fill_array(u_courses, times):
                 u_courses[i].append(None)
             j += 1
  
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def categories(request):
     categories = Category.objects.all()
 
@@ -81,7 +104,11 @@ def categories(request):
     }
     return render(request, 'classroom/categories.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def category_courses(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     courses = Course.objects.filter(category=category)
@@ -92,7 +119,11 @@ def category_courses(request, category_slug):
     }
     return render(request, 'classroom/categorycourses.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def new_course(request):
     user = request.user
     if request.method == 'POST':
@@ -121,7 +152,11 @@ def new_course(request):
 
     return render(request, 'classroom/newcourse.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 @login_required
 def course_detail(request, course_id):
     user = request.user
@@ -138,7 +173,11 @@ def course_detail(request, course_id):
 
     return render(request, 'classroom/course.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 @login_required
 def enroll(request, course_id):
     user = request.user
@@ -157,7 +196,11 @@ def delete_course(request, course_id):
     course.delete()
     return redirect('my-courses')
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 @login_required
 def edit_course(request, course_id):
     user = request.user
@@ -193,7 +236,11 @@ def edit_course(request, course_id):
 
     return render(request, 'classroom/editcourse.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def my_courses(request):
     user = request.user
     courses = Course.objects.filter(user=user)
@@ -204,7 +251,11 @@ def my_courses(request):
 
     return render(request, MIS_CURSOS_URL, context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def submissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
@@ -221,7 +272,11 @@ def submissions(request, course_id):
     }
     return render(request, 'classroom/submissions.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def student_submissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
@@ -236,7 +291,11 @@ def student_submissions(request, course_id):
         }
     return render(request, 'classroom/studentgrades.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def grade_submission(request, course_id, grade_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
@@ -259,7 +318,11 @@ def grade_submission(request, course_id, grade_id):
 
     return render(request, 'classroom/gradesubmission.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def students_notas(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
@@ -282,7 +345,11 @@ def students_notas(request, course_id):
         }
     return render(request, 'classroom/editnotas.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def student_enroll_list(request, course_id):
     busqueda = request.POST.get("buscar")
     user = request.user
@@ -302,19 +369,33 @@ def student_enroll_list(request, course_id):
     }
     return render(request, 'classroom/studentsenroll.html', context)
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def add_stundent_enroll( request , course_id, student_id):
     student = get_object_or_404( User, id=student_id)
     course = get_object_or_404(Course, id=course_id)
     course.enrolled.add(student)
     return redirect('students', course_id=course_id)  
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def delete_stundent_enroll( request , course_id, student_id):
     course = get_object_or_404(Course, id=course_id)
     student = get_object_or_404( User, id=student_id)
     course.enrolled.remove(student)
     return redirect('students', course_id=course_id)   
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def student_grades(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     students = course.enrolled.all()

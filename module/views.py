@@ -9,7 +9,11 @@ from completion.models import Completion
 
 
 # Create your views here.
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def new_module(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
@@ -35,11 +39,21 @@ def new_module(request, course_id):
 
     return render(request, 'module/newmodule.html', context)
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def delete_module(request, course_id, module_id):
     module = get_object_or_404(Module, id=module_id)
     module.delete()
     return redirect('modules', course_id=course_id)
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def course_modules(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)

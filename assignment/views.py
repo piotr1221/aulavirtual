@@ -49,7 +49,11 @@ def new_assignment(request, course_id, module_id):
     }
     return render(request, 'assignment/newassignment.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def edit_assignment(request, course_id, module_id, assignment_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
@@ -88,11 +92,21 @@ def edit_assignment(request, course_id, module_id, assignment_id):
     }
     return render(request, 'assignment/editassignment.html', context)
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def delete_assignment(request, course_id, module_id, assignment_id):
     assignment = get_object_or_404(Assignment, id=assignment_id)
     assignment.delete()
     return redirect('modules', course_id=course_id)
 
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def assignment_detail(request, course_id, module_id, assignment_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
@@ -112,7 +126,11 @@ def assignment_detail(request, course_id, module_id, assignment_id):
     }
     return render(request, 'assignment/assignment.html', context)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def initialize_submissions(course_id, assignment_id):
     assignment = get_object_or_404(Assignment, id=assignment_id)
     course = get_object_or_404(Course, id=course_id)
@@ -122,7 +140,11 @@ def initialize_submissions(course_id, assignment_id):
     
     return redirect('modules', course_id=course_id)
 
-
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
 def new_submission(request, course_id, module_id, assignment_id):
     student = request.user
     get_object_or_404(Course, id=course_id)
@@ -144,3 +166,9 @@ def new_submission(request, course_id, module_id, assignment_id):
         'form': form
     }
     return render(request, 'assignment/submitassignment.html', context)
+
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
