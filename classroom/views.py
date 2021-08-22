@@ -1,4 +1,4 @@
-from assignment.models import Assignment
+from assignment.models import Assignment, Submission
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -208,14 +208,16 @@ def my_courses(request):
 def submissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
+    submissions = Submission.objects.filter(user=user)
+
     teacher_mode = False
     if user == course.user:
         teacher_mode = True
-    grades = Grade.objects.filter(course=course, submission__user=user)
+    
     context = {
-        'grades': grades,
         'course': course,
-        'teacher_mode': teacher_mode
+        'teacher_mode': teacher_mode,
+        'submissions': submissions
     }
     return render(request, 'classroom/submissions.html', context)
 
