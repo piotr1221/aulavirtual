@@ -1,32 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'assignment/assignment_base.html' %}
 {% load static %}
 
-{% block content %}
-<div>
-  <div class="section">
-    <h4>{{ assignment.title }}</h4>
-    <div class="divider"></div>
-  </div>
-
-  <div class="row">
-
-  <div class="col s6">
-    <h5>Fecha de Entrega:</h5>
-    <p>{{ assignment.due }}</p>
-  </div>
-
-  <div class="col s6">
-    <h5>Puntos:</h5>
-    <p>{{ assignment.points }}</p>
-  </div>
-
-
-  <div class="col s12">
-    <h5>Descripción:</h5>
-    {{ assignment.content | safe }}  
-  </div>
-</div>
-
+{% block assignment %}
 
 <div class="col s12">
   <ul class="collection with-header">
@@ -66,11 +41,6 @@
     <a class="btn" href="{% url 'assignment-edit' course_id module_id assignment.id %}">Editar Tarea</a>
   </div>
 {% endif %}
-
-
-
-
-</div>
 
 
 {% endblock %}

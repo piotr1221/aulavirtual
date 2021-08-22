@@ -41,10 +41,6 @@ class ModuleTest(TestCase):
                 'hours': 1,
                 }
 
-        #middleware = SessionMiddleware()
-        #middleware.process_request(req)
-        #req.session.save()
-
         q = QueryDict('', mutable=True)
         q.update(info)
         req.POST = q
