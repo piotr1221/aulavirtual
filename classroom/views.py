@@ -1,4 +1,4 @@
-from assignment.models import Assignment
+from assignment.models import Assignment, Submission
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -9,6 +9,9 @@ from classroom.models import Course, Category, Grade
 
 from classroom.forms import NewCourseForm, NewGradeForm
 
+# CONSTANTES
+
+MIS_CURSOS_URL = 'classroom/mycourses.html'
 
 # Create your views here.
 
@@ -26,8 +29,49 @@ def index(request):
 
 
 def schedule(request):
-    return render(request, 'classroom/schedule.html')
+    user = request.user
+    courses = Course.objects.all()
+    u_courses = []
+    times = []
 
+    initialize_arrays(courses, u_courses, times)
+    append_courses_schedule(user, courses, u_courses, times)
+    fill_array(u_courses, times)
+
+    context = {
+        'courses': u_courses,
+    }
+    return render(request, 'classroom/schedule.html', context)
+
+def initialize_arrays(courses, u_courses, times):
+    for course in courses:
+        time = course.time_start
+        if time not in times:
+            times.append(time)
+            u_courses.append([])
+    times.sort
+
+def append_courses_schedule(user, courses, u_courses, times):
+    for course in courses:
+        students = course.enrolled.all()
+        if students.filter(id=user.id).exists():
+            for i in range(0, len(times)):
+                if course.time_start == times[i]:
+                    u_courses[i].append(course)
+                    break
+
+def fill_array(u_courses, times):
+    for i in range(0, len(times)):
+        u_courses[i].sort(key=lambda c: int(c.day))
+        j = 0
+        while j < 7:
+            try:
+                if int(u_courses[i][j].day) != (j + 1):
+                    u_courses[i].insert(j, None)
+            except Exception:
+                u_courses[i].append(None)
+            j += 1
+ 
 
 def categories(request):
     categories = Category.objects.all()
@@ -67,7 +111,7 @@ def new_course(request):
             
             courses = Course.objects.filter(user=user)
             messages.success(request, '¡El curso ha sido creado con éxito!')
-            return render(request, 'classroom/mycourses.html', {'courses': courses})
+            return render(request, MIS_CURSOS_URL, {'courses': courses})
     else:
         form = NewCourseForm()
 
@@ -138,7 +182,7 @@ def edit_course(request, course_id):
 
                 courses = Course.objects.filter(user=user)
                 messages.success(request, '¡El curso ha sido editado con éxito!')
-                return render(request, 'classroom/mycourses.html', {'courses': courses})
+                return render(request, MIS_CURSOS_URL, {'courses': courses})
         else:
             form = NewCourseForm(instance=course)
 
@@ -158,20 +202,22 @@ def my_courses(request):
         'courses': courses
     }
 
-    return render(request, 'classroom/mycourses.html', context)
+    return render(request, MIS_CURSOS_URL, context)
 
 
 def submissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
+    submissions = Submission.objects.filter(user=user)
+
     teacher_mode = False
     if user == course.user:
         teacher_mode = True
-    grades = Grade.objects.filter(course=course, submission__user=user)
+    
     context = {
-        'grades': grades,
         'course': course,
-        'teacher_mode': teacher_mode
+        'teacher_mode': teacher_mode,
+        'submissions': submissions
     }
     return render(request, 'classroom/submissions.html', context)
 

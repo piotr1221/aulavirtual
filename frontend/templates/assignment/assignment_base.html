@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div>
+    <div class="section">
+      <h4>{{ assignment.title }}</h4>
+      <div class="divider"></div>
+    </div>
+  
+    <div class="row">
+  
+        <div class="col s6">
+            <h5>Fecha de Entrega:</h5>
+            <p>{{ assignment.due }}</p>
+        </div>
+  
+        <div class="col s6">
+            <h5>Puntos:</h5>
+            <p>{{ assignment.points }}</p>
+        </div>
+  
+  
+        <div class="col s12">
+            <h5>Descripción:</h5>
+            {{ assignment.content | safe }}  
+        </div>
+  </div>
+
+    {% block assignment %}
+    {% endblock %}
+</div>
+
+{% endblock %}
