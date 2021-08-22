@@ -17,6 +17,7 @@ MIS_CURSOS_URL = 'classroom/mycourses.html'
 
 @login_required
 def index(request):
+    cargar_categorias()
     user = request.user
     courses = Course.objects.filter(enrolled=user)
     for course in courses:
@@ -423,3 +424,9 @@ def student_grades(request, course_id):
         'form': form
     }
     return render(request, 'classroom/studentgrades.html', context)
+
+def cargar_categorias():
+	if not Category.objects.all():
+		Category.objects.create(title='Ciencia', icon='ciencia', slug='ciencia')
+		Category.objects.create(title='Humanidades', icon='humanidades', slug='humanidades')
+		Category.objects.create(title='Música', icon='música', slug='música')
