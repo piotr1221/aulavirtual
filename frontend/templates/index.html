@@ -28,13 +28,13 @@
       <img class="activator" src="{{ course.picture.url }}" alt="Imagen no cargada">
     </div>
     <div class="card-content">
-      <span class="card-title activator grey-text text-darken-4">{{ course.title }}<em class="material-icons right">more_vert</em></span>
+      <span class="card-title activator grey-text text-darken-4">{{ course.title }}<i class="material-icons right">more_vert</i></span>
       <p>Categoría: {{ course.category }}</p>
       <a href="{% url 'course' course.id %}" class="btn">Abrir</a>
-      <a href="{% url 'delete-student' course.id user.id %}" class="btn red darken-1"><em class="material-icons">exit_to_app</em></a>
+      <a href="{% url 'delete-student' course.id user.id %}" class="btn red darken-1"><i class="material-icons">exit_to_app</i></a>
     </div>
     <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">Acerca del curso<em class="material-icons right">close</em></span>
+      <span class="card-title grey-text text-darken-4">Acerca del curso<i class="material-icons right">close</i></span>
       <p>{{ course.description }}</p>
     </div>
   </div>

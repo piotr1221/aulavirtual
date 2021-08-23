@@ -5,7 +5,7 @@
 
 {% if teacher_mode == True %}
 
-<a class="waves-effect waves-light btn modal-trigger" href="#modal1"><em class="material-icons">add</em></a>
+<a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i class="material-icons">add</i></a>
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
@@ -21,7 +21,7 @@
           value="{{ request.POST.buscar }}">
         <div class="input-group-append">
           <button class="btn blue darken-1" type="submit">
-            <em class="material-icons">person_search</em>
+            <i class="material-icons">person_search</i>
           </button>
         </div>
       </div>
@@ -43,7 +43,7 @@
           <th scope="Primer nombre">{{ student.first_name }}</th>
           <th scope="Usuario">{{ student.username }}</th>
           <th scope="Correo">{{ student.email }}</th>
-          <th scope="Añadir"> <a class="btn green darken-1" href="{%  url 'add-student' course.id student.id %}"><em class="material-icons">person_add_alt</em></a></th>
+          <th scope="Añadir"> <a class="btn green darken-1" href="{%  url 'add-student' course.id student.id %}"><i class="material-icons">person_add_alt</i></a></th>
         </tr>
         {% endfor %}
 
@@ -75,8 +75,8 @@
         <tr>
           <th scope="Nombre">{{ student.first_name }} {{ student.last_name }}</th>
           <th scope="Fecha de ingreso"> {{ student.date_joined }}</th>
-          <th scope="Eliminar estudiante"> <a class="btn red darken-1" href="{% url 'delete-student' course.id student.id %}"><em
-                class="material-icons">delete</em></a></th>
+          <th scope="Eliminar estudiante"> <a class="btn red darken-1" href="{% url 'delete-student' course.id student.id %}"><i
+                class="material-icons">delete</i></a></th>
         </tr>
         {% endfor %}
 
