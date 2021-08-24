@@ -3,24 +3,33 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from authy.models import Profile
 
+# Esta función define los nombres de 
+# usuario inválidos para registrarse
 def forbidden_users(value):
 	forbidden_users = ['admin', 'css', 'js', 'authenticate', 'login', 'logout', 'administrator', 'root',
 	'email', 'user', 'join', 'sql', 'static', 'python', 'delete']
 	if value.lower() in forbidden_users:
 		raise ValidationError('Invalid name for user, this is a reserverd word.')
 
+# Esta función define los caracteres 
+# inválidos en nombres de usuario
 def invalid_user(value):
 	if '@' in value or '+' in value or '-' in value:
 		raise ValidationError('This is an Invalid user, Do not user these chars: @ , - , + ')
 
+# Esta función limita que el correo
+# de registro sea único
 def unique_email(value):
 	if User.objects.filter(email__iexact=value).exists():
 		raise ValidationError('User with this email already exists.')
 
+# Esta función limita que el nombre
+# de usuario sea único
 def unique_user(value):
 	if User.objects.filter(username__iexact=value).exists():
 		raise ValidationError('User with this username already exists.')
 
+# Esta clase genera la estructura del formulario para crear nuevos usuarios
 class SignupForm(forms.ModelForm):
 	username = forms.CharField(widget=forms.TextInput(), max_length=30, required=True,)
 	email = forms.CharField(widget=forms.EmailInput(), max_length=100, required=True,)
@@ -48,6 +57,7 @@ class SignupForm(forms.ModelForm):
 			self._errors['password'] = self.error_class(['Passwords do not match. Try again'])
 		return self.cleaned_data
 
+# Esta clase genera la estructura del formulario para cambiar contraseña
 class ChangePasswordForm(forms.ModelForm):
 	INPUT = 'input is-medium'
 	id = forms.CharField(widget=forms.HiddenInput())
@@ -72,6 +82,7 @@ class ChangePasswordForm(forms.ModelForm):
 			self._errors['new_password'] =self.error_class(['Passwords do not match.'])
 		return self.cleaned_data
 
+# Esta clase genera la estructura del formulario para crear editar usuario
 class EditProfileForm(forms.ModelForm):
 	first_name = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
 	last_name = forms.CharField(widget=forms.TextInput(), max_length=50, required=False)
