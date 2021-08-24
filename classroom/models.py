@@ -16,20 +16,14 @@ STATUS_CHOICES = (
     ('graded', 'Graded'),
 )
 
-#Funcion Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
+# Esta función retorna la ruta de almacenamiento 
+# de archivos de un usuario
 def user_directory_path(instance, filename):
     # THis file will be uploaded to MEDIA_ROOT /the user_(id)/the file
     return 'user_{0}/{1}'.format(instance.user.id, filename)
 
-#Funcion Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
+# Esta clase define la estructura en la base de datos
+# de los objetos Categoría de un curso
 class Category(models.Model):
     title = models.CharField(max_length=100, verbose_name='Title')
     icon = models.CharField(max_length=100, verbose_name='Icon', default='article')
@@ -41,29 +35,26 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-#Funcion Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
+# Esta clase define la estructura en la base de datos
+# de los objetos Curso
 class Course(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     picture = models.ImageField(upload_to=user_directory_path)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=300)
     DAY_CHOICES = [
-        ('LU', 'Lunes'),
-        ('MA', 'Martes'),
-        ('MI', 'Miércoles'),
-        ('JU', 'Jueves'),
-        ('VI', 'Viernes'),
-        ('SA', 'Sábado'),
-        ('DO', 'Domingo')
+        ('1', 'Lunes'),
+        ('2', 'Martes'),
+        ('3', 'Miércoles'),
+        ('4', 'Jueves'),
+        ('5', 'Viernes'),
+        ('6', 'Sábado'),
+        ('7', 'Domingo')
     ]
     day = models.CharField(
-        max_length=2,
+        max_length=1,
         choices=DAY_CHOICES,
-        default='LU'
+        default='1'
     )
     time_start = models.TimeField()
     time_end = models.TimeField()

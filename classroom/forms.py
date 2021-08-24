@@ -4,6 +4,7 @@ from ckeditor.widgets import CKEditorWidget
 from classroom.models import Course, Category, Grade
 
 
+# Esta clase genera la estructura del formulario para crear nuevos cursos
 class NewCourseForm(forms.ModelForm):
 	picture = forms.ImageField(required=False)
 	title = forms.CharField(widget=forms.TextInput(attrs={'class': 'validate'}), required=True)
@@ -18,6 +19,7 @@ class NewCourseForm(forms.ModelForm):
 		model = Course
 		fields = ('picture', 'title', 'description', 'day', 'time_start', 'time_end', 'category', 'syllabus')
 
+# Esta clase genera la estructura del formulario para crear nuevas notas
 class NewGradeForm(forms.ModelForm):
 	grade = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'validate'}))
 
