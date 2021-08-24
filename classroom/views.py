@@ -12,6 +12,7 @@ from classroom.forms import NewCourseForm, NewGradeForm
 # CONSTANTES
 
 MIS_CURSOS_URL = 'classroom/mycourses.html'
+CURSOS_POR_CATEGORIA = 'classroom/categorycourses.html'
 
 # Create your views here.
 
@@ -35,12 +36,12 @@ def index(request):
 #Texto Prueba
 def schedule(request):
     user = request.user
-    courses = Course.objects.all()
+    courses = get_student_courses(user)
     u_courses = []
     times = []
 
     initialize_arrays(courses, u_courses, times)
-    append_courses_schedule(user, courses, u_courses, times)
+    append_courses_schedule(courses, u_courses, times)
     fill_array(u_courses, times)
 
     context = {
@@ -59,21 +60,36 @@ def initialize_arrays(courses, u_courses, times):
         if time not in times:
             times.append(time)
             u_courses.append([])
-    times.sort
+    sort_times(times)
+    print(times)
 
 #Funcion Prueba
 #Texto Prueba
 #Texto Prueba
 #Texto Prueba
 #Texto Prueba
-def append_courses_schedule(user, courses, u_courses, times):
+def sort_times(times):
+    flag = False
+    for i in range(0, len(times) - 1):
+        if flag:
+            break
+        flag = True
+        for j in range(0, len(times) - (i + 1)):
+            if times[j] > times[j+1]:
+                flag = False
+                times[j], times[j+1] = times[j+1], times[j]
+        
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+def append_courses_schedule(courses, u_courses, times):
     for course in courses:
-        students = course.enrolled.all()
-        if students.filter(id=user.id).exists():
-            for i in range(0, len(times)):
-                if course.time_start == times[i]:
-                    u_courses[i].append(course)
-                    break
+        for i in range(0, len(times)):
+            if course.time_start == times[i]:
+                u_courses[i].append(course)
+                break
 
 #Funcion Prueba
 #Texto Prueba
@@ -118,7 +134,7 @@ def category_courses(request, category_slug):
         'category': category,
         'courses': courses,
     }
-    return render(request, 'classroom/categorycourses.html', context)
+    return render(request, CURSOS_POR_CATEGORIA, context)
 
 #Funcion Prueba
 #Texto Prueba
@@ -130,20 +146,23 @@ def new_course(request):
     if request.method == 'POST':
         form = NewCourseForm(request.POST, request.FILES)
         if form.is_valid():
-            picture = form.cleaned_data.get('picture')
-            title = form.cleaned_data.get('title')
-            description = form.cleaned_data.get('description')
             time_start = form.cleaned_data.get('time_start')
             time_end = form.cleaned_data.get('time_end')
-            category = form.cleaned_data.get('category')
-            syllabus = form.cleaned_data.get('syllabus')
-            Course.objects.create(picture=picture, title=title, description=description, 
-            time_start=time_start, time_end=time_end, category=category,
-            syllabus=syllabus, user=user)
-            
-            courses = Course.objects.filter(user=user)
-            messages.success(request, '¡El curso ha sido creado con éxito!')
-            return render(request, MIS_CURSOS_URL, {'courses': courses})
+            if verify_time(time_start, time_end, request):
+                picture = form.cleaned_data.get('picture')
+                title = form.cleaned_data.get('title')
+                description = form.cleaned_data.get('description')
+                time_start = form.cleaned_data.get('time_start')
+                time_end = form.cleaned_data.get('time_end')
+                category = form.cleaned_data.get('category')
+                syllabus = form.cleaned_data.get('syllabus')
+                Course.objects.create(picture=picture, title=title, description=description, 
+                time_start=time_start, time_end=time_end, category=category,
+                syllabus=syllabus, user=user)
+                
+                courses = Course.objects.filter(user=user)
+                messages.success(request, '¡El curso ha sido creado con éxito!')
+                return render(request, MIS_CURSOS_URL, {'courses': courses})
     else:
         form = NewCourseForm()
 
@@ -152,6 +171,21 @@ def new_course(request):
     }
 
     return render(request, 'classroom/newcourse.html', context)
+
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+def verify_time(time_start, time_end, request):
+    result = True
+    if time_start > time_end:
+        result = False
+        messages.error(request, 'La hora de inicio no puede ser mayor a la de fin.')
+    if (time_start.minute > 0) or (time_end.minute > 0):
+        result = False
+        messages.error(request, 'Los cursos deben de iniciar y acabar en una hora en punto.')
+    return result
 
 #Funcion Prueba
 #Texto Prueba
@@ -183,9 +217,53 @@ def course_detail(request, course_id):
 def enroll(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
-    course.enrolled.add(user)
-    return redirect('index')
+    if verify_schedule(user, course):
+        course.enrolled.add(user)
+        return redirect('index')
+    else:
+        category = get_object_or_404(Category, id=course.category_id)
+        context = {
+            'category': category,
+            'courses': Course.objects.all()
+        }
+        messages.error(request, 'No puedes matricularte porque tienes un curso que se cruza con este')
+        return render(request, CURSOS_POR_CATEGORIA, context)
 
+
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+def get_student_courses(user):
+    courses = []
+    for course in Course.objects.all():
+        students = course.enrolled.all()
+        if students.filter(id=user.id).exists():
+            courses.append(course)
+    return courses
+
+#Funcion Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+#Texto Prueba
+def verify_schedule(user, new_course):
+    courses = get_student_courses(user)
+    for course in courses:
+        nts, nte = new_course.time_start, new_course.time_end
+        cts, cte = course.time_start, course.time_end
+        # La hora de inicio y fin del nuevo curso deben de darse
+        # ambos antes del inicio de un curso o después de su fin
+        c1 = (nts <= cts and nte <= cts)
+        c2 = (cte <= nts and cte <= nte)
+        c3 = course.day == new_course.day 
+        print(c1)
+        print(c2)
+        print(c3)
+        if not(c1 or c2) and c3:
+            return False
+    return True
 
 @login_required
 def delete_course(request, course_id):
@@ -390,7 +468,10 @@ def delete_stundent_enroll( request , course_id, student_id):
     course = get_object_or_404(Course, id=course_id)
     student = get_object_or_404( User, id=student_id)
     course.enrolled.remove(student)
-    return redirect('students', course_id=course_id)   
+    if request.user != student: 
+        return redirect('students', course_id=course_id)   
+    else:
+        return redirect('index')
 
 #Funcion Prueba
 #Texto Prueba

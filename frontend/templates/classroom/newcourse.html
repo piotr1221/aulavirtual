@@ -13,7 +13,13 @@
     <div class="alert alert-info" role="alert">
       Los campos con asterisco son necesarios.
     </div>
-
+    {% if messages %}
+      {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger" role="alert">{{ message }}</div>
+        {% endif %}      
+      {% endfor %}
+    {% endif %}
 
           <div class="file-field input-field col s12">
             <div class="btn">

@@ -46,7 +46,11 @@
             <tbody>
                 {% for list_course in courses %}
                     <tr>
-                        <td class="align-middle text-center">{{ list_course.0.time_start|time:'H:i' }}</td>
+                        {% for c in list_course %}
+                            {% if c.time_start %}
+                                <td class="align-middle text-center">{{ c.time_start|time:'H:i' }}</td>
+                            {% endif %}
+                        {% endfor %}                       
                         {% for course in list_course %}
                             {% if course != None %}
                                     <td>

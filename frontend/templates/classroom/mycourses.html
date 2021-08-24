@@ -12,12 +12,12 @@
       </div>
   </div>
   {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-success" role="alert">
-          {{ message }}
-        </div>
-      {% endfor %}
-    {% endif %}
+    {% for message in messages %}
+      {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <div class="alert alert-success" role="alert">{{ message }}</div>
+      {% endif %}      
+    {% endfor %}
+  {% endif %}
 </div>
 	
 	<div class="divider"></div>
