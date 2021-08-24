@@ -10,12 +10,13 @@ from classroom.models import Course, Category, Grade
 from classroom.forms import NewCourseForm, NewGradeForm
 
 # CONSTANTES
-
 MIS_CURSOS_URL = 'classroom/mycourses.html'
 CURSOS_POR_CATEGORIA = 'classroom/categorycourses.html'
 
 # Create your views here.
 
+# Esta vista es el portal donde el usuario
+# puede visualizar los cursos en que se ha inscrito
 @login_required
 def index(request):
     cargar_categorias()
@@ -29,11 +30,10 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-#Funcion Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
+
+# Esta vista muestra el horario del alumno con
+# todos los cursos en que se ha matriculado
+# organizados en base a la hora de inicio
 def schedule(request):
     user = request.user
     courses = get_student_courses(user)
@@ -49,11 +49,8 @@ def schedule(request):
     }
     return render(request, 'classroom/schedule.html', context)
 
-#Funcion Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
+# Esta función inicializa los arreglos 
+# usados en la función "schedule"
 def initialize_arrays(courses, u_courses, times):
     for course in courses:
         time = course.time_start
@@ -63,11 +60,9 @@ def initialize_arrays(courses, u_courses, times):
     sort_times(times)
     print(times)
 
-#Funcion Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
+# Esta función organiza el arreglo de horas de inicio 
+# de los cursos del alumno usado en la función "schedule"
+# usando el método de burbuja mejorada 
 def sort_times(times):
     flag = False
     for i in range(0, len(times) - 1):
@@ -79,11 +74,9 @@ def sort_times(times):
                 flag = False
                 times[j], times[j+1] = times[j+1], times[j]
         
-#Funcion Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
+# Este método organiza el arreglo de cursos del alumno
+# usado en la función "schedule" según el arreglo de 
+# horas de inicio de esa misma función
 def append_courses_schedule(courses, u_courses, times):
     for course in courses:
         for i in range(0, len(times)):
@@ -91,11 +84,7 @@ def append_courses_schedule(courses, u_courses, times):
                 u_courses[i].append(course)
                 break
 
-#Funcion Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
+# Este método llena el arreglo de 
 def fill_array(u_courses, times):
     for i in range(0, len(times)):
         u_courses[i].sort(key=lambda c: int(c.day))
