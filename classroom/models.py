@@ -68,11 +68,8 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
-#Funcion Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
+# Esta clase define la estructura en la base de datos
+# de los objetos Nota
 class Grade(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     student = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
