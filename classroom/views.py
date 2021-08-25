@@ -297,7 +297,7 @@ def submissions(request, course_id):
     }
     return render(request, 'classroom/submissions.html', context)
 
-# Esta función muestra al estudiante sus 
+# *Esta función muestra al estudiante sus 
 # tareas entregadas y las notas de estas
 def student_submissions(request, course_id):
     user = request.user
@@ -313,7 +313,7 @@ def student_submissions(request, course_id):
         }
     return render(request, 'classroom/studentgrades.html', context)
 
-# Esta función muestra al profesor las tareas entregadas
+# *Esta función muestra al profesor las tareas entregadas
 # por un estudiante y un formulario para modificar sus notas
 def grade_submission(request, course_id, grade_id):
     user = request.user
@@ -337,7 +337,7 @@ def grade_submission(request, course_id, grade_id):
 
     return render(request, 'classroom/gradesubmission.html', context)
 
-# Esta función muestra las notas de un estudiante
+# *Esta función muestra las notas de un estudiante
 # de forma general en un curso
 def students_notas(request, course_id):
     user = request.user
@@ -403,8 +403,8 @@ def delete_stundent_enroll( request , course_id, student_id):
         return redirect('index')
 
 
-# Esta función muestra las notas del alumno
-# en sus tareas divididas por módulo de curso
+# Esta función muestra las notas de los alumnos
+# en general de todo el curso
 def student_grades(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     students = course.enrolled.all()
