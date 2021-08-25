@@ -1,0 +1,63 @@
+{% extends 'classroom/menucourse.html' %}
+{% load static %}
+
+{% block contenido %}
+
+  <div class="section">
+    <h4>Tareas entregadas</h4>
+    <div class="divider"></div>
+
+    <ul class="collapsible">
+      {% for module in course.modules.all %}
+      <li>
+        <div class="collapsible-header"><em class="material-icons">expand_more</em><strong>{{ module.title }}</strong></div>
+        <div class="collapsible-body" style="font-size: 14px">
+            <table>
+              <caption>Mis tareas</caption>
+              <thead>
+                <tr>
+                    <th id="Tarea">Tarea</th>
+                    <th id="Fecha de entrega" class="text-center">Fecha Entrega</th>
+                    <th id="Estado" class="text-center">Estado</th>
+                    <th id="Nota" class="text-center">Nota</th>
+                </tr>
+              </thead>
+
+              <tbody>
+              {% for assignment in module.assignments.all %}
+                {% for su in sub %}
+                  {% if su.assignment == assignment %}
+                    <tr>
+                      <td>{{ su.title }}</td>
+                      <td class="text-center">{{ submission.date|date:"M d, Y" }}</td>
+                      {% if not su.checked %}
+                        <td class="text-center">Sin revisar</td>
+                        <td class="text-center">-</td>
+                      {% else %}
+                        <td class="text-center">Revisado</td>
+                        <td class="text-center">{{ su.points }}</td>
+                      {% endif %}
+                    </tr>
+                  {% endif%}
+                {% endfor %}
+              {% endfor %}
+              </tbody>
+            </table>
+            </font>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+
+      
+
+
+
+  </div>
+  
+
+
+
+
+
+{% endblock %}

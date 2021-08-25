@@ -41,7 +41,7 @@
         {% for student in students %}
         <tr>
           <th scope="Primer nombre">{{ student.first_name }}</th>
-          <th scope="Usuario">{{ student.username }}</th>
+          <th scope="Usuario">{{ student.id }}</th>
           <th scope="Correo">{{ student.email }}</th>
           <th scope="Añadir"> <a class="btn green darken-1" href="{%  url 'add-student' course.id student.id %}"><em class="material-icons">person_add_alt</em></a></th>
         </tr>

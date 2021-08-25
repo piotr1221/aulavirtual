@@ -313,8 +313,38 @@ def student_submissions(request, course_id):
         }
     return render(request, 'classroom/studentgrades.html', context)
 
-# *Esta función muestra al profesor las tareas entregadas
+# Esta función muestra al profesor las tareas entregadas
 # por un estudiante y un formulario para modificar sus notas
+
+def rate_submissions(request, course_id):
+    user = request.user
+    course = get_object_or_404(Course, id=course_id)
+    students = course.enrolled.all()
+    submissions = list(Submission.objects.all())
+    sub = []
+    
+    for submission in submissions:
+        for student in students:
+            if submission.user == student:
+                sub.append(submission)
+                break
+       
+    print(sub[1])            
+
+    teacher_mode = False
+    if user == course.user:
+        teacher_mode = True
+    
+    context = {
+        'course': course,
+        'teacher_mode': teacher_mode,
+        'submissions': submissions,
+        'sub':sub
+    }
+    return render(request, 'classroom/ratesubmissions.html', context)
+
+
+#*Funcion  impávida
 def grade_submission(request, course_id, grade_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)

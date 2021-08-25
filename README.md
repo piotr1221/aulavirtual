@@ -1,1 +1,1 @@
-# django_student_portal_youtube
+# django_student_portal
