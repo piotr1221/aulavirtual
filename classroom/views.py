@@ -376,11 +376,13 @@ def student_enroll_list(request, course_id):
             Q(email=busqueda)
         ).distinct()
     context = {
-         'teacher_mode': teacher_mode,
+        'teacher_mode': teacher_mode,
         'course': course,  
         'students' :students    
     }
     return render(request, 'classroom/studentsenroll.html', context)
+
+
 
 # Esta función añade estudiantes
 # a la lista de matriculados en un curso
@@ -406,9 +408,13 @@ def delete_stundent_enroll( request , course_id, student_id):
 # Esta función muestra las notas de los alumnos
 # en general de todo el curso
 def student_grades(request, course_id):
+    user = request.user
     course = get_object_or_404(Course, id=course_id)
     students = course.enrolled.all()
 
+    teacher_mode = False
+    if user == course.user:
+        teacher_mode = True
     if request.method == 'POST':
         grades_grade = request.POST.getlist('grade') 
         students_id = request.POST.getlist('student_id')
@@ -429,7 +435,8 @@ def student_grades(request, course_id):
         'course': course,
         'students': students,
         'grades': grades,
-        'form': form
+        'form': form,
+         'teacher_mode': teacher_mode,
     }
     return render(request, 'classroom/studentgrades.html', context)
 
