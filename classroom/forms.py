@@ -1,7 +1,7 @@
 from django import forms
 from ckeditor.widgets import CKEditorWidget
 
-from classroom.models import Course, Category, Grade
+from classroom.models import Course, Category, Grade,Submission
 
 
 # Esta clase genera la estructura del formulario para crear nuevos cursos
@@ -26,3 +26,10 @@ class NewGradeForm(forms.ModelForm):
 	class Meta:
 		model = Grade
 		fields = ('grade',)
+# Esta clase genera la estructura del formulario para asignar notas de tareas
+class PointsSubmissionForm(forms.ModelForm):
+	points = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'validate'}))
+
+	class Meta:
+		model = Submission
+		fields = ('points',)

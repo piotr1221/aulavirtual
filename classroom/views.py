@@ -317,28 +317,46 @@ def student_submissions(request, course_id):
 # por un estudiante y un formulario para modificar sus notas
 
 def rate_submissions(request, course_id):
-    user = request.user
-    course = get_object_or_404(Course, id=course_id)
-    students = course.enrolled.all()
-    students_id = []
-    for student in students:
-        students_id.append(student.id)
+    try:
+        user = request.user
+        course = get_object_or_404(Course, id=course_id)
+        students = course.enrolled.all()
+        students_id = []
+        for student in students:
+            students_id.append(student.id)
 
-    submissions = Submission.objects.filter(user__id__in=students_id)
-    
-       
-    print(submissions.query)            
+        submissions = Submission.objects.filter(user__id__in=students_id)
+        
+        print(submissions)
+        print(submissions.query)
+                   
 
-    teacher_mode = False
-    if user == course.user:
-        teacher_mode = True
-    
-    context = {
-        'course': course,
-        'teacher_mode': teacher_mode,
-        'submissions': submissions,
-    }
-    return render(request, 'classroom/ratesubmissions.html', context)
+        teacher_mode = False
+        if user == course.user:
+            teacher_mode = True
+        
+
+        if request.method == 'POST':
+            submission_point = request.POST.getlist('points') 
+            students_id = request.POST.getlist('student_id')
+            for i in range(len(students_id)):
+                points = Submission.objects.get(Submission=submissions, student_id=students_id[i])
+                points.points = submission_point[i]
+                points.save()
+                print("Confirmado")
+            return redirect('modules', course_id=course_id)
+
+        context = {
+            'course': course,
+            'teacher_mode': teacher_mode,
+            'submissions': submissions,
+        }
+        return render(request, 'classroom/ratesubmissions.html', context)
+    except Exception as e:
+        
+        messages.error(request, 'No se puede gestionar tareas, debido a que no han entregado tareas.')
+
+        return redirect('course',course_id=course_id)
 
 
 #*Funcion  impávida

@@ -6,7 +6,8 @@
   <div class="section">
     <h4>Tareas entregadas</h4>
     <div class="divider"></div>
-
+    <form method="post">
+      {% csrf_token %}
     <ul class="collapsible">
       {% for module in course.modules.all %}
       <li>
@@ -30,15 +31,16 @@
                   {% if submission.assignment == assignment %}
                     <tr>
                       <td>{{ assignment.title }}</td>
-                      <td>{{submission.user.first_name }}</td>
+                      <td>{{submission.user.id }}</td>
                       <td class="text-center">{{ submission.date|date:"M d, Y" }}</td>
                       {% if not submission.checked %}
                         <td class="text-center">Sin revisar</td>
-                        <td class="text-center">-</td>
+                        <td><input name="points" style="width:2ch" value={{ points.points}}></td>
+                        <input name="student_id" type="hidden" value={{ submission.user.id }} />
                       {% else %}
                         <td class="text-center">Revisado</td>
-                        <td class="text-center">{{ submission.points }}</td>
                       {% endif %}
+                      
                     </tr>
                   {% endif%}
                 {% endfor %}
@@ -50,7 +52,7 @@
       </li>
       {% endfor %}
     </ul>
-
+    </form>
       
 
 
