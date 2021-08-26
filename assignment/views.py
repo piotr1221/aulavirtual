@@ -142,7 +142,8 @@ def initialize_submissions(course_id, assignment_id):
 def new_submission(request, course_id, module_id, assignment_id):
     student = request.user
     get_object_or_404(Course, id=course_id)
-    submission = Submission.objects.get(user=student, assignment_id=assignment_id)
+    # submission = Submission.objects.get(user=student, assignment_id=assignment_id)
+    submission, c = Submission.objects.get_or_create(user=student, assignment_id=assignment_id)
 
     if request.method == 'POST':
         form = NewSubmissionForm(request.POST, request.FILES, instance=submission)
