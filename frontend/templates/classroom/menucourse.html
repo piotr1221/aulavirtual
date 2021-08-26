@@ -4,6 +4,10 @@
 {% block content %}
 <div class="section">
 	<h4>{{ course.title }}</h4>
+  <strong style="display: inline;">Docente:<strong> 
+  <p style="display: inline; font-weight:normal;">
+    {{ course.user.first_name }} {{ course.user.last_name }}
+  </p>
 	<div class="divider"></div>
 </div>
 
