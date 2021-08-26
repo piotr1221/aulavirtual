@@ -17,6 +17,7 @@
               <thead>
                 <tr>
                     <th id="Tarea">Tarea</th>
+                    <th id="Alumno">Alumno</th>
                     <th id="Fecha de entrega" class="text-center">Fecha Entrega</th>
                     <th id="Estado" class="text-center">Estado</th>
                     <th id="Nota" class="text-center">Nota</th>
@@ -29,6 +30,7 @@
                   {% if submission.assignment == assignment %}
                     <tr>
                       <td>{{ assignment.title }}</td>
+                      <td>{{submission.user.first_name }}</td>
                       <td class="text-center">{{ submission.date|date:"M d, Y" }}</td>
                       {% if not submission.checked %}
                         <td class="text-center">Sin revisar</td>
