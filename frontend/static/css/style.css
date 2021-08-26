@@ -59,17 +59,13 @@ label {
 }
 
 .spanNivelesColores {
-  
+ 
   width: 0;
   height: 10px;
   display: inline-block;
   position: absolute;
   background: url(http://momstudio.es/img/img-elmaquetadorweb/password-level-47px.png) no-repeat;
- 
-  /*border: 1px solid #f00;
-  right: 120px;*/
 }
-
 .bajo,
 .medio,
 .alto,
