@@ -152,6 +152,8 @@ def new_submission(request, course_id, module_id, assignment_id):
             submission.delivered = True
             submission.date = datetime.date.today()
             submission.save()
+
+            request.session['status_message'] = "¡Tarea enviada exitosamente!"
             return redirect('modules', course_id=course_id)
     else:
         form = NewSubmissionForm(instance=submission)

@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseForbidden
 
@@ -66,6 +67,11 @@ def course_modules(request, course_id):
     teacher_mode = False
     if user == course.user:
         teacher_mode = True
+
+    if ('status_message' in request.session):
+        message = request.session['status_message']
+        del request.session['status_message']
+        messages.success(request, message)
 
     context = {
         'teacher_mode': teacher_mode,
