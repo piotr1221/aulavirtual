@@ -25,17 +25,17 @@
 
               <tbody>
               {% for assignment in module.assignments.all %}
-                {% for su in sub %}
-                  {% if su.assignment == assignment %}
+                {% for submission in submissions %}
+                  {% if submission.assignment == assignment %}
                     <tr>
-                      <td>{{ su.title }}</td>
+                      <td>{{ assignment.title }}</td>
                       <td class="text-center">{{ submission.date|date:"M d, Y" }}</td>
-                      {% if not su.checked %}
+                      {% if not submission.checked %}
                         <td class="text-center">Sin revisar</td>
                         <td class="text-center">-</td>
                       {% else %}
                         <td class="text-center">Revisado</td>
-                        <td class="text-center">{{ su.points }}</td>
+                        <td class="text-center">{{ submission.points }}</td>
                       {% endif %}
                     </tr>
                   {% endif%}

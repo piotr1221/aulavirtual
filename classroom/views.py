@@ -320,16 +320,14 @@ def rate_submissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
     students = course.enrolled.all()
-    submissions = list(Submission.objects.all())
-    sub = []
+    students_id = []
+    for student in students:
+        students_id.append(student.id)
+
+    submissions = Submission.objects.filter(user__id__in=students_id)
     
-    for submission in submissions:
-        for student in students:
-            if submission.user == student:
-                sub.append(submission)
-                break
        
-    print(sub[1])            
+    print(submissions.query)            
 
     teacher_mode = False
     if user == course.user:
@@ -339,7 +337,6 @@ def rate_submissions(request, course_id):
         'course': course,
         'teacher_mode': teacher_mode,
         'submissions': submissions,
-        'sub':sub
     }
     return render(request, 'classroom/ratesubmissions.html', context)
 
