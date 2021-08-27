@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -108,11 +109,11 @@ def delete_assignment(request, course_id, module_id, assignment_id):
 def assignment_detail(request, course_id, module_id, assignment_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
+    assignment = get_object_or_404(Assignment, id=assignment_id)
+
     teacher_mode = False
     if user == course.user:
         teacher_mode = True
-
-    assignment = get_object_or_404(Assignment, id=assignment_id)
 
     context = {
         'assignment': assignment,
@@ -120,11 +121,6 @@ def assignment_detail(request, course_id, module_id, assignment_id):
         'module_id': module_id,
         'teacher_mode': teacher_mode,
     }
-    if not teacher_mode:
-        submission = Submission.objects.get(assignment=assignment, user=user)
-        context['submission'] = submission
-    else:
-        pass
 
     return render(request, 'assignment/assignment.html', context)
 
@@ -148,7 +144,7 @@ def initialize_submissions(course_id, assignment_id):
 def new_submission(request, course_id, module_id, assignment_id):
     student = request.user
     get_object_or_404(Course, id=course_id)
-    # submission = Submission.objects.get(user=student, assignment_id=assignment_id)
+    assignment = Assignment.objects.get(id=assignment_id)
     submission, c = Submission.objects.get_or_create(user=student, assignment_id=assignment_id)
 
     if request.method == 'POST':
@@ -166,6 +162,7 @@ def new_submission(request, course_id, module_id, assignment_id):
         form = NewSubmissionForm(instance=submission)
 
     context = {
+        'assignment': assignment, 
         'form': form
     }
     return render(request, 'assignment/submitassignment.html', context)
@@ -175,6 +172,13 @@ def student_submission(request, course_id, module_id, assignment_id, submission_
     assignment = Assignment.objects.get(id=assignment_id)
     submission = get_object_or_404(Submission, id=submission_id)     
     
+    if request.method == 'POST':
+        submission_point = request.POST.get('points') 
+        submission.points = submission_point
+        submission.checked = True
+        submission.save()
+        messages.success(request, "La nota se ha asignado exitosamente")
+
     context = {
         'assignment': assignment,
         'submission': submission,

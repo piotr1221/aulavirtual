@@ -327,15 +327,14 @@ def rate_submissions(request, course_id):
     if request.method == 'POST':
         submission_point = request.POST.getlist('points') 
         submission_id = request.POST.getlist('submission_id')
+        message = ""
         for i in range(len(submission_point)):
             submission = Submission.objects.get(id=submission_id[i])
             submission.points = submission_point[i]
             submission.checked = True
-            try:
-                submission.save()
-            except:
-                pass
-            print("Confirmado")
+            submission.save()
+            message = "Las notas se ha asignado exitosamente"
+        messages.success(request, message)
 
     teacher_mode = False
     if user == course.user:

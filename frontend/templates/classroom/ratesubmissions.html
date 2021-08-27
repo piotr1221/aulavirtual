@@ -31,7 +31,7 @@
                     <tr>
                       <td>{{ assignment.title }}</td>
                       <td><a href="{% url 'student-submission' course.id module.id assignment.id submission.id%}">{{ submission.user.first_name }}</a></td>
-                      {% if submission.date == None %}
+                      {% if not submission.delivered %}
                         <td class="text-center">Aún no se entrega</td>
                       {% else %}
                         <td class="text-center">{{ submission.date|date:"d/m/y" }}</td>

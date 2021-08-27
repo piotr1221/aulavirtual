@@ -1,7 +1,12 @@
-{% extends 'assignment/assignment_base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% block assignment %}
+{% block content %}
+
+<div class="section">
+  <h4>{{ assignment.title }}</h4>
+  <div class="divider"></div>
+</div>
 
 <div class="col s12">
   <form method="post" action="" enctype="multipart/form-data" role="form" class="col s12">
