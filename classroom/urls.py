@@ -4,7 +4,7 @@ from classroom.views import my_courses, course_detail, schedule, student_grades,
 
 from module.views import delete_module, new_module, course_modules
 from page.views import delete_page, new_page_module, page_detail, delete_page
-from assignment.views import new_assignment, assignment_detail, edit_assignment, delete_assignment, new_submission
+from assignment.views import new_assignment, assignment_detail, edit_assignment, delete_assignment, new_submission, student_submission
 
 urlpatterns = [
 	#Course - Classroom Views
@@ -33,6 +33,7 @@ urlpatterns = [
 	path('<course_id>/modules/<module_id>/assignment/<assignment_id>/delete', delete_assignment, name='assignment-delete'),
 	#Submissions
 	path('<course_id>/modules/<module_id>/assignment/<assignment_id>/start', new_submission, name='start-assignment'),
+	path('<course_id>/modules/<module_id>/assignment/<assignment_id>/submission/<submission_id>', student_submission, name='student-submission'),
 	path('<course_id>/submissions', submissions, name='submissions'),
 	path('<course_id>/studentsubmissions', student_submissions, name='student-submissions'),
 	path('<course_id>/submissions/rate', rate_submissions, name='rate-submissions'),

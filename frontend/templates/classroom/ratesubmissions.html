@@ -14,13 +14,12 @@
         <div class="collapsible-header"><em class="material-icons">expand_more</em><strong>{{ module.title }}</strong></div>
         <div class="collapsible-body" style="font-size: 14px">
             <table>
-              <caption>Mis tareas</caption>
+              <caption>Tareas</caption>
               <thead>
                 <tr>
                     <th id="Tarea">Tarea</th>
                     <th id="Alumno">Alumno</th>
                     <th id="Fecha de entrega" class="text-center">Fecha Entrega</th>
-                    <th id="Estado" class="text-center">Estado</th>
                     <th id="Nota" class="text-center">Nota</th>
                 </tr>
               </thead>
@@ -31,16 +30,14 @@
                   {% if submission.assignment == assignment %}
                     <tr>
                       <td>{{ assignment.title }}</td>
-                      <td>{{submission.user.id }}</td>
-                      <td class="text-center">{{ submission.date|date:"M d, Y" }}</td>
-                      {% if not submission.checked %}
-                        <td class="text-center">Sin revisar</td>
-                        <td><input name="points" style="width:2ch" value={{ points.points}}></td>
-                        <input name="student_id" type="hidden" value={{ submission.user.id }} />
+                      <td><a href="{% url 'student-submission' course.id module.id assignment.id submission.id%}">{{ submission.user.first_name }}</a></td>
+                      {% if submission.date == None %}
+                        <td class="text-center">Aún no se entrega</td>
                       {% else %}
-                        <td class="text-center">Revisado</td>
+                        <td class="text-center">{{ submission.date|date:"d/m/y" }}</td>
                       {% endif %}
-                      
+                      <td><input name="points" style="width:2ch" value={{ submission.points }}></td>
+                      <input name="submission_id" type="hidden" value={{ submission.id }} />
                     </tr>
                   {% endif%}
                 {% endfor %}
@@ -48,10 +45,11 @@
               </tbody>
             </table>
             
-        </div>
-      </li>
-      {% endfor %}
-    </ul>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      <button type="submit" class="btn waves-effect waves-light">Guardar</button>
     </form>
       
 

@@ -113,16 +113,21 @@ def assignment_detail(request, course_id, module_id, assignment_id):
         teacher_mode = True
 
     assignment = get_object_or_404(Assignment, id=assignment_id)
-    my_submissions = Submission.objects.filter(assignment=assignment, user=user)
 
     context = {
         'assignment': assignment,
         'course_id': course_id,
-        'my_submissions': my_submissions,
         'module_id': module_id,
         'teacher_mode': teacher_mode,
     }
+    if not teacher_mode:
+        submission = Submission.objects.get(assignment=assignment, user=user)
+        context['submission'] = submission
+    else:
+        pass
+
     return render(request, 'assignment/assignment.html', context)
+
 
 # Esta función crea respuestas de tarea
 # para todos los alumnos del curso
@@ -134,6 +139,7 @@ def initialize_submissions(course_id, assignment_id):
         Submission.objects.create(user=student, assignment=assignment, date=None)
     
     return redirect('modules', course_id=course_id)
+
 
 # Esta función muestra el formulario para que
 # el estudiante responda la tarea que se le asignó,
@@ -163,3 +169,20 @@ def new_submission(request, course_id, module_id, assignment_id):
         'form': form
     }
     return render(request, 'assignment/submitassignment.html', context)
+
+
+def student_submission(request, course_id, module_id, assignment_id, submission_id):
+    assignment = Assignment.objects.get(id=assignment_id)
+    submission = get_object_or_404(Submission, id=submission_id)     
+    
+    context = {
+        'assignment': assignment,
+        'submission': submission,
+        'course_id': course_id
+    }
+    try:
+        context['submission_file'] =  submission.file.url
+    except:
+        pass
+
+    return render(request, 'assignment/studentsubmission.html', context)

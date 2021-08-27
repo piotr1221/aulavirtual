@@ -29,7 +29,7 @@
                   {% if submission.delivered and submission.assignment == assignment %}
                     <tr>
                       <td>{{ assignment.title }}</td>
-                      <td class="text-center">{{ submission.date|date:"M d, Y" }}</td>
+                      <td class="text-center">{{ submission.date|date:"d/m/y" }}</td>
                       {% if not submission.checked %}
                         <td class="text-center">Sin revisar</td>
                         <td class="text-center">-</td>
