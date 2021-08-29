@@ -1,14 +1,19 @@
+ <!--Deriva del HTML de assignment_base-->
 {% extends 'assignment/assignment_base.html' %}
+<!--Carga los scripts en la carpeta static-->
 {% load static %}
 
+ <!--Empieza un bloque contenido en otro HTML-->
 {% block assignment %}
 
 <div class="col s12">
   <ul class="collection with-header">
+    <!--Archivos adjuntos en la tarea dejada por el profesor-->
     <li class="collection-header"><h4>Archivos adjuntos</h4></li>
     {% for file in assignment.files.all %}
       <li class="collection-item">
         <div>{{ file.get_file_name }}
+          <!--Ícono para descargar los archivos que dejó el profesor-->
           <a class="secondary-content" href="{{ file.file.url }}" download><em class="material-icons">download</em></a>
         </div>
       </li>
@@ -16,26 +21,31 @@
   </ul>  
 </div>
 
+<!--Muestra solo los archivos adjuntos en caso de que 
+sea el usuario sea un estudiante del curso-->
 {% if not teacher_mode %}
   <div class="col s12">
     <ul class="collection with-header">
       <li class="collection-header"><h4>Archivo enviado</h4></li>
           <li class="collection-item avatar">
             <em class="material-icons circle">insert_chart</em>
+            <!--Muestra la tarea subida si el estudiante ya la envio-->
             {% if submission.date == None %}
               <p>Aún no se ha subido nada.</p>
             {% else %}
               <p>Fecha de entrega: {{ submission.date }}</p>
-            {% endif %}
-            <a href="#" class="secondary-content"><em class="material-icons">delete</em></a>
+              <a href="#" class="secondary-content"><em class="material-icons">delete</em></a>
+            {% endif %}     
           </li>
     </ul>
   </div>
 
+  <!--Muestra el botón de empezar tarea si el usuario es un estudiante del curso-->
   <div class="col s12">
     <a class="btn" href="{% url 'start-assignment' course_id module_id assignment.id %}">Empezar</a>
   </div>
 {% else %}
+ <!--Muestra el botón de editar tarea si el usuario es el profesor del curso-->
   <div class="col s12">
     <a class="btn" href="{% url 'assignment-edit' course_id module_id assignment.id %}">Editar Tarea</a>
   </div>

@@ -1,33 +1,39 @@
+ <!--Deriva del HTML de assignment_base-->
 {% extends 'base.html' %}
+<!--Carga los scripts en la carpeta static-->
 {% load static %}
 
+ <!--Empieza un bloque contenido en otro HTML-->
 {% block content %}
 
 <div>
+    <!--Título de la tarea-->
     <div class="section">
       <h4>{{ assignment.title }}</h4>
       <div class="divider"></div>
     </div>
   
     <div class="row">
-  
+        <!--Fecha de entrega máxima de la tarea-->
         <div class="col s6">
             <h5>Fecha de Entrega:</h5>
             <p>{{ assignment.due }}</p>
         </div>
-  
+
+        <!--Nota máxima de la tarea-->
         <div class="col s6">
             <h5>Puntos:</h5>
             <p>{{ assignment.points }}</p>
         </div>
   
-  
+        <!--Descripción de la tarea-->
         <div class="col s12">
             <h5>Descripción:</h5>
             {{ assignment.content | safe }}  
         </div>
   </div>
 
+    <!--Bloque HTML extendido-->
     {% block assignment %}
     {% endblock %}
 </div>

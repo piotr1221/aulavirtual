@@ -1,11 +1,15 @@
+ <!--Deriva del HTML de newassignment-->
 {% extends 'base.html' %}
+<!--Carga los scripts en la carpeta static-->
 {% load static %}
 
+<!--Empieza un bloque contenido en otro HTML--> 
 {% block banner %}
 
 <div class="section no-pad-bot" id="index-banner">
 	<div class="container">
 		<br><br>
+    <!--Título presentador de las categorías de cursos-->
 		<h2 class="header orange-text center">Lista de Cursos</h2>
 		<h5 class="header col s12 light center"> Busca el curso de tu preferencia, no hay límites.</h5>
 	</div>
@@ -13,7 +17,7 @@
 
 {% endblock %}
 
-
+<!--Empieza un bloque contenido en otro HTML--> 
 {% block content %}
 <div class="section">
 	<h4>Categorías</h4>
@@ -21,8 +25,10 @@
 </div>
 
 <div class="row">
+<!--Muestra todas las categorías que hay de cursos-->
 {% for category in categories %}
     <div class="col s12 m4">
+      <!--Íconos de las categorías-->
       <a href="{% url 'category-courses' category.slug %}">
       <div class="card-panel teal center-align white-text">
         <em class="material-icons large">{{ category.icon }}</em>

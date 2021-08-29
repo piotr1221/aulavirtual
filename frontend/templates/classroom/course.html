@@ -1,26 +1,16 @@
+ <!--Deriva del HTML de newassignment-->
 {% extends 'classroom/menucourse.html' %}
+<!--Carga los scripts en la carpeta static-->
 {% load static %}
 
+<!--Empieza un bloque contenido en otro HTML--> 
 {% block contenido %}
 
-
-
-
   <div class="section">
+    <!--Descripción del curso-->
     <h4>Descripción del curso</h4>
     <div class="divider"></div> 
-
-    <div>
-      
-    </div>
-
     {{ course.syllabus | safe }}
-
   </div>
-  
-
-
-
-
 
 {% endblock %}

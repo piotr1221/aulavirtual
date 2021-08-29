@@ -1,7 +1,10 @@
+ <!--Deriva del HTML de newassignment-->
 {% extends 'assignment/newassignment.html' %}
+<!--Carga los scripts en la carpeta static-->
 {% load static %}
 
-        
+ <!--Empieza un bloque contenido en otro HTML-->
 {% block link %}
+  <!--Botón para eliminar la tarea-->
   <a href="{% url 'assignment-delete' course_id module_id assignment_id %}" class="btn red waves-effect waves-light">Eliminar</a>
 {% endblock %}
