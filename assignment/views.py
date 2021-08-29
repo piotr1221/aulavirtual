@@ -186,7 +186,7 @@ def student_submission(request, course_id, module_id, assignment_id, submission_
     }
     try:
         context['submission_file'] =  submission.file.url
-    except:
+    except Exception:
         pass
 
     return render(request, 'assignment/studentsubmission.html', context)

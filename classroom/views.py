@@ -57,7 +57,7 @@ def initialize_arrays(courses, u_courses, times):
             times.append(time)
             u_courses.append([])
     for u_course in u_courses:
-        for i in range(7):
+        for _ in range(7):
             u_course.append(None)
     sort_times(times)
     print(times)
