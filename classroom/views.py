@@ -15,8 +15,10 @@ CURSOS_POR_CATEGORIA = 'classroom/categorycourses.html'
 
 # Create your views here.
 
-# Esta vista es el portal donde el usuario
-# puede visualizar los cursos en que se ha inscrito
+# Esta vista es el portal 
+# donde el usuario
+# puede visualizar los cursos 
+# en que se ha inscrito
 @login_required
 def index(request):
     cargar_categorias()
@@ -31,8 +33,9 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-# Esta vista muestra el horario del alumno con
-# todos los cursos en que se ha matriculado
+# Esta vista muestra el horario 
+# del alumno con todos los 
+# cursos en que se ha matriculado
 # organizados en base a la hora de inicio
 def schedule(request):
     user = request.user
@@ -62,8 +65,10 @@ def initialize_arrays(courses, u_courses, times):
     sort_times(times)
     print(times)
 
-# Esta función organiza el arreglo de horas de inicio de 
-# los cursos del alumno usado en la función "initialize_arrays" 
+# Esta función organiza el arreglo
+#  de horas de inicio de 
+# los cursos del alumno usado en 
+# la función "initialize_arrays" 
 # usando el método de burbuja mejorada 
 def sort_times(times):
     flag = False
@@ -76,8 +81,10 @@ def sort_times(times):
                 flag = False
                 times[j], times[j+1] = times[j+1], times[j]
         
-# Este método organiza el arreglo de cursos del alumno
-# usado en la función "schedule" según el arreglo de 
+# Este método organiza el arreglo 
+# de cursos del alumno
+# usado en la función "schedule" 
+# según el arreglo de 
 # horas de inicio de esa misma función y el día
 def append_courses_schedule(courses, u_courses, times):
     for course in courses:
@@ -96,8 +103,10 @@ def categories(request):
     }
     return render(request, 'classroom/categories.html', context)
 
-# Esta función muestra la vista con los cursos
-# que se encuentran en una categoría seleccionada
+# Esta función muestra 
+# la vista con los cursos
+# que se encuentran en una 
+# categoría seleccionada
 def category_courses(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     courses = Course.objects.filter(category=category)
@@ -108,8 +117,10 @@ def category_courses(request, category_slug):
     }
     return render(request, CURSOS_POR_CATEGORIA, context)
 
-# Esta función muestra la vista con el formulario para un
-# nuevo curso y también lo recupera, procesa, y crea el curso
+# Esta función muestra la vista
+# con el formulario para un
+# nuevo curso y también lo recupera,
+# procesa, y crea el curso
 def new_course(request):
     user = request.user
     if request.method == 'POST':
@@ -141,8 +152,10 @@ def new_course(request):
 
     return render(request, 'classroom/newcourse.html', context)
 
-# Esta función verifica las condiciones que deben de 
-# cumplir la hora de inicio y fin de la función "new_course"
+# Esta función verifica las 
+# condiciones que deben de 
+# cumplir la hora de inicio y 
+# fin de la función "new_course"
 def verify_time(time_start, time_end, request):
     result = True
     if time_start > time_end:
@@ -153,7 +166,8 @@ def verify_time(time_start, time_end, request):
         messages.error(request, 'Los cursos deben de iniciar y acabar en una hora en punto.')
     return result
 
-# Esta función muestra la vista que contiene 
+# Esta función muestra la 
+# vista que contiene 
 # todos los detalles de un curso
 @login_required
 def course_detail(request, course_id):
@@ -171,7 +185,8 @@ def course_detail(request, course_id):
 
     return render(request, 'classroom/course.html', context)
 
-# Esta función permite a un usuario inscribirse a un curso
+# Esta función permite a un 
+# usuario inscribirse a un curso
 @login_required
 def enroll(request, course_id):
     user = request.user
@@ -189,7 +204,8 @@ def enroll(request, course_id):
         return render(request, CURSOS_POR_CATEGORIA, context)
 
 
-# Esta función devuelve los cursos en los que un
+# Esta función devuelve los
+#  cursos en los que un
 # usuario se encuenta inscrito
 def get_student_courses(user):
     courses = []
@@ -200,16 +216,20 @@ def get_student_courses(user):
     return courses
 
 
-# Esta función comprueba si el horario de un curso
-# se cruza con algún curso en el que ya esté inscrito
+# Esta función comprueba si
+# el horario de un curso
+# se cruza con algún curso 
+# en el que ya esté inscrito
 # un usuario
 def verify_schedule(user, new_course):
     courses = get_student_courses(user)
     for course in courses:
         nts, nte = new_course.time_start, new_course.time_end
         cts, cte = course.time_start, course.time_end
-        # La hora de inicio y fin del nuevo curso deben de darse
-        # ambos antes del inicio de un curso o después de su fin
+        # La hora de inicio y fin del 
+        # nuevo curso deben de darse
+        # ambos antes del inicio de un 
+        # curso o después de su fin
         c1 = (nts <= cts and nte <= cts)
         c2 = (cte <= nts and cte <= nte)
         c3 = course.day == new_course.day 
@@ -229,9 +249,12 @@ def delete_course(request, course_id):
     return redirect('my-courses')
 
 
-# Esta función muestra la vista que contiene el formulario
-# para editar la información de un curso, además recupera
-# la información ingresa, la procesa y edita el curso
+# Esta función muestra la vista
+#  que contiene el formulario
+# para editar la información de
+#  un curso, además recupera
+# la información ingresa, la 
+# procesa y edita el curso
 @login_required
 def edit_course(request, course_id):
     user = request.user
@@ -267,8 +290,10 @@ def edit_course(request, course_id):
 
     return render(request, 'classroom/editcourse.html', context)
 
-# Esta función muestra la vista que contiene
-# los cursos creados por el usuario activo
+# Esta función muestra la 
+# vista que contiene
+# los cursos creados por 
+# el usuario activo
 def my_courses(request):
     user = request.user
     courses = Course.objects.filter(user=user)
@@ -279,8 +304,10 @@ def my_courses(request):
 
     return render(request, MIS_CURSOS_URL, context)
 
-# Esta función muestra la vista de las tareas
-# que ha entregado el alumno por módulo
+# Esta función muestra la 
+# vista de las tareas
+# que ha entregado el
+#  alumno por módulo
 def submissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
@@ -297,8 +324,10 @@ def submissions(request, course_id):
     }
     return render(request, 'classroom/submissions.html', context)
 
-# *Esta función muestra al estudiante sus 
-# tareas entregadas y las notas de estas
+# *Esta función muestra 
+# al estudiante sus 
+# tareas entregadas y 
+# las notas de estas
 def student_submissions(request, course_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
@@ -313,8 +342,10 @@ def student_submissions(request, course_id):
         }
     return render(request, 'classroom/studentgrades.html', context)
 
-# Esta función muestra al profesor las tareas entregadas
-# por un estudiante y un formulario para modificar sus notas
+# Esta función muestra al 
+# profesor las tareas entregadas
+# por un estudiante y un 
+# formulario para modificar sus notas
 
 def rate_submissions(request, course_id):
     user = request.user
@@ -350,7 +381,10 @@ def rate_submissions(request, course_id):
     return render(request, 'classroom/ratesubmissions.html', context)
 
 
-#*Funcion  impávida
+# La hora de inicio y fin del 
+# nuevo curso deben de darse
+# ambos antes del inicio de un 
+# curso o después de su fin
 def grade_submission(request, course_id, grade_id):
     user = request.user
     course = get_object_or_404(Course, id=course_id)
@@ -373,7 +407,8 @@ def grade_submission(request, course_id, grade_id):
 
     return render(request, 'classroom/gradesubmission.html', context)
 
-# *Esta función muestra las notas de un estudiante
+# *Esta función muestra 
+# las notas de un estudiante
 # de forma general en un curso
 def students_notas(request, course_id):
     user = request.user
@@ -397,8 +432,10 @@ def students_notas(request, course_id):
         }
     return render(request, 'classroom/editnotas.html', context)
 
-# Esta función muestra una vista con la lista de
-# estudiantes por curso además de opciones de agregar y eliminar
+# Esta función muestra una
+# vista con la lista de
+# estudiantes por curso además
+# de opciones de agregar y eliminar
 def student_enroll_list(request, course_id):
     busqueda = request.POST.get("buscar")
     user = request.user
@@ -441,7 +478,8 @@ def delete_stundent_enroll( request , course_id, student_id):
         return redirect('index')
 
 
-# Esta función muestra las notas de los alumnos
+# Esta función muestra las
+# notas de los alumnos
 # en general de todo el curso
 def student_grades(request, course_id):
     user = request.user
@@ -477,7 +515,8 @@ def student_grades(request, course_id):
     }
     return render(request, 'classroom/studentgrades.html', context)
 
-# Esta función genera categorías para los cursos en caso de no existir
+# Esta función genera categorías
+# para los cursos en caso de no existir
 def cargar_categorias():
 	if not Category.objects.all():
 		Category.objects.create(title='Ciencia', icon='ciencia', slug='ciencia')

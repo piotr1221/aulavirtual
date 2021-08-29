@@ -17,7 +17,17 @@ from django.contrib.auth import authenticate
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 
+# Create your tests here.
+
+# clase de test
+# contiene las funciones
+# para probar los metodos
+# de assignments
 class AssTest(TestCase):
+    # metodo setup
+    # establece valores
+    # iniciales que se utilizaran
+    # en la suite de tests
     def setUp(self):
         self.factory = RequestFactory()
         self.user = User.objects.create_user(username='xocrona',
@@ -43,7 +53,9 @@ class AssTest(TestCase):
                                                         )
         
 
-    
+    # metodo de test
+    # prueba la creacion
+    # de un nuevo assignment
     def test_new_ass(self):
 
         req = self.factory.post(f'{self.course.id}/modules/{self.module.id}/assignment/newassignment')
@@ -75,6 +87,9 @@ class AssTest(TestCase):
         assert ass01
         return ass01
 
+    # metodo de test
+    # prueba la edicion
+    # de un assignment existente
     def test_edit_ass(self):
         ass = AssTest.test_new_ass(self)
         ass_id = ass.id
@@ -107,6 +122,9 @@ class AssTest(TestCase):
         ass02 = Assignment.objects.get(title = 'test02')
         assert ass02
 
+    # metodo de test
+    # prueba la remocion
+    # de un assignment existente
     def test_delete_ass(self):
         ass = AssTest.test_new_ass(self)
         ass_id = ass.id
@@ -119,6 +137,9 @@ class AssTest(TestCase):
         except Exception:
             assert True
 
+    # metodo de test
+    # prueba ver los detalles
+    # de un assignment existente
     def test_ass_detail(self):
         ass = AssTest.test_new_ass(self)
         ass_id = ass.id

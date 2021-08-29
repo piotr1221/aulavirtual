@@ -15,8 +15,10 @@ import datetime
 # Create your views here.
 
 
-# Esta función muestra la vista con el formulario para 
-# crear una nueva tarea, además recibe, procesa y 
+# Esta función muestra 
+# la vista con el formulario para 
+# crear una nueva tarea, además 
+# recibe, procesa y 
 # crea una nueva tarea
 def new_assignment(request, course_id, module_id):
     user = request.user
@@ -57,8 +59,10 @@ def new_assignment(request, course_id, module_id):
     return render(request, 'assignment/newassignment.html', context)
 
 
-# Esta función muestra la vista con el formulario para 
-# editar una tarea, además recibe, procesa y 
+# Esta función
+# muestra la vista con el
+# formulario para editar 
+# una tarea, además recibe, procesa y 
 # edita la nueva tarea
 def edit_assignment(request, course_id, module_id, assignment_id):
     user = request.user
@@ -98,13 +102,15 @@ def edit_assignment(request, course_id, module_id, assignment_id):
     }
     return render(request, 'assignment/editassignment.html', context)
 
-# Esta función elimina una tarea
+# Esta función 
+# elimina una tarea
 def delete_assignment(request, course_id, module_id, assignment_id):
     assignment = get_object_or_404(Assignment, id=assignment_id)
     assignment.delete()
     return redirect('modules', course_id=course_id)
 
-# Esta función muestra la vista que contiene 
+# Esta función muestra 
+# la vista que contiene 
 # los detalles de una tarea
 def assignment_detail(request, course_id, module_id, assignment_id):
     user = request.user
@@ -125,7 +131,8 @@ def assignment_detail(request, course_id, module_id, assignment_id):
     return render(request, 'assignment/assignment.html', context)
 
 
-# Esta función crea respuestas de tarea
+# Esta función
+# crea respuestas de tarea
 # para todos los alumnos del curso
 def initialize_submissions(course_id, assignment_id):
     assignment = get_object_or_404(Assignment, id=assignment_id)
@@ -167,7 +174,8 @@ def new_submission(request, course_id, module_id, assignment_id):
     }
     return render(request, 'assignment/submitassignment.html', context)
 
-
+# metodo para la
+# entrega de tareas
 def student_submission(request, course_id, module_id, assignment_id, submission_id):
     assignment = Assignment.objects.get(id=assignment_id)
     submission = get_object_or_404(Submission, id=submission_id)     

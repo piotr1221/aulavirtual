@@ -16,6 +16,8 @@ from django.http import HttpResponse
 
 # Create your views here.
 
+# metodo que prueba
+# la barra vertical de navegacion
 def side_nav_info(request):
 	user = request.user
 	nav_profile = None

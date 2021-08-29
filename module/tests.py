@@ -12,7 +12,16 @@ from classroom.models import Course, Category, Module
 from .views import delete_module, new_module
 
 # Create your tests here.
+
+# clase de test
+# contiene las funciones
+# para probar los metodos
+# de classroom
 class ModuleTest(TestCase):
+    # metodo setup
+    # establece valores
+    # iniciales que se utilizaran
+    # en la suite de tests
     def setUp(self):
         self.factory = RequestFactory()
         self.user = User.objects.create_user(username='xocrona',
@@ -33,7 +42,9 @@ class ModuleTest(TestCase):
                                             syllabus='Syllabus',
                                             user=self.user,
                                             )
-
+    # metodo de test
+    # prueba el registro
+    # de un nuevo modulo   
     def test_new_module(self):
         req = self.factory.post('newcourse')
         req.user = self.user
@@ -52,6 +63,9 @@ class ModuleTest(TestCase):
         assert module
         return module
 
+    # metodo de test
+    # prueba eliminar
+    # de un nuevo modulo 
     def test_del_module(self):
         mod = ModuleTest.test_new_module(self)
         mod_id = mod.id
@@ -64,6 +78,9 @@ class ModuleTest(TestCase):
         except Exception:
             assert True
     
+    # metodo de test
+    # prueba modificar
+    # de un nuevo modulo 
     def test_cour_mod(self):
         mod = ModuleTest.test_new_module(self)
         mod_id = mod.id

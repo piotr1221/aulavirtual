@@ -4,7 +4,9 @@ from authy.views import signup, password_change, password_change_done, edit_prof
 from django.contrib.auth import views as authViews 
 
 
-
+# urls para el registro
+# inicio de sesion, modificacion
+# de perfil y cambio de contraseña
 urlpatterns = [
    	
     path('profile/edit', edit_profile, name='edit-profile'),

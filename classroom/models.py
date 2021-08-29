@@ -16,13 +16,15 @@ STATUS_CHOICES = (
     ('graded', 'Graded'),
 )
 
-# Esta función retorna la ruta de almacenamiento 
+# Esta función retorna la 
+# ruta de almacenamiento 
 # de archivos de un usuario
 def user_directory_path(instance, filename):
     # THis file will be uploaded to MEDIA_ROOT /the user_(id)/the file
     return 'user_{0}/{1}'.format(instance.user.id, filename)
 
-# Esta clase define la estructura en la base de datos
+# Esta clase define la estructura 
+# en la base de datos
 # de los objetos Categoría de un curso
 class Category(models.Model):
     title = models.CharField(max_length=100, verbose_name='Title')
@@ -35,7 +37,8 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-# Esta clase define la estructura en la base de datos
+# Esta clase define la 
+# estructura en la base de datos
 # de los objetos Curso
 class Course(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -68,7 +71,8 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
-# Esta clase define la estructura en la base de datos
+# Esta clase define la 
+# estructura en la base de datos
 # de los objetos Nota
 class Grade(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)

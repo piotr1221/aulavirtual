@@ -14,7 +14,17 @@ from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.messages.storage.fallback import FallbackStorage
 
+# Create your tests here.
+
+# clase de test
+# contiene las funciones
+# para probar los metodos
+# de classroom
 class CourseTest(TestCase):
+    # metodo setup
+    # establece valores
+    # iniciales que se utilizaran
+    # en la suite de tests
     def setUp(self):
         self.factory = RequestFactory()
         self.category = Category.objects.create(title='Idiomas',
@@ -44,7 +54,9 @@ class CourseTest(TestCase):
         self.grade = Grade.objects.create(course = self.course,
                                         student = self.student,
                                         )
-                                            
+    # metodo de test
+    # prueba el registro
+    # de un nuevo curso                                            
     def test_new_course(self):
         req = self.factory.post('course/newcourse')
         req.user = self.user
@@ -72,6 +84,9 @@ class CourseTest(TestCase):
         course = Course.objects.get(title = 'English')
         assert course
 
+    # metodo de test
+    # prueba el editar
+    # de un nuevo curso
     def test_edit_course(self):
         req = self.factory.post(f'course/{self.course.id}/edit')
         req.user = self.user
@@ -98,6 +113,9 @@ class CourseTest(TestCase):
         course = Course.objects.get(title = 'Español')
         assert course
 
+    # metodo de test
+    # prueba registrarse
+    # de un nuevo curso 
     def test_enroll(self):
         req = self.factory.post(f'course/{self.course.id}/enroll')
         req.user = self.user
@@ -109,6 +127,9 @@ class CourseTest(TestCase):
             else:
                 assert False
 
+    # metodo de test
+    # prueba la remocion
+    # de un nuevo curso 
     def test_delete_course(self):
 
         course = Course.objects.create(picture=None,
@@ -131,6 +152,9 @@ class CourseTest(TestCase):
         except Exception:
             assert True
 
+    # metodo de test
+    # prueba la agregacion
+    # de un nuevo estudiante 
     def test_add_student_enroll(self):
         
         req = self.factory.post(f'course/{self.course.id}/students/{self.student.id}/add')
@@ -144,6 +168,9 @@ class CourseTest(TestCase):
             else:
                 assert False
 
+    # metodo de test
+    # prueba la remocion
+    # de un nuevo alumno 
     def test_delete_student_enroll(self):
         course = Course.objects.create(picture=None,
                                             title='test_course',
@@ -174,6 +201,9 @@ class CourseTest(TestCase):
             else:
                 assert True
 
+    # metodo de test
+    # prueba el registro
+    # de notas de tareas 
     def test_grade_submission(self):
         req = self.factory.post(f'course/{self.course}/submissions/{self.grade}/grade')
         req.user = self.user
@@ -181,6 +211,9 @@ class CourseTest(TestCase):
         grade = Grade.objects.get(id = self.grade.id)
         assert grade
     
+    # metodo de test
+    # prueba el registro
+    # de un nuevo curso 
     def test_student_grades(self):
         req = self.factory.post(f'course/{self.course}/students/grades')
         req.user = self.user
@@ -188,46 +221,73 @@ class CourseTest(TestCase):
         grades = Grade.objects.filter(course = self.course)
         assert grades
 
+    # metodo de test
+    # prueba la visualizacion
+    # del horario de cursos
     def test_schedule(self):
         req = self.factory.get('course/schedule')
         req.user = self.user
         schedule(req)
 
+    # metodo de test
+    # prueba la visualizacion
+    # de las categorias
     def test_categories(self):
         req = self.factory.get('course/categories')
         req.user = self.user
         categories(req)
 
+    # metodo de test
+    # prueba la visualizacion
+    # de cursos de una categoria
     def test_category_courses(self):
         req = self.factory.get(f'course/categories/{self.category.slug}')
         req.user = self.user
         category_courses(req, self.category.slug)
 
+    # metodo de test
+    # prueba la visualizacion
+    # de los detalles de curso
     def test_course_detail(self):
         req = self.factory.get(f'course/{self.course.id}')
         req.user = self.user
         course_detail(req, self.course.id)
 
+    # metodo de test
+    # prueba la visualizacion
+    # del horario de cursos
     def test_my_courses(self):
         req = self.factory.get('course/mycourses')
         req.user = self.user
         my_courses(req)
 
+    # metodo de test
+    # prueba la entrega
+    # de tareas
     def test_submissions(self):
         req = self.factory.get(f'course/{self.course.id}/submissions')
         req.user = self.user
         submissions(req, self.course.id)
     
+    # metodo de test
+    # prueba la entrega
+    # de tareas de alumno
     def test_student_submissions(self):
         req = self.factory.get(f'course/{self.course.id}/studentsubmissions')
         req.user = self.user
         student_submissions(req, self.course.id)
 
+    # metodo de test
+    # prueba la agregacion
+    # de alumno a curso
     def test_student_enroll_list(self):
         req = self.factory.get(f'course/{self.course.id}/students')
         req.user = self.user
         student_enroll_list(req, self.course.id)
 
+    # metodo de test
+    # prueba la entrega
+    # de tareas
     def test_index(self):
         req = self.factory.get('')
         req.user = self.user

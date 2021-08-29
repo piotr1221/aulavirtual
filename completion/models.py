@@ -7,11 +7,11 @@ from quiz.models import Quizzes
 from assignment.models import Assignment
 
 # Create your models here.
-#Funcion Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
-#Texto Prueba
+
+# Model completion
+# Esta clase define la 
+# estructura en la base de datos
+# de los objetos Nota
 class Completion(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	course = models.ForeignKey(Course, on_delete=models.CASCADE)

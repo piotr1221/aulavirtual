@@ -6,6 +6,8 @@ from module.views import delete_module, new_module, course_modules
 from page.views import delete_page, new_page_module, page_detail, delete_page
 from assignment.views import new_assignment, assignment_detail, edit_assignment, delete_assignment, new_submission, student_submission
 
+# urls para todo lo relacionado
+# con los classrooms
 urlpatterns = [
 	#Course - Classroom Views
 	path('newcourse/', new_course, name='newcourse'),

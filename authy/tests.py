@@ -13,14 +13,25 @@ from django.contrib.sessions.middleware import SessionMiddleware
 
 # Create your tests here.
 
+# clase de test
+# contiene las funciones
+# para probar los metodos
+# de assignments
 class ProfileTest(TestCase):
+    # metodo setup
+    # establece valores
+    # iniciales que se utilizaran
+    # en la suite de tests
     def setUp(self):
         self.factory = RequestFactory()
         self.user = User.objects.create_user(username='xocrona',
                                             email='xocrona@xocrona.com',
                                             password='xocrona',
                                             )
-
+    
+    # metodo de test
+    # prueba el registro
+    # de un nuevo usuario
     def test_register(self):
         req = self.factory.post('user/signup')
 
@@ -46,6 +57,9 @@ class ProfileTest(TestCase):
         user = User.objects.get(username='test_user')
         assert user
 
+    # metodo de test
+    # prueba editar el perfil
+    # de un nuevo usuario
     def test_edit_profile(self):
         req = self.factory.post('user/profile/edit')
         req.user = self.user
@@ -67,6 +81,9 @@ class ProfileTest(TestCase):
         profile = Profile.objects.get(user=self.user)
         assert profile.location
 
+    # metodo de test
+    # prueba modificar la contraseña
+    # de un nuevo usuario
     def test_change_password(self):
         req = self.factory.post('user/changepassword')
         req.user = self.user
@@ -91,6 +108,9 @@ class ProfileTest(TestCase):
         assert user.check_password(info['new_password'])
         return user
 
+    # metodo de test
+    # prueba verificar la barra
+    # de navegacion horizontal
     def test_side(self):
         req = self.factory.post('login')
         req.user = self.user
@@ -98,6 +118,9 @@ class ProfileTest(TestCase):
         user = User.objects.get(username=self.user)
         assert user
 
+    # metodo de test
+    # prueba que se muestra
+    # el cambio de contraseña
     def test_change_pass_done(self):
 
         req = self.factory.get('user/changepassword/done')
