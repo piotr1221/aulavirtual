@@ -1,26 +1,32 @@
+<!--Deriva del HTML de newassignment-->
 {% extends 'base.html' %}
+<!--Carga los scripts en la carpeta static-->
 {% load static %}
 
-        
+<!--Empieza un bloque contenido en otro HTML-->   
 {% block content %}
 
 <div class="row center-align">
   <div class="col s12">
-
+    <!--Formulario para crear un nuevo curso-->
     <form method="post" enctype="multipart/form-data" action="" role="form">
       {% csrf_token %}
     <h3 class="title is-3">Crear un nuevo curso</h3>
+    <!--Indicaciones sobre cómo llenar el formulario-->
     <div class="alert alert-info" role="alert">
       Los campos con asterisco son necesarios.
     </div>
+    <!--Muestra los mensages que 
+    podrían mostrarse en la página-->
     {% if messages %}
       {% for message in messages %}
+        <!--Mensajes de error-->
         {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
             <div class="alert alert-danger" role="alert">{{ message }}</div>
         {% endif %}      
       {% endfor %}
     {% endif %}
-
+          <!--Campo para subir la imagen asociada al curso-->
           <div class="file-field input-field col s12">
             <div class="btn">
               <span>Imagen*</span>
@@ -31,47 +37,56 @@
             </div>
           </div>
 
+          <!--Campo para subir el título del curso-->
           <div class="input-field col s12">
             {{ form.title }}
             <label for="title">Title*</label>
           </div>
 
+          <!--Campo para subir la descripción del curso-->
           <div class="input-field col s12">
             {{ form.description }}
             <label for="description">Description*</label>
           </div>
 
+          <!--Campo para subir escoger el día del curso-->
           <div class="input-field col s12">
             {{ form.day }}
             <label for="day">Día*</label>
           </div>
 
+          <!--Campo para escoger la hora de inicio del curso-->
           <div class="input-field col s12">
             <input type='time' name='time_start' type="text" required value='08:00'>
             <label for="day">Hora de Inicio*</label>
           </div>
 
+          <!--Campo para escoger la hora de cierre del curso-->
           <div class="input-field col s12">
             <input type='time' name='time_end' type="text" required value='09:00'>
             <label for="day">Hora de Cierre*</label>
           </div>
           
+          <!--Campo para escoger la categoría del curso-->
           <div class="input-field col s12">
             {{ form.category }}
             <label for="category">Categoría*</label>
           </div>
           
+          <!--Campo para subir la descripción del syllabus del curso-->
           <div class="input-field col s12">
             {{ form.syllabus }}
             <label for="syllabus">Syllabus*</label>
           </div>
 
+      <!--Muestra los errores cometidos al ingresar el formulario-->
       <div class="row">
         <div class="col s12">
           <span style="color: red; font-weight: bold;">{{ form.errors }}</span>
         </div>
       </div>
 
+      <!--Botón para subir el formulario-->
       <div class="field">
       <p class="control">
         <button type="submit" value="login" class="btn waves-effect waves-light">

@@ -1,10 +1,14 @@
+<!--Deriva del HTML de newassignment-->
 {% extends 'base.html' %}
-
+<!--Carga la carpeta de css-->
 {% block css %}
+<!--Carga los scripts en la carpeta static-->
 {% load static %}
+    <!--Carga el script de css-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/schedule.css' %}">
 {% endblock %}
 
+<!--Bloque HTML extendido-->
 {% block banner %}
 
 <div class="section no-pad-bot" id="index-banner">
@@ -17,13 +21,14 @@
 
 {% endblock %}
 
-
+<!--Bloque HTML extendido-->
 {% block content %}
 <div class="section">
 	<h4>Cursos</h4>
 	<div class="divider"></div>
 </div>
-{% comment %} //align-middle text center {% endcomment %}
+
+<!--Tabla que representa el horario del alumno-->
 <div class="container">
     <div class="timetable-img text-center">
         <img src="img/content/timetable.png" alt="">
@@ -44,14 +49,19 @@
                 </tr>
             </thead>
             <tbody>
+                <!--Itera todos los cursos enviados por hora-->
                 {% for list_course in courses %}
                     <tr>
+                        <!--Iteración de cursos por día-->
                         {% for c in list_course %}
+                            <!--Muestra la hora de inicio del curso-->
                             {% if c.time_start %}
                                 <td class="align-middle text-center">{{ c.time_start|time:'H:i' }}</td>
                             {% endif %}
-                        {% endfor %}                       
+                        {% endfor %}             
+                        <!--Muestra los cursos acomodas por hora y día-->          
                         {% for course in list_course %}
+                            <!--Muestra los cursos si es que se mandó alguno-->
                             {% if course != None %}
                                     <td>
                                         <div class="align-middle text-center"><span class="bg-sky padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13 center">{{ course }}</span></div>

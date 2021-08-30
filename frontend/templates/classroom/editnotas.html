@@ -1,35 +1,52 @@
+ <!--Deriva del HTML de newassignment-->
 {% extends 'base.html' %}
+<!--Carga los scripts en la carpeta static-->
 {% load static %}
 
+<!--Empieza un bloque contenido en otro HTML--> 
 {% block content %}
 <div class="section">
+  <!--Título del curso-->
 	<h4>{{ course.title }}</h4>
 	<div class="divider"></div>
 </div>
 
+<!--Menú de estudiante y de profesor-->
 <div class="row">
 
 <div class="col s3">
       <ul class="collection with-header">
+        <!--Menú de estudiante-->
         <li class="collection-header"><h4>Estudiante</h4></li>
+        <!--Opción para acceder al inicio-->
         <a href="#" class="collection-item">Inicio</a>
+        <!--Opción para acceder a los módulos-->
         <a href="{% url 'modules' course.id %}" class="collection-item">Clases</a>
+        <!--Opción para acceder a tus tareas Presentadas
+        si no eres el profesor del curso-->
         <a href="{% url 'submissions' course.id %}" class="collection-item">Tareas</a>
 
-        
+        <!--Menú de profesor si no eres alumno-->
         <li class="collection-header"><h4>Docente</h4></li>
+        <!--Opción para acceder a la visualización
+        de tareas y evaluación de estas--> 
         <a href=" {% url  'student-submissions' course.id %} " class="collection-item">Lista de Tareas Presentadas</a>
+        <!--Opción para acceder a la visualización
+        de tareas y evaluación de estas-->     
         <a href="#" class="collection-item">Calificar Tareas</a>
-        {% comment %} <a href=" {% url  'student-notas' course.id %} " class="collection-item active">Notas de los Estudiantes</a> {% endcomment %}
+        <!--Opción para acceder a la opción
+        de gestión de alumnos-->
         <a href="{% url 'students' course.id %}" class="collection-item">Gestion de alumnos</a>
         
       </ul>
 </div>
 
 <div class="col s9">
-
+  <!--Tareas de los estudiantes-->
   <div class="section">
     <h4>Student submissions</h4>
+      <!--Tabla con información del estudiante
+      incluyendo la nota-->
       <table >
         <caption>Tareas de estudiantes</caption>
         <thead>
@@ -46,11 +63,16 @@
 
         <tbody>
         
+        <!--Muestra todos los estudiantes-->
         {% for student in students %}
             <tr>
+                <!--Nombre completo del estudiante-->
                 <td>{{ student.get_full_name }}</td>
+                <!--Nombre de usuario del estudiante-->
                 <td>{{ student.username }}</td>
+                <!--Todas las notas del estudiante-->
                 {% for grade in grades %}
+                    <!--Muestra las notas si ya han sido asignadas-->
                     {%if grade.status ==  "graded" %}
                         <td>{{ grade.points }}</td>
                     {% else %}
@@ -62,8 +84,6 @@
         {% endfor %}
         </tbody>
       </table>
-
-
 
   </div>
   

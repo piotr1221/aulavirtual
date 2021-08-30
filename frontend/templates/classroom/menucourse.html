@@ -1,54 +1,75 @@
+ <!--Deriva del HTML de newassignment-->
 {% extends 'base.html' %}
+<!--Carga los scripts en la carpeta static-->
 {% load static %}
 
+<!--Empieza un bloque contenido en otro HTML--> 
 {% block content %}
 <div class="section">
+  <!--Título del curso-->
 	<h4>{{ course.title }}</h4>
-  <strong style="display: inline;">Docente:<strong> 
+  <!--Docente del curso-->
+  <strong style="display: inline;">Docente:<strong>
   <p style="display: inline; font-weight:normal;">
     {{ course.user.first_name }} {{ course.user.last_name }}
   </p>
 	<div class="divider"></div>
 </div>
 
+<!--Muestra los mensages que 
+podrían mostrarse en la página-->
 {% if messages %}
   {% for message in messages %}
+    <!--Mensajes de error-->
     {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
       <div class="alert alert-danger" role="alert">{{ message }}</div>
-    {% endif %} 
+    {% endif %}
+    <!--Mensajes de éxito-->
     {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
       <div class="alert alert-success" role="alert">{{ message }}</div>
     {% endif %}      
   {% endfor %}
 {% endif %}
 
+<!--Menú de estudiante y de profesor-->
 <div class="row">
 
-<div class="col s3">
-      <ul class="collection with-header">
-        
-        <li class="collection-header"><h4>Estudiante</h4></li>
-        <a href="{% url 'course' course.id %}" class="collection-item">Inicio</a>
-        <a href="{% url 'modules' course.id %}" class="collection-item">Clases</a>
-        {% if teacher_mode == False %} 
-        <a href="{% url 'submissions' course.id %}" class="collection-item">Tareas</a>
-        {% endif %}
+  <div class="col s3">
+        <ul class="collection with-header">
+          <!--Menú de estudiante-->
+          <li class="collection-header"><h4>Estudiante</h4></li>
+          <!--Opción para acceder al inicio-->
+          <a href="{% url 'course' course.id %}" class="collection-item">Inicio</a>
+          <!--Opción para acceder a los módulos-->
+          <a href="{% url 'modules' course.id %}" class="collection-item">Clases</a>
+          <!--Opción para acceder a tus tareas Presentadas
+          si no eres el profesor del curso-->
+          {% if teacher_mode == False %} 
+          <a href="{% url 'submissions' course.id %}" class="collection-item">Tareas</a>
+          {% endif %}
 
-        {% if teacher_mode == True %} 
-        <li class="collection-header"><h4>Teacher</h4></li>       
-        <a href="{% url 'rate-submissions' course.id %}" class="collection-item">Gestionar Tareas</a>
-        <a href="{% url 'students' course.id %}" class="collection-item">Gestionar Alumnos</a>
-        <a href="{% url 'students-grades' course.id %}" class="collection-item">Gestinar Notas</a>
-        {% endif %}
-      </ul>
-</div>
-
-<div class="col s9">
-
-  <div class="section">
-    {% block contenido %}
-    {% endblock %}
+          <!--Menú de profesor si no eres alumno-->
+          {% if teacher_mode == True %} 
+          <li class="collection-header"><h4>Teacher</h4></li>  
+          <!--Opción para acceder a la visualización
+          de tareas y evaluación de estas-->     
+          <a href="{% url 'rate-submissions' course.id %}" class="collection-item">Gestionar Tareas</a>
+          <!--Opción para acceder a la opción
+          de gestión de alumnos-->
+          <a href="{% url 'students' course.id %}" class="collection-item">Gestionar Alumnos</a>
+          <!--Opción para acceder a la gestión
+          de notas de alumnos-->
+          <a href="{% url 'students-grades' course.id %}" class="collection-item">Gestinar Notas</a>
+          {% endif %}
+        </ul>
   </div>
+
+  <div class="col s9">
+    <!--Bloque HTML extendido-->
+    <div class="section">
+      {% block contenido %}
+      {% endblock %}
+    </div>
   
 </div>
 

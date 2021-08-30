@@ -1,17 +1,23 @@
+<!--Deriva del HTML de newassignment-->
 {% extends 'classroom/menucourse.html' %}
+<!--Carga los scripts en la carpeta static-->
 {% load static %}
 
+<!--Empieza un bloque contenido en otro HTML-->   
 {% block contenido %}
 
   <div class="section">
     <h4>Tareas entregadas</h4>
     <div class="divider"></div>
 
+    <!--Divide todas las tareas entregadas por módulos-->
     <ul class="collapsible">
       {% for module in course.modules.all %}
       <li>
         <div class="collapsible-header"><em class="material-icons">expand_more</em><strong>{{ module.title }}</strong></div>
         <div class="collapsible-body" style="font-size: 14px">
+            <!--Tabla de las tareas que
+            ha entregado el estudiante-->
             <table>
               <caption>Mis tareas</caption>
               <thead>
@@ -24,12 +30,18 @@
               </thead>
 
               <tbody>
+              <!--Muestra las tareas de los estudiantes-->
               {% for assignment in module.assignments.all %}
                 {% for submission in submissions %}
+                  <!--Matchea la tarea con la respuesta
+                  correspondiente-->
                   {% if submission.delivered and submission.assignment == assignment %}
                     <tr>
+                      <!--Título de la tarea-->
                       <td>{{ assignment.title }}</td>
+                      <!--Fecha de la tarea-->
                       <td class="text-center">{{ submission.date|date:"d/m/y" }}</td>
+                      <!--Verifica si la tarea ha sido revisada-->
                       {% if not submission.checked %}
                         <td class="text-center">Sin revisar</td>
                         <td class="text-center">-</td>
@@ -49,15 +61,6 @@
       {% endfor %}
     </ul>
 
-      
-
-
-
   </div>
-  
-
-
-
-
 
 {% endblock %}
