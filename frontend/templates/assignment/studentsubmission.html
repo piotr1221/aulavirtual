@@ -65,7 +65,7 @@ sea el usuario sea un estudiante del curso-->
               <p>Aún no se ha subido nada.</p>
             {% else %}
               <p>Fecha de entrega: {{ submission.date }}</p>
-              <a href="#" class="secondary-content"><em class="material-icons">delete</em></a>
+              <a href={{ submission_file }} class="secondary-content" download><em class="material-icons">download</em></a>
             {% endif %}     
           </li>
     </ul>
