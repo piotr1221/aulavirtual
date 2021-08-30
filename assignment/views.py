@@ -31,7 +31,6 @@ def new_assignment(request, course_id, module_id):
     else:
         if request.method == 'POST':
             form = NewAssignmentForm(request.POST, request.FILES)
-            print(form.errors)
             if form.is_valid():
                 title = form.cleaned_data.get('title')
                 content = form.cleaned_data.get('content')

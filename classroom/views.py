@@ -63,7 +63,6 @@ def initialize_arrays(courses, u_courses, times):
         for _ in range(7):
             u_course.append(None)
     sort_times(times)
-    print(times)
 
 # Esta función organiza el arreglo
 #  de horas de inicio de 

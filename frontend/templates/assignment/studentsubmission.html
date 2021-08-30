@@ -1,0 +1,77 @@
+ <!--Deriva del HTML de assignment_base-->
+{% extends 'base.html' %}
+<!--Carga los scripts en la carpeta static-->
+{% load static %}
+
+ <!--Empieza un bloque contenido en otro HTML-->
+{% block content %}
+
+<!--Formulario para actualizar la nota de un alumno-->
+<form method="post">
+  {% csrf_token %}
+  <div>
+      <!--Título de la tarea-->
+      <div class="section">
+        <h4>{{ assignment.title }}</h4>
+        <div class="divider"></div>
+      </div>
+
+      <!--Muestra los mensages que 
+      podrían mostrarse en la página-->
+      {% if messages %}
+        {% for message in messages %}
+          <!--Mensajes de éxito-->
+          {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert alert-success" role="alert">{{ message }}</div>
+          {% endif %}      
+        {% endfor %}
+      {% endif %}
+
+      <div class="row">
+          <!--Fecha de entrega máxima de la tarea-->
+          <div class="col s6">
+              <h5>Fecha Límite:</h5>
+              <p>{{ assignment.due }}</p>
+          </div>
+
+          <!--Nota máxima de la tarea-->
+          <div class="col s6">
+              <h5>Puntos: 
+                <input name="points" style="width:2ch; font-size: 14px" value={{ submission.points }}>
+              </h5>       
+          </div>
+    
+          <!--Descripción de la tarea-->
+          <div class="col s12">
+              <h5>Alumno:</h5>
+              {{ submission.user.get_full_name | safe }}  
+          </div>
+    </div>
+
+      <!--Bloque HTML extendido-->
+      {% block assignment %}
+      {% endblock %}
+  </div>
+
+<!--Muestra solo los archivos adjuntos en caso de que 
+sea el usuario sea un estudiante del curso-->
+  <div class="col s12">
+    <ul class="collection with-header">
+      <li class="collection-header"><h4>Archivo enviado</h4></li>
+          <li class="collection-item avatar">
+            <em class="material-icons circle">insert_chart</em>
+            <!--Muestra la tarea subida si el estudiante ya la envio-->
+            {% if not submission.delivered %}
+              <p>Aún no se ha subido nada.</p>
+            {% else %}
+              <p>Fecha de entrega: {{ submission.date }}</p>
+              <a href="#" class="secondary-content"><em class="material-icons">delete</em></a>
+            {% endif %}     
+          </li>
+    </ul>
+  </div>
+  <a href="{% url 'students-grades' course_id %}" class="btn blue waves-effect waves-light">Volver</a>
+  <button type="submit" class="btn waves-effect waves-light">Guardar</button>
+</form>
+
+{% endblock %}

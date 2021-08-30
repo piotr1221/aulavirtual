@@ -41,7 +41,7 @@ class AssTest(TestCase):
         self.course = Course.objects.create(picture= None,
                                                         title= 'English',
                                                         description= 'Basic Intermediate Advance English course',
-                                                        day= 'LU',
+                                                        day= '1',
                                                         time_start= '12:00:00',
                                                         time_end ='14:30:00',
                                                         category= self.category,

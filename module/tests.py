@@ -35,7 +35,7 @@ class ModuleTest(TestCase):
         self.course = Course.objects.create(picture=None,
                                             title='test_course',
                                             description='xocrona',
-                                            day='LU',
+                                            day='1',
                                             time_start='10:00',
                                             time_end='11:00',
                                             category=Category.objects.get(id=self.category.id),
