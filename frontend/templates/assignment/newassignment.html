@@ -1,9 +1,11 @@
  <!--Deriva del HTML de newassignment-->
 {% extends 'base.html' %}
-<!--Carga los scripts en la carpeta static-->
+<!--Carga los scripts
+   en la carpeta static-->
 {% load static %}
 
-<!--Empieza un bloque contenido en otro HTML-->   
+<!--Empieza un bloque 
+  contenido en otro HTML-->   
 {% block content %}
 
 <div class="row center-align">
@@ -31,24 +33,29 @@
             <label for="title">Título</label>
           </div>
 
-          <!--Campo para ingresar la descripción de la tarea-->
+          <!--Campo para ingresar la 
+            descripción de la tarea-->
           <div class="input-field col s12">
             {{ form.content }}
           </div>
 
-          <!--Campo para ingresar la fecha de entrega de la tarea-->
+          <!--Campo para ingresar la fecha 
+            de entrega de la tarea-->
           <div class="input-field col s12">
             {{ form.due }}
             <label for="due">Fecha de entrega</label>
           </div>
 
-          <!--Campo para ingresar los puntos máximos de la tarea-->
+          <!--Campo para ingresar los puntos 
+            máximos de la tarea-->
           <div class="input-field col s12">
             {{ form.points}}
             <label for="points">Puntos</label>
           </div>
 
-      <!--Muestra los errores cometidos al ingresar el formulario-->
+      <!--Muestra los errores 
+        cometidos al ingresar 
+        el formulario-->
       <div class="row">
         <div class="col s12">
           <span style="color: red; font-weight: bold;">{{ form.errors }}</span>

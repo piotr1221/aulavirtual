@@ -1,18 +1,23 @@
+ <!--Deriva del HTML de base -->
 {% extends 'base.html' %}
+<!--Carga los scripts 
+  en la carpeta static-->
 {% load static %}
 
-        
+<!--Empieza un bloque
+  contenido en otro HTML-->        
 {% block content %}
 
 <div class="row center-align">
   <div class="col s12">
 
 
+    <!--Agregar material al modulo-->
     <form method="post" enctype="multipart/form-data" action="" role="form">
       {% csrf_token %}
     <h3 class="title is-3">Agregar nuevo material</h3>
 
-
+          <!--Campos para el formulario-->
           <div class="input-field col s12">
             {{ form.title }}
             <label for="title">Título</label>
@@ -24,6 +29,7 @@
             <label for="content">Descripción</label>            
           </div>
 
+          <!--Subida de archivos-->
           <div class="file-field input-field col s12">
             <div class="btn">
               <span>Archivos</span>
@@ -41,7 +47,7 @@
         </div>
       </div>
 
-
+      <!--Boton de enviar-->
       <div class="field">
       <p class="control">
         <button type="submit" value="login" class="btn waves-effect waves-light">

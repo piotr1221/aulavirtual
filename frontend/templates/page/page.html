@@ -1,6 +1,11 @@
+ <!--Deriva del HTML de base -->
 {% extends 'base.html' %}
+<!--Carga los scripts 
+  en la carpeta static-->
 {% load static %}
 
+<!--Empieza un bloque
+  contenido en otro HTML-->  
 {% block content %}
 <div class="section">
 	<h4>{{ page.title }}</h4>
@@ -13,6 +18,7 @@
   {{ page.content | safe }}
 </div>
 
+<!--Archivos dentro de la pagina-->
 <div class="col s12">
   <ul class="collection with-header">
     <li class="collection-header"><h4>Files</h4></li>

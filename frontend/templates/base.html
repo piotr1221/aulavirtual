@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
   <title>FISI-Room</title>
 
+  <!--Carga los scripts 
+  en la carpeta static-->
   {% load static %}
-  
+  <!--Empieza un bloque
+  contenido en otro HTML-->  
   {% block css %}{% endblock %}
   <!-- CSS  -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -16,7 +19,7 @@
 </head>
 <body>
 
-
+<!--Barra de navegacion-->
   <nav class="light-blue" role="navigation">
     <div class="nav-wrapper container">
       <a href="{% url 'index' %}" class="brand-logo"><em class="material-icons">cloud</em>FISI-Room</a>
@@ -30,16 +33,19 @@
   </nav>
 
 
-
+<!--Template principal del cual
+heredan el resto de plantillas-->
   <ul id="slide-out" class="sidenav">
     <li><div class="user-view">
       <div class="background">
+        <!--Banner del usuario-->
         {% if nav_profile.banner %}
           <img src="{{ nav_profile.banner.url }}" alt="Imagen no cargada">
         {% else %}
           <img src="{% static 'img/nobanner.jpg' %}" alt="Imagen no cargada">
         {% endif %}
       </div>
+      <!--Foto de perfil-->
       <a href="#user">
       {% if nav_profile.picture %}
         <img src="{{ nav_profile.picture.url }}" class="circle responsive-img" alt="Imagen no cargada">
@@ -52,6 +58,7 @@
     </div>
     </li>
     <!--{% url 'profile' nav_profile.user.username %}-->
+    <!--Opciones en el menu desplegable-->
     <li><a href="#"><em class="material-icons">person</em>Mi perfil</a></li>
     <li><a href="{% url 'index' %}"><em class="material-icons">dashboard</em>Tabloide</a></li>
     <li><a href="{% url 'schedule' %}"><em class="material-icons">schedule</em>Horario</a></li>
@@ -65,12 +72,15 @@
     <li><a href="{% url 'logout' %}"><em class="material-icons">power_off</em>Desconectarse</a></li>
   </ul>
 
-
+<!--Fin del bloque-->
     {% block banner %}
     {% endblock %}
 
 
-
+<!--Bloque donde se pondra
+el contenido de las plantillas
+que hereden de esta plantilla
+actual de base-->
 <div class="container">
   <div class="section">
 
@@ -82,7 +92,10 @@
   <br>
 
 
-
+<!--Footer con informacion
+sobre la facultad y
+el grupo de desarrollo
+del sistema-->
   <footer class="page-footer orange">
     <div class="container">
       <div class="row">
