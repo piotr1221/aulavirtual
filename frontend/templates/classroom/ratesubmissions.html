@@ -1,18 +1,25 @@
+<!--Deriva del HTML de newassignment-->
 {% extends 'classroom/menucourse.html' %}
+<!--Carga los scripts en la carpeta static-->
 {% load static %}
 
+<!--Empieza un bloque contenido en otro HTML-->   
 {% block contenido %}
 
   <div class="section">
     <h4>Tareas entregadas</h4>
     <div class="divider"></div>
+    <!--Formulario para calificar tareas de los estudiantes-->
     <form method="post">
       {% csrf_token %}
     <ul class="collapsible">
+      <!--Divide las tareas por módulo del curso-->
       {% for module in course.modules.all %}
       <li>
         <div class="collapsible-header"><em class="material-icons">expand_more</em><strong>{{ module.title }}</strong></div>
         <div class="collapsible-body" style="font-size: 14px">
+            <!--Tabla con las tareas de todos
+            los alumnos del curso-->
             <table>
               <caption>Tareas</caption>
               <thead>
@@ -25,18 +32,26 @@
               </thead>
 
               <tbody>
+              <!--Muestra todas las tareas-->
               {% for assignment in module.assignments.all %}
                 {% for submission in submissions %}
+                  <!--Empareja las tareas con la respuesta de tarea correcta-->
                   {% if submission.assignment == assignment %}
                     <tr>
+                      <!--Título de la tarea-->
                       <td>{{ assignment.title }}</td>
+                      <!--Link asociado al nombre del alumno
+                      para revisar su respuesta de tarea-->
                       <td><a href="{% url 'student-submission' course.id module.id assignment.id submission.id%}">{{ submission.user.first_name }}</a></td>
+                      <!--Muestra la fecha de la tarea si se ha entregado-->
                       {% if not submission.delivered %}
                         <td class="text-center">Aún no se entrega</td>
                       {% else %}
                         <td class="text-center">{{ submission.date|date:"d/m/y" }}</td>
                       {% endif %}
+                      <!--Campo para subir la nota del estudiante-->
                       <td><input name="points" style="width:2ch" value={{ submission.points }}></td>
+                      <!--Campo oculto que envía el id del estudiante-->
                       <input name="submission_id" type="hidden" value={{ submission.id }} />
                     </tr>
                   {% endif%}
@@ -49,17 +64,10 @@
         </li>
         {% endfor %}
       </ul>
+      <!--Botón para subir el formulario-->
       <button type="submit" class="btn waves-effect waves-light">Guardar</button>
     </form>
       
-
-
-
   </div>
-  
-
-
-
-
 
 {% endblock %}

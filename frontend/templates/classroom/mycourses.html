@@ -1,44 +1,65 @@
+<!--Deriva del HTML de newassignment-->
 {% extends 'base.html' %}
+<!--Carga los scripts en la carpeta static-->
 {% load static %}
 
+<!--Empieza un bloque contenido en otro HTML--> 
 {% block content %}
 <div class="section">
   <div class="row">
-      <div class="col-md-11">
-        <h4>Mis cursos enseñados</h4>
-      </div>
-      <div class="col-md-1">
+    <div class="col-md-11">
+      <!--Título de presentación para
+      los cursos impartidos-->
+      <h4>Mis cursos enseñados</h4>
+    </div>
+    <div class="col-md-1">
+        <!--Botón para crear nuevo curso-->
         <a href="{% url 'newcourse' %}" class="btn green"><h6>Crear</h6></a>
-      </div>
+    </div>
   </div>
+
+  <!--Muestra los mensages que 
+  podrían mostrarse en la página-->
   {% if messages %}
     {% for message in messages %}
+      <!--Mensajes de éxito-->
       {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
         <div class="alert alert-success" role="alert">{{ message }}</div>
       {% endif %}      
     {% endfor %}
   {% endif %}
-</div>
 	
+  <!--Divisor de componentes-->
 	<div class="divider"></div>
   
 </div>
 
+<!--Vista de los cursos enseñados-->
 <div class="row">
+<!--Muestra todos los cursos-->
 {% for course in courses %}
 <div class="col-3">
   <div class="card">
     <div class="card-image waves-effect waves-block waves-light">
+      <!--Muestra la imagen del curso si la tiene-->
       {% if course.picture %}
+      <!--Asociación de la imagen con el 
+      link que lleva al curso-->
       <a href="{% url 'course' course.id %}"><img class="activator" src="{{ course.picture.url }}" alt="Imagen no cargada"></a>
       {%endif%}
     </div>
+    <!--Información relevante del curso-->
     <div class="card-content">
+      <!--Título del curso-->
       <span class="card-title activator grey-text text-darken-4"><strong>{{ course.title }}</strong><em class="material-icons right">more_vert</em></span>
+      <!--Cantidad de estudiantes-->
       <p class="title"><strong>{{ course.enrolled.count }}</strong> Estudiantes</p>
+      <!--Botón para editar el curso-->
       <a href="{% url 'edit-course' course.id %}" class="btn">Editar</a>
+      <!--Botón para eliminar el curso-->
       <a href="{% url 'delete-course' course.id %}" class="btn red">Eliminar</a>
     </div>
+    <!--Descripción del curso-->
     <div class="card-reveal">
       <span class="card-title grey-text text-darken-4">Sobre el curso<em class="material-icons right">close</em></span>
       <p>{{ course.description }}</p>
