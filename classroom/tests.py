@@ -7,12 +7,13 @@ from django.core.handlers.wsgi import WSGIRequest
 from io import BytesIO
 from django.http.request import QueryDict
 from django.middleware.csrf import get_token
-from .views import add_stundent_enroll, categories, category_courses, course_detail, delete_course, index, my_courses, new_course,edit_course, enroll, delete_course, grade_submission,delete_stundent_enroll, schedule, student_enroll_list, student_grades, student_submissions, students_notas, submissions
+from .views import add_stundent_enroll, categories, category_courses, course_detail, delete_course, get_student_courses, index, initialize_arrays, my_courses, new_course,edit_course, enroll, delete_course, grade_submission,delete_stundent_enroll, rate_submissions, schedule, sort_times, student_enroll_list, student_grades, student_submissions, students_notas, submissions, verify_schedule, verify_time
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.test.client import RequestFactory
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.contrib.messages.storage.fallback import FallbackStorage
+import datetime
 
 # Create your tests here.
 
@@ -292,6 +293,92 @@ class CourseTest(TestCase):
         req = self.factory.get('')
         req.user = self.user
         index(req)
+
+  
+    def test_init_array(self):
+        courses = get_student_courses(self.user)
+        u_courses = []
+        times = []
+        req = self.factory.get('')
+        req.user = self.user
+        initialize_arrays(courses,u_courses,times)
+        return 
+
+    def test_sort(self):
+        course04 = Course.objects.create(picture=None,
+                                            title='test_course04',
+                                            description='xocronakbro',
+                                            day='2',
+                                            time_start= '16:00',
+                                            time_end= '17:00',
+                                            category=self.category,
+                                            syllabus='Syllabus',
+                                            user=self.user,
+                                            )
+
+        times = []
+        times.append(course04.time_start)
+        times.append(self.course.time_start)
+        req = self.factory.get('')
+        req.user = self.user
+        sort_times(times)
+    
+    def test_verify_time(self):
+        course03 = Course.objects.create(picture=None,
+                                            title='test_course03',
+                                            description='xocronakbro',
+                                            day='2',
+                                            time_start= datetime.time(14, 0),
+                                            time_end= datetime.time(15, 0),
+                                            category=self.category,
+                                            syllabus='Syllabus',
+                                            user=self.user,
+                                            )
+        req = self.factory.get('')
+        req.user = self.user
+        verify_time(course03.time_start,course03.time_end,req)
+
+    def test_verify_schedule(self):
+        course04 = Course.objects.create(picture=None,
+                                            title='test_course03',
+                                            description='xocronakbro',
+                                            day='2',
+                                            time_start= '18:00',
+                                            time_end= '19:00',
+                                            category=self.category,
+                                            syllabus='Syllabus',
+                                            user=self.user,
+                                            )
+        req = self.factory.get('')
+        req.user = self.user
+        verify_schedule(self.user,course04)
+
+    def test_rate_submission(self):
+        req = self.factory.get(f'{self.course.id}/submissions/rate')
+        req.user = self.user
+        info = {'csrfmiddlewaretoken': get_token(req),
+                'points':15
+                }
+        
+        setattr(req, 'session', 'session')
+        messages = FallbackStorage(req)
+        setattr(req, '_messages', messages)
+
+        q = QueryDict('', mutable=True)
+        q.update(info)
+        req.POST = q
+
+        rate_submissions(req,self.course.id)
+        course = Grade.objects.get(id = self.grade.id)
+        assert course
+
+        
+
+
+    
+
+
+
 
 
 
