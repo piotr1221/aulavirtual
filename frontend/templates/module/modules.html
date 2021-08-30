@@ -1,8 +1,14 @@
+ <!--Deriva del HTML de menucourse -->
 {% extends 'classroom/menucourse.html' %}
+<!--Carga los scripts 
+  en la carpeta static-->
 {% load static %}
 
+ <!--Empieza un bloque
+  contenido en otro HTML-->
 {% block contenido %}
-
+  <!--Modo de profesor
+    dueño del modulo-->
   {% if teacher_mode == True %}
     <a href="{% url 'new-module' course.id %}" class="btn-floating btn-large waves-effect waves-light red right"><em class="material-icons">add</em></a>
   {% endif %}
@@ -11,11 +17,14 @@
     <h4>Contenido</h4>
     <div class="divider"></div> 
 
+    <!--Modulos dentro del curso-->
     <ul class="collapsible">
       {% for module in course.modules.all %}
       <li>
         <div class="collapsible-header"><em class="material-icons">expand_more</em><strong>{{ module.title }}</strong></div>
         <div class="collapsible-body">
+          <!--Modo de profesor
+            dueño del modulo-->
           {% if teacher_mode == True %}
             <a href="{% url 'new-page' course.id module.id %}" class="btn-small"><em class="material-icons">add</em>Add new page</a>
             <a href="{% url 'new-assignment' course.id module.id %}" class="btn-small"><em class="material-icons">add</em>Add new assignment</a>
@@ -23,10 +32,12 @@
           {% endif %}
             <div class="collection">
               <br>
+              <!--Paginas dentro del modulo-->
               {% for page in module.pages.all %}
                 <a href="{% url 'page-detail' course.id module.id page.id %}" class="collection-item"><em class="material-icons">segment</em> {{ page.title }}
                 </a>
               {% endfor %}
+              <!--Quizes dentro del modulo-->
               {% for quiz in module.quizzes.all %}
                 <a href="{% url 'quiz-detail' course.id module.id quiz.id %}" class="collection-item"><em class="material-icons">fact_check</em> {{ quiz.title }}
                  <div class="secondary-content">
@@ -35,6 +46,7 @@
                  </div>
                 </a>
               {% endfor %}
+              <!--Asignaciones dentro del modulo-->
               {% for assignment in module.assignments.all %}
                 <a href="{% url 'assignment-detail' course.id module.id assignment.id %}" class="collection-item"><em class="material-icons">fact_check</em> {{ assignment.title }}
                  <div class="secondary-content">

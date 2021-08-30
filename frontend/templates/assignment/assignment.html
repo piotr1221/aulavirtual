@@ -1,9 +1,11 @@
  <!--Deriva del HTML de assignment_base-->
 {% extends 'assignment/assignment_base.html' %}
-<!--Carga los scripts en la carpeta static-->
+<!--Carga los scripts
+  en la carpeta static-->
 {% load static %}
 
- <!--Empieza un bloque contenido en otro HTML-->
+ <!--Empieza un bloque
+  contenido en otro HTML-->
 {% block assignment %}
 
 <div class="col s12">
@@ -21,8 +23,10 @@
   </ul>  
 </div>
 
-<!--Muestra solo los archivos adjuntos en caso de que 
-sea el usuario sea un estudiante del curso-->
+<!--Muestra solo los archivos
+adjuntos en caso de que 
+sea el usuario sea un estudiante
+del curso-->
 {% if not teacher_mode %}
   <div class="col s12">
     <ul class="collection with-header">
@@ -40,12 +44,16 @@ sea el usuario sea un estudiante del curso-->
     </ul>
   </div>
 
-  <!--Muestra el botón de empezar tarea si el usuario es un estudiante del curso-->
+  <!--Muestra el botón de empezar 
+    tarea si el usuario es un 
+    estudiante del curso-->
   <div class="col s12">
     <a class="btn" href="{% url 'start-assignment' course_id module_id assignment.id %}">Empezar</a>
   </div>
 {% else %}
- <!--Muestra el botón de editar tarea si el usuario es el profesor del curso-->
+ <!--Muestra el botón de editar 
+  tarea si el usuario es el 
+  profesor del curso-->
   <div class="col s12">
     <a class="btn" href="{% url 'assignment-edit' course_id module_id assignment.id %}">Editar Tarea</a>
   </div>

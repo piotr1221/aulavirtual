@@ -1,9 +1,11 @@
  <!--Deriva del HTML de newassignment-->
 {% extends 'base.html' %}
-<!--Carga los scripts en la carpeta static-->
+<!--Carga los scripts 
+  en la carpeta static-->
 {% load static %}
 
-<!--Empieza un bloque contenido en otro HTML--> 
+<!--Empieza un bloque 
+  contenido en otro HTML--> 
 {% block content %}
 
 <!--Título de la tarea-->
@@ -12,7 +14,8 @@
   <div class="divider"></div>
 </div>
 
-<!--Formulario para responder a la tarea-->
+<!--Formulario para 
+  responder a la tarea-->
 <div class="col s12">
   <form method="post" action="" enctype="multipart/form-data" role="form" class="col s12">
     {% csrf_token %}
@@ -28,14 +31,17 @@
           </div>
         </div>
 
-      <!--Muestra los errores cometidos al ingresar el formulario-->
+      <!--Muestra los errores 
+        cometidos al ingresar 
+        el formulario-->
       <div class="row">
         <div class="col s12">
           <span style="color: red; font-weight: bold;">{{ form.errors }}</span>
         </div>
       </div>
 
-      <!--Botón para subir la respuesta de la tarea-->
+      <!--Botón para subir 
+        la respuesta de la tarea-->
       <div class="field">
       <p class="control">
         <button type="submit" value="login" class="btn waves-effect waves-light">Enviar</button>

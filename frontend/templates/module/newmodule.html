@@ -1,23 +1,28 @@
+ <!--Deriva del HTML de base -->
 {% extends 'base.html' %}
+<!--Carga los scripts 
+  en la carpeta static-->
 {% load static %}
 
-        
+<!--Empieza un bloque
+  contenido en otro HTML-->      
 {% block content %}
 
 <div class="row center-align">
   <div class="col s12">
 
-
+    <!--Creacion de modulo-->
     <form method="post" enctype="multipart/form-data" action="" role="form">
       {% csrf_token %}
     <h3 class="title is-3">Let's create a new module!</h3>
 
-
+          <!--Tiulo del modulo-->
           <div class="input-field col s12">
             {{ form.title }}
             <label for="title">Title</label>
           </div>
 
+          <!--Horas del modulo-->
           <div class="input-field col s12">
             {{ form.hours }}
             <label for="description">Hours</label>
@@ -30,7 +35,7 @@
         </div>
       </div>
 
-
+      <!--Boton de crear el modulo-->
       <div class="field">
       <p class="control">
         <button type="submit" value="login" class="btn waves-effect waves-light">

@@ -1,9 +1,11 @@
  <!--Deriva del HTML de assignment_base-->
 {% extends 'base.html' %}
-<!--Carga los scripts en la carpeta static-->
+<!--Carga los scripts 
+    en la carpeta static-->
 {% load static %}
 
- <!--Empieza un bloque contenido en otro HTML-->
+ <!--Empieza un bloque
+     contenido en otro HTML-->
 {% block content %}
 
 <div>
@@ -14,7 +16,8 @@
     </div>
   
     <div class="row">
-        <!--Fecha de entrega máxima de la tarea-->
+        <!--Fecha de entrega 
+            máxima de la tarea-->
         <div class="col s6">
             <h5>Fecha de Entrega:</h5>
             <p>{{ assignment.due }}</p>
