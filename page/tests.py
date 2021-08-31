@@ -1,6 +1,6 @@
 
 from page.models import Page
-from page.views import delete_page, new_page_module, page_detail
+from page.views import delete_page, mark_page_as_done, new_page_module, page_detail
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.http.request import QueryDict
 from django.middleware.csrf import get_token
@@ -52,7 +52,7 @@ class PageTest(TestCase):
 
     # metodo de test
     # prueba el registro
-    # de un nuevo curso                                            
+    # de un nuevo Page                                            
     def test_new_page(self):
         req = self.factory.post(f'{self.course.id}/modules/{self.module.id}/pages/newpage')
         req.user = self.user
@@ -74,7 +74,10 @@ class PageTest(TestCase):
         page = Page.objects.get(title='Prueba')
         assert page
         return page
-
+    
+    # metodo de test
+    # prueba eliminar
+    # una Page 
     def test_delete_page(self):
         page=PageTest.test_new_page(self)
         page_id=page.id
@@ -88,6 +91,9 @@ class PageTest(TestCase):
         except Exception:
             assert True
 
+    # metodo de test
+    # prueba detalles
+    # de un nuevo page 
     def test_deta_page(self):
         page=PageTest.test_new_page(self)
         page_id=page.id
@@ -97,4 +103,15 @@ class PageTest(TestCase):
         page01 = Page.objects.get(title='Prueba')
         assert page01
         return page01
-        
+
+    # metodo de test
+    # prueba mmarcar page
+    # de una page 
+    def test_mark_page(self):
+        page=PageTest.test_new_page(self)
+        page_id=page.id    
+        req = self.factory.get('')
+        req.user = self.user
+        mark_page_as_done(req,self.course.id,self.module.id,page_id)
+        mod01=Module.objects.get(id=self.module.id)
+        assert mod01
