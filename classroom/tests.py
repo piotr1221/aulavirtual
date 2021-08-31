@@ -37,13 +37,12 @@ class CourseTest(TestCase):
                                             email='xocrona@xocrona.com',
                                             password='xocrona',
                                             )
-
         self.course = Course.objects.create(picture=None,
                                             title='test_course',
                                             description='xocrona',
                                             day='1',
-                                            time_start='10:00',
-                                            time_end='11:00',
+                                            time_start=datetime.datetime.strptime('01:00', '%H:%M').time(),
+                                            time_end=datetime.datetime.strptime('02:00', '%H:%M').time(),
                                             category=self.category,
                                             syllabus='Syllabus',
                                             user=self.user,
@@ -55,7 +54,8 @@ class CourseTest(TestCase):
         self.grade = Grade.objects.create(course = self.course,
                                         student = self.student,
                                         )
-    # metodo de test
+        self.course.enrolled.add(self.student)
+    # metodo de testf
     # prueba el registro
     # de un nuevo curso                                            
     def test_new_course(self):
@@ -67,8 +67,8 @@ class CourseTest(TestCase):
                 'category': self.category.id,
                 'day': '1',
                 'description': 'Basic Intermediate Advance English course',
-                'time_start': '12:00:00',
-                'time_end': '14:00:00',
+                'time_start': datetime.datetime.strptime('03:00', '%H:%M').time(),
+                'time_end': datetime.datetime.strptime('04:00', '%H:%M').time(),
                 'syllabus': 'syllabus test',
                 'action': ''
                 }
@@ -85,9 +85,9 @@ class CourseTest(TestCase):
         course = Course.objects.get(title = 'English')
         assert course
 
-    # metodo de test
-    # prueba el editar
-    # de un nuevo curso
+    # # metodo de test
+    # # prueba el editar
+    # # de un nuevo curso
     def test_edit_course(self):
         req = self.factory.post(f'course/{self.course.id}/edit')
         req.user = self.user
@@ -96,8 +96,8 @@ class CourseTest(TestCase):
                 'category': self.category.id,
                 'day': '4',
                 'description': 'Curso basico, intermedio, avanzado de Español',
-                'time_start': '14:00:00',
-                'time_end': '17:00:00',
+                'time_start': datetime.datetime.strptime('05:00', '%H:%M').time(),
+                'time_end': datetime.datetime.strptime('06:00', '%H:%M').time(),
                 'syllabus': 'syllabus test 2',
                 'action': ''
                 }
@@ -114,31 +114,37 @@ class CourseTest(TestCase):
         course = Course.objects.get(title = 'Español')
         assert course
 
-    # metodo de test
-    # prueba registrarse
-    # de un nuevo curso 
+    # # metodo de test
+    # # prueba registrarse
+    # # de un nuevo curso 
     def test_enroll(self):
         req = self.factory.post(f'course/{self.course.id}/enroll')
-        req.user = self.user
+        req.user = self.student
+
+        setattr(req, 'session', 'session')
+        messages = FallbackStorage(req)
+        setattr(req, '_messages', messages)
+
         enroll(req,self.course.id)
-
+        
         for user_enrolled in self.course.enrolled.all():
-            if user_enrolled.id == self.user.id:
+            print(user_enrolled.id, self.student.id)
+            if user_enrolled.id == self.student.id:
                 assert True
-            else:
-                assert False
+                return
+        assert False
 
-    # metodo de test
-    # prueba la remocion
-    # de un nuevo curso 
+    # # metodo de test
+    # # prueba la remocion
+    # # de un nuevo curso 
     def test_delete_course(self):
 
         course = Course.objects.create(picture=None,
                                             title='test_course',
                                             description='xocronakbro',
                                             day='4',
-                                            time_start='10:00',
-                                            time_end='11:00',
+                                            time_start=datetime.datetime.strptime('07:00', '%H:%M').time(),
+                                            time_end=datetime.datetime.strptime('08:00', '%H:%M').time(),
                                             category=self.category,
                                             syllabus='Syllabus',
                                             user=self.user,
@@ -153,9 +159,9 @@ class CourseTest(TestCase):
         except Exception:
             assert True
 
-    # metodo de test
-    # prueba la agregacion
-    # de un nuevo estudiante 
+    # # metodo de test
+    # # prueba la agregacion
+    # # de un nuevo estudiante 
     def test_add_student_enroll(self):
         
         req = self.factory.post(f'course/{self.course.id}/students/{self.student.id}/add')
@@ -169,16 +175,16 @@ class CourseTest(TestCase):
             else:
                 assert False
 
-    # metodo de test
-    # prueba la remocion
-    # de un nuevo alumno 
+    # # metodo de test
+    # # prueba la remocion
+    # # de un nuevo alumno 
     def test_delete_student_enroll(self):
         course = Course.objects.create(picture=None,
                                             title='test_course',
                                             description='xocrona',
                                             day='5',
-                                            time_start='08:00',
-                                            time_end='11:00',
+                                            time_start=datetime.datetime.strptime('09:00', '%H:%M').time(),
+                                            time_end=datetime.datetime.strptime('10:00', '%H:%M').time(),
                                             category=self.category,
                                             syllabus='Syllabus',
                                             user=self.user,
@@ -202,9 +208,9 @@ class CourseTest(TestCase):
             else:
                 assert True
 
-    # metodo de test
-    # prueba el registro
-    # de notas de tareas 
+    # # metodo de test
+    # # prueba el registro
+    # # de notas de tareas 
     def test_grade_submission(self):
         req = self.factory.post(f'course/{self.course}/submissions/{self.grade}/grade')
         req.user = self.user
@@ -212,9 +218,9 @@ class CourseTest(TestCase):
         grade = Grade.objects.get(id = self.grade.id)
         assert grade
     
-    # metodo de test
-    # prueba el registro
-    # de un nuevo curso 
+    # # metodo de test
+    # # prueba el registro
+    # # de un nuevo curso 
     def test_student_grades(self):
         req = self.factory.post(f'course/{self.course}/students/grades')
         req.user = self.user
@@ -222,79 +228,81 @@ class CourseTest(TestCase):
         grades = Grade.objects.filter(course = self.course)
         assert grades
 
-    # metodo de test
-    # prueba la visualizacion
-    # del horario de cursos
+    # # metodo de test
+    # # prueba la visualizacion
+    # # del horario de cursos
     def test_schedule(self):
         req = self.factory.get('course/schedule')
         req.user = self.user
         schedule(req)
 
-    # metodo de test
-    # prueba la visualizacion
-    # de las categorias
+    # # metodo de test
+    # # prueba la visualizacion
+    # # de las categorias
     def test_categories(self):
         req = self.factory.get('course/categories')
         req.user = self.user
         categories(req)
 
-    # metodo de test
-    # prueba la visualizacion
-    # de cursos de una categoria
+    # # metodo de test
+    # # prueba la visualizacion
+    # # de cursos de una categoria
     def test_category_courses(self):
         req = self.factory.get(f'course/categories/{self.category.slug}')
         req.user = self.user
         category_courses(req, self.category.slug)
 
-    # metodo de test
-    # prueba la visualizacion
-    # de los detalles de curso
+    # # metodo de test
+    # # prueba la visualizacion
+    # # de los detalles de curso
     def test_course_detail(self):
         req = self.factory.get(f'course/{self.course.id}')
         req.user = self.user
         course_detail(req, self.course.id)
 
-    # metodo de test
-    # prueba la visualizacion
-    # del horario de cursos
+    # # metodo de test
+    # # prueba la visualizacion
+    # # del horario de cursos
     def test_my_courses(self):
         req = self.factory.get('course/mycourses')
         req.user = self.user
         my_courses(req)
 
-    # metodo de test
-    # prueba la entrega
-    # de tareas
+    # # metodo de test
+    # # prueba la entrega
+    # # de tareas
     def test_submissions(self):
         req = self.factory.get(f'course/{self.course.id}/submissions')
         req.user = self.user
         submissions(req, self.course.id)
     
-    # metodo de test
-    # prueba la entrega
-    # de tareas de alumno
+    # # metodo de test
+    # # prueba la entrega
+    # # de tareas de alumno
     def test_student_submissions(self):
         req = self.factory.get(f'course/{self.course.id}/studentsubmissions')
         req.user = self.user
         student_submissions(req, self.course.id)
 
-    # metodo de test
-    # prueba la agregacion
-    # de alumno a curso
+    # # metodo de test
+    # # prueba la agregacion
+    # # de alumno a curso
     def test_student_enroll_list(self):
         req = self.factory.get(f'course/{self.course.id}/students')
         req.user = self.user
         student_enroll_list(req, self.course.id)
 
-    # metodo de test
-    # prueba la entrega
-    # de tareas
+    # # metodo de test
+    # # prueba la entrega
+    # # de tareas
     def test_index(self):
         req = self.factory.get('')
         req.user = self.user
         index(req)
 
-  
+    # # metodo de test
+    # # prueba la agregacion
+    # # de alumno a curso
     def test_init_array(self):
         courses = get_student_courses(self.user)
         u_courses = []
@@ -302,15 +310,17 @@ class CourseTest(TestCase):
         req = self.factory.get('')
         req.user = self.user
         initialize_arrays(courses,u_courses,times)
-        return 
 
+    # metodo de test
+    # prueba la agregacion
+    # de alumno a curso
     def test_sort(self):
         course04 = Course.objects.create(picture=None,
                                             title='test_course04',
                                             description='xocronakbro',
                                             day='2',
-                                            time_start= '16:00',
-                                            time_end= '17:00',
+                                            time_start= datetime.datetime.strptime('11:00', '%H:%M').time(),
+                                            time_end= datetime.datetime.strptime('12:00', '%H:%M').time(),
                                             category=self.category,
                                             syllabus='Syllabus',
                                             user=self.user,
@@ -322,7 +332,10 @@ class CourseTest(TestCase):
         req = self.factory.get('')
         req.user = self.user
         sort_times(times)
-    
+
+    # metodo de test
+    # prueba la agregacion
+    # de alumno a curso
     def test_verify_time(self):
         course03 = Course.objects.create(picture=None,
                                             title='test_course03',
@@ -338,21 +351,28 @@ class CourseTest(TestCase):
         req.user = self.user
         verify_time(course03.time_start,course03.time_end,req)
 
+    # metodo de test
+    # prueba la agregacion
+    # de alumno a curso
     def test_verify_schedule(self):
         course04 = Course.objects.create(picture=None,
                                             title='test_course03',
                                             description='xocronakbro',
                                             day='2',
-                                            time_start= '18:00',
-                                            time_end= '19:00',
+                                            time_start= datetime.datetime.strptime('13:00', '%H:%M').time(),
+                                            time_end= datetime.datetime.strptime('14:00', '%H:%M').time(),
                                             category=self.category,
                                             syllabus='Syllabus',
                                             user=self.user,
                                             )
+        course04.enrolled.add(self.student)
         req = self.factory.get('')
         req.user = self.user
-        verify_schedule(self.user,course04)
+        verify_schedule(self.student,course04)
 
+    # metodo de test
+    # prueba la agregacion
+    # de alumno a curso
     def test_rate_submission(self):
         req = self.factory.get(f'{self.course.id}/submissions/rate')
         req.user = self.user
@@ -372,18 +392,11 @@ class CourseTest(TestCase):
         course = Grade.objects.get(id = self.grade.id)
         assert course
 
-        
-
-
-    
-
-
-
-
-
-
-    
-
-    
-        
-
+    # metodo de test
+    # prueba la agregacion
+    # de alumno a curso
+    def test_cargar_categorias_vacio(self):
+        req = self.factory.get('')
+        req.user = self.user
+        Category.objects.all().delete()
+        index(req)
